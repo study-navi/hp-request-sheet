@@ -153,24 +153,6 @@ button:disabled{opacity:.5}
     <p>選んでも、文章で書いてもOK。決まっていないところは空欄で進めます。</p>
   </header>
 
-  <div class="pvbox">
-    <div class="pvlabel"><span>選択内容のプレビュー</span><button type="button" id="pvToggle">プレビューを開く</button></div>
-    <p class="text-preview-notice" hidden>文章で伝える内容は、そのまま制作担当者に届きます。自由記述からイメージを自動生成する機能はありません。</p>
-    <div id="pv" class="mini">
-      <div class="pvtop"><div class="bgl" id="pvbg"></div>
-        <div class="pvicon" id="pvicon">🙂</div>
-        <div class="pvname" id="pvname">あなたの名前</div>
-        <div class="pvsub" id="pvsub">official site</div>
-      </div>
-      <div class="pvbody" id="pvbody">
-        <div class="pvtabs"><span>ホーム</span><span>予定</span><span>歌</span><span>メッセージ</span></div>
-        <div class="pvcard"><b>プロフィール</b>はじめまして！</div>
-        <div class="pvcard"><b>今週の配信</b>月・水・金 22:00〜</div>
-        <div class="pvbtn">メッセージを送る</div>
-      </div>
-    </div>
-  </div>
-
   <div class="steps" id="steps"><span class="on"><b>1</b>色・背景</span><span><b>2</b>雰囲気</span><span><b>3</b>文字・構成</span><span><b>4</b>機能</span><span><b>5</b>連絡先</span></div>
 
   <p id="stepLabel" class="hint" aria-live="polite">STEP 1 / 5 — 色</p>
@@ -319,6 +301,23 @@ button:disabled{opacity:.5}
       </div>
       <div class="card"><h2>個人情報の取り扱い</h2><p class="hint">活動名・連絡先・ご希望は、HP制作の相談・ご連絡と制作対応に使用します。回答は管理者のみが閲覧します。カード番号やパスワードなどは記入しないでください。不要になった回答は制作担当者に削除を依頼できます。</p><p class="hint">入力途中の内容は、この端末に30日間保存されます。共用端末では「下書きを消す」をご利用ください。</p><label class="consent"><input type="checkbox" name="consent" required value="yes">個人情報の取り扱いに同意する<span class="req">必須</span></label></div>
       <div class="card confirm" id="confirm"></div>
+      <details class="pvbox" id="previewDetails" hidden>
+    <summary>選択内容の参考プレビューを見る</summary>
+    <p class="text-preview-notice" hidden>文章で伝える内容は、そのまま制作担当者に届きます。自由記述からイメージを自動生成する機能はありません。</p>
+    <div id="pv">
+      <div class="pvtop"><div class="bgl" id="pvbg"></div>
+        <div class="pvicon" id="pvicon">🙂</div>
+        <div class="pvname" id="pvname">あなたの名前</div>
+        <div class="pvsub" id="pvsub">official site</div>
+      </div>
+      <div class="pvbody" id="pvbody">
+        <div class="pvtabs"><span>ホーム</span><span>予定</span><span>歌</span><span>メッセージ</span></div>
+        <div class="pvcard"><b>プロフィール</b>はじめまして！</div>
+        <div class="pvcard"><b>今週の配信</b>月・水・金 22:00〜</div>
+        <div class="pvbtn">メッセージを送る</div>
+      </div>
+    </div>
+  </details>
     </div>
 
     <div class="err" id="err" role="alert" aria-live="polite"></div>
@@ -336,7 +335,7 @@ button:disabled{opacity:.5}
     <button type="button" class="big-btn primary" id="copyBtn" style="width:100%">内容をコピー</button>
     <button type="button" class="big-btn ghost" id="downloadBtn" style="width:100%;margin-top:8px">控えをダウンロード</button>
   </div>
-  <footer><a href="admin.html">制作担当者の管理画面</a><p>ご希望シート · v1.1.1</p></footer>
+  <footer><a href="admin.html">制作担当者の管理画面</a><p>ご希望シート · v1.1.2</p></footer>
 </div>
 
 <script src="config.js"></script>
@@ -419,7 +418,7 @@ function updatePreview(){
   document.body.classList.toggle("text-only",textOnly);
   document.querySelector(".text-preview-notice").hidden=false;
   document.querySelector(".text-preview-notice").textContent=textOnly?"文章で書いた希望をそのまま送信します。自由記述からプレビューを自動生成する機能はありません。":"プレビューは選択肢を反映した参考イメージです。自由記述の希望は自動反映されませんが、文章のまま送信されます。";
-  $("pvToggle").hidden=textOnly;
+  $("previewDetails").hidden=textOnly || cur!==4 || !reviewing;
   const c1 = colors[0]?.hex || "#f6a8c8";
   const c3 = colors[2]?.hex || colors[1]?.hex || "#c3a2ee";
   const c2 = colors[1] ? mix(colors[1].hex, .75) : mix(c1, .85);
@@ -474,11 +473,6 @@ function updatePreview(){
 }
 f.addEventListener("input", updatePreview);
 f.addEventListener("change", updatePreview);
-$("pvToggle").onclick = () => {
-  const m = $("pv").classList.toggle("mini");
-  $("pvToggle").textContent = m ? "プレビューを開く" : "プレビューを閉じる";
-};
-
 // ---- steps ----
 const pages = [...document.querySelectorAll(".page")];
 const dots = [...document.querySelectorAll("#steps span")];
@@ -532,6 +526,7 @@ function show(i,move=true){
   const last = cur === pages.length - 1;
   next.textContent = last ? (reviewing ? "この内容で送信する" : "入力内容を確認する") : `次へ：${["","雰囲気","文字・構成","機能","連絡先"][cur+1]}`;
   $("stepLabel").textContent = `STEP ${cur+1} / 5 — ${["色","モチーフ・雰囲気","文字とつくり","ほしい機能","あなたについて"][cur]}`;
+  $("previewDetails").hidden=true; $("previewDetails").open=false;
   if (last) renderConfirm();
   saveDraft();
   err.textContent = "";
@@ -547,14 +542,14 @@ function validate(all=false){
   return true;
 }
 let reviewing=false, sending=false;
-function resetReview(){reviewing=false;$("confirm").classList.remove("reviewing");if(cur===4)next.textContent="入力内容を確認する";}
+function resetReview(){reviewing=false;$("previewDetails").hidden=true;$("previewDetails").open=false;$("confirm").classList.remove("reviewing");if(cur===4)next.textContent="入力内容を確認する";}
 f.addEventListener("input",resetReview); f.addEventListener("change",resetReview);
 back.onclick = () => {if(!sending){resetReview();show(cur - 1);}};
 next.onclick = async () => {
   if(sending||!validate(cur===4))return;
   if(cur<pages.length-1)return show(cur+1);
   renderConfirm();
-  if(!reviewing){reviewing=true;next.textContent="この内容で送信する";$("confirm").classList.add("reviewing");$("confirm").scrollIntoView({block:"start",behavior:"smooth"});return;}
+  if(!reviewing){reviewing=true;$("previewDetails").hidden=f.elements.namedItem("input_mode").value==="文章だけ";next.textContent="この内容で送信する";$("confirm").classList.add("reviewing");$("confirm").scrollIntoView({block:"start",behavior:"smooth"});return;}
   const o=collect();o.consent=true;
   const body=JSON.stringify(o);
   if(new TextEncoder().encode(body).length>22000){err.textContent="全体の入力内容が長すぎます。文章を少し短くしてから送信してください。";return;}
@@ -586,13 +581,11 @@ $("copyBtn").onclick = async () => {
 
 const DRAFT_KEY="hp_request_draft_v1";
 let pending=null, restoring=true;
-function saveDraft(){if(restoring||sending)return;try{const fields=[...f.elements].filter(x=>x.name&&x.name!=="website").map(x=>({name:x.name,value:x.value,checked:x.checked,type:x.type}));localStorage.setItem(DRAFT_KEY,JSON.stringify({fields,colors,step:cur,mini:$("pv").classList.contains("mini"),pending,savedAt:Date.now()}));$("saveState").textContent="この端末に自動保存済み（30日間）";}catch{$("saveState").textContent="この端末では自動保存できません。画面を閉じずに入力してください";}}
-try{const d=JSON.parse(localStorage.getItem(DRAFT_KEY)||"null");if(d&&Date.now()-d.savedAt<30*86400000){for(const v of d.fields||[]){for(const el of [...f.elements].filter(el=>el.name===v.name)){if(el.type==="checkbox"||el.type==="radio"){if(el.value===v.value)el.checked=!!v.checked;}else el.value=v.value;}}colors=(d.colors||[]).filter(c=>/^#[0-9a-f]{6}$/i.test(c.hex)).slice(0,3);pending=d.pending;$("pv").classList.toggle("mini",!!d.mini);cur=0;show(Math.max(0,Math.min(4,d.step||0)));}else if(d){localStorage.removeItem(DRAFT_KEY);}}catch{}
+function saveDraft(){if(restoring||sending)return;try{const fields=[...f.elements].filter(x=>x.name&&x.name!=="website").map(x=>({name:x.name,value:x.value,checked:x.checked,type:x.type}));localStorage.setItem(DRAFT_KEY,JSON.stringify({fields,colors,step:cur,pending,savedAt:Date.now()}));$("saveState").textContent="この端末に自動保存済み（30日間）";}catch{$("saveState").textContent="この端末では自動保存できません。画面を閉じずに入力してください";}}
+try{const d=JSON.parse(localStorage.getItem(DRAFT_KEY)||"null");if(d&&Date.now()-d.savedAt<30*86400000){for(const v of d.fields||[]){for(const el of [...f.elements].filter(el=>el.name===v.name)){if(el.type==="checkbox"||el.type==="radio"){if(el.value===v.value)el.checked=!!v.checked;}else el.value=v.value;}}colors=(d.colors||[]).filter(c=>/^#[0-9a-f]{6}$/i.test(c.hex)).slice(0,3);pending=d.pending;cur=0;show(Math.max(0,Math.min(4,d.step||0)),false);}else if(d){localStorage.removeItem(DRAFT_KEY);}}catch{}
 restoring=false;
 f.deadline_date.style.display=f.deadline.value==="日付を指定"?"block":"none";
-$("pvToggle").textContent=$("pv").classList.contains("mini")?"プレビューを開く":"プレビューを閉じる";
 f.addEventListener("input",saveDraft); f.addEventListener("change",saveDraft);
-$("pvToggle").addEventListener("click",saveDraft);
 $("clearDraft").onclick=()=>{if(!confirm("この端末の入力内容を消して、はじめから入力しますか？"))return;try{localStorage.removeItem(DRAFT_KEY);}catch{}location.reload();};
 $("downloadBtn").onclick=()=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([$("copybox").textContent],{type:"text/plain;charset=utf-8"}));a.download="HP制作_送信控え.txt";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);};
 f.addEventListener("submit",e=>{e.preventDefault();if(!sending)next.click();});
