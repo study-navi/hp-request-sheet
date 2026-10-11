@@ -131,7 +131,7 @@ button:disabled{opacity:.5}
 @media (prefers-reduced-motion:reduce){#splash .s,.floaty{animation:none}}
 .copybox{text-align:left;background:var(--bg);border-radius:12px;padding:12px;font-size:12px;white-space:pre-wrap;max-height:220px;overflow:auto;margin:12px 0}
 </style>
-<link rel="stylesheet" href="app.css?v=1.3.0">
+<link rel="stylesheet" href="app.css?v=1.3.1">
 </head>
 <body>
 <div id="splash"><div><div class="s">✦</div><p>ご希望シート</p></div></div>
@@ -324,7 +324,7 @@ button:disabled{opacity:.5}
     <button type="button" class="big-btn primary" id="copyBtn" style="width:100%">内容をコピー</button>
     <button type="button" class="big-btn ghost" id="downloadBtn" style="width:100%;margin-top:8px">控えをダウンロード</button>
   </div>
-  <footer><a href="admin.html">制作担当者の管理画面</a><p>ご希望シート · v1.3.0</p></footer>
+  <footer><a href="admin.html">制作担当者の管理画面</a><p>ご希望シート · v1.3.1</p></footer>
 </div>
 
 <script src="config.js"></script>
@@ -439,7 +439,7 @@ function updatePreview(){
   $("pvname").textContent = f.elements.namedItem("name").value.trim() || "あなたの名前";
 
   document.querySelector(".pvbtn").style.color = ink(c3);
-  document.querySelector(".pvtabs span").style.color = ink(c1);
+  const firstTab=document.querySelector(".pvtabs span");if(firstTab)firstTab.style.color=ink(c1);
   const moods = [...f.querySelectorAll('input[name=mood]:checked')].map(x=>x.value);
   $("pvsub").textContent = moods.length ? moods.join(" · ") : "official site";
   const fs = [...f.querySelectorAll('input[name=features]:checked')].map(x=>x.value);
