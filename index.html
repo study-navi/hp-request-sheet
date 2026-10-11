@@ -138,20 +138,20 @@ button:disabled{opacity:.5}
 <div class="wrap">
   <header>
     <h1>✦ HP制作 ご希望シート</h1>
-    <p>選んでも、文章で書いてもOK。決まっていないところは空欄で進めます。</p>
+    <p>好きな感じを教えてね。まだ決まっていなくても大丈夫。</p>
   </header>
 
-  <div class="steps" id="steps"><span class="on"><b>1</b>色・背景</span><span><b>2</b>雰囲気</span><span><b>3</b>文字・構成</span><span><b>4</b>機能</span><span><b>5</b>連絡先</span></div>
+  <nav class="steps" id="steps" aria-label="入力ステップ"><button type="button" data-step="0" aria-label="1 色・背景へ移動"><b>1</b>色・背景</button><button type="button" data-step="1" aria-label="2 雰囲気へ移動"><b>2</b>雰囲気</button><button type="button" data-step="2" aria-label="3 文字・構成へ移動"><b>3</b>文字・構成</button><button type="button" data-step="3" aria-label="4 機能へ移動"><b>4</b>機能</button><button type="button" data-step="4" aria-label="5 連絡先へ移動"><b>5</b>連絡先</button></nav>
 
-  <p id="stepLabel" class="hint" aria-live="polite">STEP 1 / 5 — 色</p>
+  <p id="stepLabel" class="hint" aria-live="polite">1 / 5　色・背景</p>
   <div class="save-row"><small id="saveState" role="status">この端末に自動保存します</small><button type="button" class="mini-btn" id="clearDraft">下書きを消す</button></div>
   <form id="f" novalidate>
-  <fieldset class="input-mode"><legend>希望の伝え方</legend><p>どちらでも、同じように送信できます。途中で変更しても入力は残ります。</p><div><label><input type="radio" name="input_mode" value="選択肢と文章" checked><span>選択肢＋自由記述<small>見本から選んで、文章も添える</small></span></label><label><input type="radio" name="input_mode" value="文章だけ"><span>自由記述だけ<small>自分の言葉で希望を伝える</small></span></label></div></fieldset>
+  <fieldset class="input-mode"><legend>どっちで伝える？</legend><p>選んでも、書いてもOK。途中で切り替えても入力は残るよ。</p><div><label><input type="radio" name="input_mode" value="選択肢と文章" checked><span>選んで＋ひとこと<small>見本を選ぶだけでもOK</small></span></label><label><input type="radio" name="input_mode" value="文章だけ"><span>文章で伝える<small>自分の言葉で、自由に</small></span></label></div></fieldset>
   <div class="honeypot" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
     <!-- 1 色 -->
     <div class="page on">
       <div class="card">
-        <h2>🎨 色</h2>
+        <h2>🎨 どんな色が好き？</h2>
         <p class="lead">好きな色を順番にタップ（最大3色）。1番目がメインになります</p>
         <div class="sw" id="sw"></div>
         <div class="picked" id="picked"></div>
@@ -159,7 +159,7 @@ button:disabled{opacity:.5}
           <span class="hint" style="margin:0;flex:1">パレットにない色は「＋自分で選ぶ」で指定できます</span>
           <button type="button" class="mini-btn" id="clearColor">リセット</button>
         </div>
-<div class="free-field"><label class="q" for="field-color_notes">色の希望を文章で伝える<span class="optional">任意</span></label><textarea name="color_notes" id="field-color_notes" maxlength="3000" placeholder="例：青を中心に、白と銀を少し。濃すぎない色合いが好きです。"></textarea><small>選択肢にない希望や「おまかせ」でも大丈夫です。</small></div>
+<div class="free-field"><label class="q" for="field-color_notes">色の希望を文章で伝える<span class="optional">任意</span></label><textarea name="color_notes" id="field-color_notes" maxlength="3000" placeholder="例：青を中心に、白と銀を少し。濃すぎない色合いが好きです。"></textarea></div>
         <label class="q">背景の感じ</label>
         <div class="opts" id="bgopts">
           <label><input type="radio" name="bg" value="グラデーション" checked><span><div class="thumb" style="background:linear-gradient(135deg,#f6a8c8,#c3a2ee)"></div>グラデーション</span></label>
@@ -169,7 +169,7 @@ button:disabled{opacity:.5}
           <label><input type="radio" name="bg" value="ストライプ"><span><div class="thumb" style="background:repeating-linear-gradient(45deg,#f6a8c8 0 6px,#f9c6dc 6px 12px)"></div>ストライプ</span></label>
           <label><input type="radio" name="bg" value="夜空"><span><div class="thumb" style="background:radial-gradient(#fff 1px,transparent 1.5px) 0 0/10px 10px,linear-gradient(#2c2550,#5a4b8f)"></div>夜空・キラキラ</span></label>
         </div>
-<div class="free-field"><label class="q" for="field-bg_notes">背景の希望を文章で伝える<span class="optional">任意</span></label><textarea name="bg_notes" id="field-bg_notes" maxlength="3000" placeholder="例：水彩のような背景。夜空だけど暗くなりすぎない感じ。"></textarea><small>選択肢にない希望や「おまかせ」でも大丈夫です。</small></div>
+<div class="free-field"><label class="q" for="field-bg_notes">背景の希望を文章で伝える<span class="optional">任意</span></label><textarea name="bg_notes" id="field-bg_notes" maxlength="3000" placeholder="例：水彩のような背景。夜空だけど暗くなりすぎない感じ。"></textarea></div>
         <label class="q" for="field-ng_color">使ってほしくない色</label>
         <input type="text" maxlength="300" name="ng_color" id="field-ng_color" placeholder="例：赤は苦手">
       </div>
@@ -178,7 +178,7 @@ button:disabled{opacity:.5}
     <!-- 2 モチーフ・雰囲気 -->
     <div class="page">
       <div class="card">
-        <h2>🧸 モチーフ・雰囲気</h2>
+        <h2>🧸 どんな雰囲気にしたい？</h2>
         <label class="q">雰囲気（いくつでも）</label>
         <div class="chips" id="moods">
           <label><input type="checkbox" name="mood" value="かわいい"><span>かわいい</span></label>
@@ -194,7 +194,7 @@ button:disabled{opacity:.5}
           <label><input type="checkbox" name="mood" value="レトロ"><span>レトロ</span></label>
           <label><input type="checkbox" name="mood" value="シンプル"><span>シンプル</span></label>
         </div>
-<div class="free-field"><label class="q" for="field-mood_notes">雰囲気の希望を文章で伝える<span class="optional">任意</span></label><textarea name="mood_notes" id="field-mood_notes" maxlength="3000" placeholder="例：かわいいけれど子どもっぽすぎない、落ち着いた雰囲気。"></textarea><small>選択肢にない希望や「おまかせ」でも大丈夫です。</small></div>
+<div class="free-field"><label class="q" for="field-mood_notes">雰囲気の希望を文章で伝える<span class="optional">任意</span></label><textarea name="mood_notes" id="field-mood_notes" maxlength="3000" placeholder="例：かわいいけれど子どもっぽすぎない、落ち着いた雰囲気。"></textarea></div>
         <label class="q">入れたいモチーフ（いくつでも）</label>
         <div class="motifs" id="motifs"></div>
         <label class="q" for="field-motif_other">モチーフ・好きなものを自由に書く<span class="optional">任意</span></label>
@@ -208,7 +208,7 @@ button:disabled{opacity:.5}
     <!-- 3 文字・レイアウト -->
     <div class="page">
       <div class="card">
-        <h2>🔤 文字とつくり</h2>
+        <h2>🔤 文字やページの感じは？</h2>
         <label class="q">文字の感じ</label>
         <div class="opts">
           <label><input type="radio" name="font" value="まるもじ" data-ff="Zen Maru Gothic" checked><span><em style="font-family:'Zen Maru Gothic'">あいうえお</em>まるもじ</span></label>
@@ -218,7 +218,7 @@ button:disabled{opacity:.5}
           <label><input type="radio" name="font" value="すっきり" data-ff="M PLUS 1p"><span><em style="font-family:'M PLUS 1p'">あいうえお</em>すっきり</span></label>
           <label><input type="radio" name="font" value="おまかせ" data-ff="Zen Maru Gothic"><span><em>？</em>おまかせ</span></label>
         </div>
-<div class="free-field"><label class="q" for="field-font_notes">文字の希望を文章で伝える<span class="optional">任意</span></label><textarea name="font_notes" id="field-font_notes" maxlength="3000" placeholder="例：細めで読みやすい文字。タイトルだけ手書き風にしたい。"></textarea><small>選択肢にない希望や「おまかせ」でも大丈夫です。</small></div>
+<div class="free-field"><label class="q" for="field-font_notes">文字の希望を文章で伝える<span class="optional">任意</span></label><textarea name="font_notes" id="field-font_notes" maxlength="3000" placeholder="例：細めで読みやすい文字。タイトルだけ手書き風にしたい。"></textarea></div>
         <label class="q">ページのつくり</label>
         <div class="opts">
           <label><input type="radio" name="layout" value="縦に長い1ページ" data-l="" checked><span><em>📜</em>縦に長い1ページ<small>スクロールで全部見られる</small></span></label>
@@ -226,7 +226,7 @@ button:disabled{opacity:.5}
           <label><input type="radio" name="layout" value="カードを並べる" data-l="cards"><span><em>🧩</em>カードを並べる<small>見たい所をタップ</small></span></label>
           <label><input type="radio" name="layout" value="おまかせ" data-l=""><span><em>？</em>おまかせ</span></label>
         </div>
-<div class="free-field"><label class="q" for="field-layout_notes">ページ構成の希望を文章で伝える<span class="optional">任意</span></label><textarea name="layout_notes" id="field-layout_notes" maxlength="3000" placeholder="例：最初に大きなイラスト、次にプロフィール。SNSのリンクは下にまとめたい。"></textarea><small>選択肢にない希望や「おまかせ」でも大丈夫です。</small></div>
+<div class="free-field"><label class="q" for="field-layout_notes">ページ構成の希望を文章で伝える<span class="optional">任意</span></label><textarea name="layout_notes" id="field-layout_notes" maxlength="3000" placeholder="例：最初に大きなイラスト、次にプロフィール。SNSのリンクは下にまとめたい。"></textarea></div>
         <label class="q" for="field-reference">参考にしたいサイト・画像</label>
         <textarea maxlength="3000" name="reference" id="field-reference" placeholder="例：参考サイトのURLと、好きな配色・写真の配置・文字の雰囲気など"></textarea>
       </div>
@@ -235,7 +235,7 @@ button:disabled{opacity:.5}
     <!-- 4 機能 -->
     <div class="page">
       <div class="card">
-        <h2>✨ ほしい機能</h2>
+        <h2>✨ こんなこと、できたらいいな</h2>
         <div class="feat">
           <label><input type="checkbox" name="features" value="プロフィール・SNSリンク" checked><div>プロフィール・SNSリンク<small>基本セット</small></div></label>
           <label><input type="checkbox" name="features" value="今週の配信予定"><div>今週の配信予定<small>自分で書き換えられる</small></div></label>
@@ -253,7 +253,7 @@ button:disabled{opacity:.5}
     <!-- 5 あなたについて -->
     <div class="page">
       <div class="card">
-        <h2>💌 あなたについて</h2>
+        <h2>💌 最後に、あなたのこと</h2>
         <label class="q" for="field-name">活動名<span class="req">必須</span></label>
         <input type="text" maxlength="100" name="name" id="field-name" required placeholder="活動で使っているお名前を入力">
         <label class="q" for="field-contact">連絡先（XのID など）<span class="req">必須</span></label>
@@ -267,7 +267,7 @@ button:disabled{opacity:.5}
           <label><input type="checkbox" name="platform" value="Twitch"><span>Twitch</span></label>
           <label><input type="checkbox" name="platform" value="その他"><span>その他</span></label>
         </div>
-<div class="free-field"><label class="q" for="field-platform_other">活動場所を自由に書く<span class="optional">任意</span></label><textarea name="platform_other" id="field-platform_other" maxlength="3000" placeholder="例：ツイキャスとYouTube。今後はライブ活動もしたい。"></textarea><small>選択肢にない希望や「おまかせ」でも大丈夫です。</small></div>
+<div class="free-field"><label class="q" for="field-platform_other">活動場所を自由に書く<span class="optional">任意</span></label><textarea name="platform_other" id="field-platform_other" maxlength="3000" placeholder="例：ツイキャスとYouTube。今後はライブ活動もしたい。"></textarea></div>
         <label class="q" for="field-agency">事務所・グループ</label>
         <input type="text" maxlength="300" name="agency" id="field-agency" placeholder="個人なら空欄でOK">
         <label class="q" for="field-profile_url">今あるプロフィールページ</label>
@@ -277,13 +277,13 @@ button:disabled{opacity:.5}
           <option value="">特になし</option><option>1週間以内</option><option>2週間以内</option><option>1か月以内</option><option>日付を指定</option>
         </select>
         <input type="date" name="deadline_date" aria-label="希望の日付" style="margin-top:8px;display:none">
-<div class="free-field"><label class="q" for="field-deadline_other">希望時期・スケジュールを自由に書く<span class="optional">任意</span></label><textarea name="deadline_other" id="field-deadline_other" maxlength="3000" placeholder="例：来月のイベントまでに。急ぎではないので相談して決めたい。"></textarea><small>選択肢にない希望や「おまかせ」でも大丈夫です。</small></div>
+<div class="free-field"><label class="q" for="field-deadline_other">希望時期・スケジュールを自由に書く<span class="optional">任意</span></label><textarea name="deadline_other" id="field-deadline_other" maxlength="3000" placeholder="例：来月のイベントまでに。急ぎではないので相談して決めたい。"></textarea></div>
         <label class="q">アイコン・立ち絵などの素材</label>
         <div class="chips">
           <label><input type="radio" name="assets" value="ある（あとで送る）"><span>ある（あとで送る）</span></label>
           <label><input type="radio" name="assets" value="まだない"><span>まだない</span></label>
         </div>
-<div class="free-field"><label class="q" for="field-assets_other">使いたい素材・画像について自由に書く<span class="optional">任意</span></label><textarea name="assets_other" id="field-assets_other" maxlength="3000" placeholder="例：立ち絵はあります。ロゴは相談したい。画像はあとでDMで送ります。"></textarea><small>選択肢にない希望や「おまかせ」でも大丈夫です。</small></div>
+<div class="free-field"><label class="q" for="field-assets_other">使いたい素材・画像について自由に書く<span class="optional">任意</span></label><textarea name="assets_other" id="field-assets_other" maxlength="3000" placeholder="例：立ち絵はあります。ロゴは相談したい。画像はあとでDMで送ります。"></textarea></div>
         <label class="q" for="field-message">メッセージ・相談したいこと</label>
         <textarea maxlength="3000" name="message" id="field-message"></textarea>
       </div>
@@ -323,7 +323,7 @@ button:disabled{opacity:.5}
     <button type="button" class="big-btn primary" id="copyBtn" style="width:100%">内容をコピー</button>
     <button type="button" class="big-btn ghost" id="downloadBtn" style="width:100%;margin-top:8px">控えをダウンロード</button>
   </div>
-  <footer><a href="admin.html">制作担当者の管理画面</a><p>ご希望シート · v1.1.3</p></footer>
+  <footer><a href="admin.html">制作担当者の管理画面</a><p>ご希望シート · v1.2.0</p></footer>
 </div>
 
 <script src="config.js"></script>
@@ -463,8 +463,9 @@ f.addEventListener("input", updatePreview);
 f.addEventListener("change", updatePreview);
 // ---- steps ----
 const pages = [...document.querySelectorAll(".page")];
-const dots = [...document.querySelectorAll("#steps span")];
+const dots = [...document.querySelectorAll("#steps button")];
 const next = $("next"), back = $("back"), err = $("err");
+dots.forEach((b,i)=>b.onclick=()=>{if(!sending && i!==cur){resetReview();show(i);}});
 let cur = 0;
 
 f.deadline.addEventListener("change", e => {
@@ -513,7 +514,7 @@ function show(i,move=true){
   back.style.display = cur ? "block" : "none";
   const last = cur === pages.length - 1;
   next.textContent = last ? (reviewing ? "この内容で送信する" : "入力内容を確認する") : `次へ：${["","雰囲気","文字・構成","機能","連絡先"][cur+1]}`;
-  $("stepLabel").textContent = `STEP ${cur+1} / 5 — ${["色","モチーフ・雰囲気","文字とつくり","ほしい機能","あなたについて"][cur]}`;
+  $("stepLabel").textContent = `${cur+1} / 5　 ${["色・背景","モチーフ・雰囲気","文字とつくり","ほしい機能","あなたについて"][cur]}`;
   $("previewDetails").hidden=true; $("previewDetails").open=false;
   if (last) renderConfirm();
   saveDraft();
@@ -542,7 +543,7 @@ next.onclick = async () => {
   const body=JSON.stringify(o);
   if(new TextEncoder().encode(body).length>22000){err.textContent="全体の入力内容が長すぎます。文章を少し短くしてから送信してください。";return;}
   if(pending?.body!==body)pending={id:crypto.randomUUID(),body};
-  saveDraft();sending=true;[...f.elements].forEach(el=>el.disabled=true);$("clearDraft").disabled=true;next.disabled=back.disabled=true;next.textContent="送信中…";err.textContent="保存結果を確認しています。しばらくお待ちください";
+  saveDraft();sending=true;dots.forEach(b=>b.disabled=true);[...f.elements].forEach(el=>el.disabled=true);$("clearDraft").disabled=true;next.disabled=back.disabled=true;next.textContent="送信中…";err.textContent="保存結果を確認しています。しばらくお待ちください";
   const controller=new AbortController(), timeout=setTimeout(()=>controller.abort(),20000);
   try {
     const res=await fetch(SUPABASE_URL+"/functions/v1/hp-request-submit",{method:"POST",headers:{"Content-Type":"application/json",apikey:SUPABASE_ANON_KEY,Authorization:"Bearer "+HP_CONFIG.publicJwt},body:JSON.stringify({id:pending.id,data:o,website:f.website.value}),signal:controller.signal});
@@ -554,7 +555,7 @@ next.onclick = async () => {
     try{localStorage.removeItem(DRAFT_KEY);}catch{}pending=null;
     $("saveState").textContent="送信済み（この端末の下書きは削除しました）";scrollTo({top:0,behavior:"smooth"});
   }catch(e){err.textContent=(e.name==="AbortError"?"通信が時間切れになりました。保存済みの可能性があります。同じ内容で再送しても重複しません。":"送信結果を確認できませんでした："+e.message)+" 入力は残っています。接続を確認して再送してください。";}
-  finally{clearTimeout(timeout);sending=false;[...f.elements].forEach(el=>el.disabled=false);$("clearDraft").disabled=false;next.disabled=back.disabled=false;next.textContent="この内容で送信する";}
+  finally{clearTimeout(timeout);sending=false;dots.forEach(b=>b.disabled=false);[...f.elements].forEach(el=>el.disabled=false);$("clearDraft").disabled=false;next.disabled=back.disabled=false;next.textContent="この内容で送信する";}
 };
 $("copyBtn").onclick = async () => {
   const t = $("copybox").textContent;
