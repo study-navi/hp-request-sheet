@@ -131,14 +131,14 @@ button:disabled{opacity:.5}
 @media (prefers-reduced-motion:reduce){#splash .s,.floaty{animation:none}}
 .copybox{text-align:left;background:var(--bg);border-radius:12px;padding:12px;font-size:12px;white-space:pre-wrap;max-height:220px;overflow:auto;margin:12px 0}
 </style>
-<link rel="stylesheet" href="app.css?v=1.2.1">
+<link rel="stylesheet" href="app.css?v=1.3.0">
 </head>
 <body>
 <div id="splash"><div><div class="s">✦</div><p>ご希望シート</p></div></div>
 <div class="wrap">
   <header>
     <h1>✦ HP制作 ご希望シート</h1>
-    <p>好きな感じを教えてね。まだ決まっていなくても大丈夫。</p>
+    <p>選ぶだけでも、文章だけでもOK。決まっていないところは、とばしてね。</p>
   </header>
 
   <nav class="steps" id="steps" aria-label="入力ステップ"><button type="button" data-step="0" aria-label="1 色・背景へ移動"><b>1</b>色・背景</button><button type="button" data-step="1" aria-label="2 雰囲気へ移動"><b>2</b>雰囲気</button><button type="button" data-step="2" aria-label="3 文字・構成へ移動"><b>3</b>文字・構成</button><button type="button" data-step="3" aria-label="4 機能へ移動"><b>4</b>機能</button><button type="button" data-step="4" aria-label="5 連絡先へ移動"><b>5</b>連絡先</button></nav>
@@ -146,30 +146,29 @@ button:disabled{opacity:.5}
   <p id="stepLabel" class="hint" aria-live="polite">1 / 5　色・背景</p>
   <div class="save-row"><small id="saveState" role="status">この端末に自動保存します</small><button type="button" class="mini-btn" id="clearDraft">下書きを消す</button></div>
   <form id="f" novalidate>
-  <fieldset class="input-mode"><legend>どっちで伝える？</legend><p>選んでも、書いてもOK。途中で切り替えても入力は残るよ。</p><div><label><input type="radio" name="input_mode" value="選択肢と文章" checked><span>選んで＋ひとこと<small>見本を選ぶだけでもOK</small></span></label><label><input type="radio" name="input_mode" value="文章だけ"><span>文章で伝える<small>自分の言葉で、自由に</small></span></label></div></fieldset>
   <div class="honeypot" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
     <!-- 1 色 -->
     <div class="page on">
       <div class="card">
         <h2>🎨 どんな色が好き？</h2>
-        <p class="lead">好きな色を順番にタップ（最大3色）。1番目がメインになります</p>
+        <p class="lead">いちばん使いたい色から、3色まで選べるよ。決まっていなければ、そのまま次へ。</p>
         <div class="sw" id="sw"></div>
         <div class="picked" id="picked"></div>
         <div class="row" style="margin-top:10px">
           <span class="hint" style="margin:0;flex:1">パレットにない色は「＋自分で選ぶ」で指定できます</span>
           <button type="button" class="mini-btn" id="clearColor">リセット</button>
         </div>
-<div class="free-field"><label class="q" for="field-color_notes">色の希望を文章で伝える<span class="optional">任意</span></label><textarea name="color_notes" id="field-color_notes" maxlength="3000" placeholder="例：青を中心に、白と銀を少し。濃すぎない色合いが好きです。"></textarea></div>
+<details class="free-field"><summary>色の希望を文章で伝える</summary><label class="sr-only" for="field-color_notes">色の希望を文章で伝える</label><textarea name="color_notes" id="field-color_notes" maxlength="3000" placeholder="例：青を中心に、白と銀を少し。濃すぎない色合いが好きです。"></textarea></details>
         <label class="q">背景の感じ</label>
         <div class="opts" id="bgopts">
-          <label><input type="radio" name="bg" value="グラデーション" checked><span><div class="thumb" style="background:linear-gradient(135deg,#f6a8c8,#c3a2ee)"></div>グラデーション</span></label>
+          <label><input type="radio" name="bg" value="グラデーション"><span><div class="thumb" style="background:linear-gradient(135deg,#f6a8c8,#c3a2ee)"></div>グラデーション</span></label>
           <label><input type="radio" name="bg" value="単色"><span><div class="thumb" style="background:#f6a8c8"></div>単色</span></label>
           <label><input type="radio" name="bg" value="ドット"><span><div class="thumb" style="background:#f6a8c8 radial-gradient(#fff6 2px,transparent 2.5px) 0 0/12px 12px"></div>ドット</span></label>
           <label><input type="radio" name="bg" value="チェック"><span><div class="thumb" style="background:repeating-conic-gradient(#f6a8c8 0 25%,#f9c6dc 0 50%) 0 0/14px 14px"></div>チェック</span></label>
           <label><input type="radio" name="bg" value="ストライプ"><span><div class="thumb" style="background:repeating-linear-gradient(45deg,#f6a8c8 0 6px,#f9c6dc 6px 12px)"></div>ストライプ</span></label>
           <label><input type="radio" name="bg" value="夜空"><span><div class="thumb" style="background:radial-gradient(#fff 1px,transparent 1.5px) 0 0/10px 10px,linear-gradient(#2c2550,#5a4b8f)"></div>夜空・キラキラ</span></label>
         </div>
-<div class="free-field"><label class="q" for="field-bg_notes">背景の希望を文章で伝える<span class="optional">任意</span></label><textarea name="bg_notes" id="field-bg_notes" maxlength="3000" placeholder="例：水彩のような背景。夜空だけど暗くなりすぎない感じ。"></textarea></div>
+<details class="free-field"><summary>背景の希望を文章で伝える</summary><label class="sr-only" for="field-bg_notes">背景の希望を文章で伝える</label><textarea name="bg_notes" id="field-bg_notes" maxlength="3000" placeholder="例：水彩のような背景。夜空だけど暗くなりすぎない感じ。"></textarea></details>
         <label class="q" for="field-ng_color">使ってほしくない色</label>
         <input type="text" maxlength="300" name="ng_color" id="field-ng_color" placeholder="例：赤は苦手">
       </div>
@@ -194,7 +193,7 @@ button:disabled{opacity:.5}
           <label><input type="checkbox" name="mood" value="レトロ"><span>レトロ</span></label>
           <label><input type="checkbox" name="mood" value="シンプル"><span>シンプル</span></label>
         </div>
-<div class="free-field"><label class="q" for="field-mood_notes">雰囲気の希望を文章で伝える<span class="optional">任意</span></label><textarea name="mood_notes" id="field-mood_notes" maxlength="3000" placeholder="例：かわいいけれど子どもっぽすぎない、落ち着いた雰囲気。"></textarea></div>
+<details class="free-field"><summary>雰囲気の希望を文章で伝える</summary><label class="sr-only" for="field-mood_notes">雰囲気の希望を文章で伝える</label><textarea name="mood_notes" id="field-mood_notes" maxlength="3000" placeholder="例：かわいいけれど子どもっぽすぎない、落ち着いた雰囲気。"></textarea></details>
         <label class="q">入れたいモチーフ（いくつでも）</label>
         <div class="motifs" id="motifs"></div>
         <label class="q" for="field-motif_other">モチーフ・好きなものを自由に書く<span class="optional">任意</span></label>
@@ -211,22 +210,22 @@ button:disabled{opacity:.5}
         <h2>🔤 文字やページの感じは？</h2>
         <label class="q">文字の感じ</label>
         <div class="opts">
-          <label><input type="radio" name="font" value="まるもじ" data-ff="Zen Maru Gothic" checked><span><em style="font-family:'Zen Maru Gothic'">あいうえお</em>まるもじ</span></label>
+          <label><input type="radio" name="font" value="まるもじ" data-ff="Zen Maru Gothic"><span><em style="font-family:'Zen Maru Gothic'">あいうえお</em>まるもじ</span></label>
           <label><input type="radio" name="font" value="手書き風" data-ff="Yomogi"><span><em style="font-family:Yomogi">あいうえお</em>手書き風</span></label>
           <label><input type="radio" name="font" value="ぽってり" data-ff="Mochiy Pop One"><span><em style="font-family:'Mochiy Pop One'">あいうえお</em>ぽってり</span></label>
           <label><input type="radio" name="font" value="上品（明朝）" data-ff="Shippori Mincho"><span><em style="font-family:'Shippori Mincho'">あいうえお</em>上品（明朝）</span></label>
           <label><input type="radio" name="font" value="すっきり" data-ff="M PLUS 1p"><span><em style="font-family:'M PLUS 1p'">あいうえお</em>すっきり</span></label>
           <label><input type="radio" name="font" value="おまかせ" data-ff="Zen Maru Gothic"><span><em>？</em>おまかせ</span></label>
         </div>
-<div class="free-field"><label class="q" for="field-font_notes">文字の希望を文章で伝える<span class="optional">任意</span></label><textarea name="font_notes" id="field-font_notes" maxlength="3000" placeholder="例：細めで読みやすい文字。タイトルだけ手書き風にしたい。"></textarea></div>
+<details class="free-field"><summary>文字の希望を文章で伝える</summary><label class="sr-only" for="field-font_notes">文字の希望を文章で伝える</label><textarea name="font_notes" id="field-font_notes" maxlength="3000" placeholder="例：細めで読みやすい文字。タイトルだけ手書き風にしたい。"></textarea></details>
         <label class="q">ページのつくり</label>
         <div class="opts">
-          <label><input type="radio" name="layout" value="縦に長い1ページ" data-l="" checked><span><em>📜</em>縦に長い1ページ<small>スクロールで全部見られる</small></span></label>
+          <label><input type="radio" name="layout" value="縦に長い1ページ" data-l=""><span><em>📜</em>縦に長い1ページ<small>スクロールで全部見られる</small></span></label>
           <label><input type="radio" name="layout" value="タブで切り替え" data-l="tabs"><span><em>🗂️</em>タブで切り替え<small>アプリっぽい</small></span></label>
           <label><input type="radio" name="layout" value="カードを並べる" data-l="cards"><span><em>🧩</em>カードを並べる<small>見たい所をタップ</small></span></label>
           <label><input type="radio" name="layout" value="おまかせ" data-l=""><span><em>？</em>おまかせ</span></label>
         </div>
-<div class="free-field"><label class="q" for="field-layout_notes">ページ構成の希望を文章で伝える<span class="optional">任意</span></label><textarea name="layout_notes" id="field-layout_notes" maxlength="3000" placeholder="例：最初に大きなイラスト、次にプロフィール。SNSのリンクは下にまとめたい。"></textarea></div>
+<details class="free-field"><summary>ページ構成の希望を文章で伝える</summary><label class="sr-only" for="field-layout_notes">ページ構成の希望を文章で伝える</label><textarea name="layout_notes" id="field-layout_notes" maxlength="3000" placeholder="例：最初に大きなイラスト、次にプロフィール。SNSのリンクは下にまとめたい。"></textarea></details>
         <label class="q" for="field-reference">参考にしたいサイト・画像</label>
         <textarea maxlength="3000" name="reference" id="field-reference" placeholder="例：参考サイトのURLと、好きな配色・写真の配置・文字の雰囲気など"></textarea>
       </div>
@@ -237,7 +236,7 @@ button:disabled{opacity:.5}
       <div class="card">
         <h2>✨ こんなこと、できたらいいな</h2>
         <div class="feat">
-          <label><input type="checkbox" name="features" value="プロフィール・SNSリンク" checked><div>プロフィール・SNSリンク<small>基本セット</small></div></label>
+          <label><input type="checkbox" name="features" value="プロフィール・SNSリンク"><div>プロフィール・SNSリンク<small>基本セット</small></div></label>
           <label><input type="checkbox" name="features" value="今週の配信予定"><div>今週の配信予定<small>自分で書き換えられる</small></div></label>
           <label><input type="checkbox" name="features" value="歌える曲リスト＋リクエスト"><div>歌える曲リスト＋リクエスト箱</div></label>
           <label><input type="checkbox" name="features" value="匿名メッセージ"><div>匿名メッセージ<small>マシュマロみたいな質問箱</small></div></label>
@@ -267,7 +266,7 @@ button:disabled{opacity:.5}
           <label><input type="checkbox" name="platform" value="Twitch"><span>Twitch</span></label>
           <label><input type="checkbox" name="platform" value="その他"><span>その他</span></label>
         </div>
-<div class="free-field"><label class="q" for="field-platform_other">活動場所を自由に書く<span class="optional">任意</span></label><textarea name="platform_other" id="field-platform_other" maxlength="3000" placeholder="例：ツイキャスとYouTube。今後はライブ活動もしたい。"></textarea></div>
+<details class="free-field"><summary>活動場所を自由に書く</summary><label class="sr-only" for="field-platform_other">活動場所を自由に書く</label><textarea name="platform_other" id="field-platform_other" maxlength="3000" placeholder="例：ツイキャスとYouTube。今後はライブ活動もしたい。"></textarea></details>
         <label class="q" for="field-agency">事務所・グループ</label>
         <input type="text" maxlength="300" name="agency" id="field-agency" placeholder="個人なら空欄でOK">
         <label class="q" for="field-profile_url">今あるプロフィールページ</label>
@@ -277,17 +276,19 @@ button:disabled{opacity:.5}
           <option value="">特になし</option><option>1週間以内</option><option>2週間以内</option><option>1か月以内</option><option>日付を指定</option>
         </select>
         <input type="date" name="deadline_date" aria-label="希望の日付" style="margin-top:8px;display:none">
-<div class="free-field"><label class="q" for="field-deadline_other">希望時期・スケジュールを自由に書く<span class="optional">任意</span></label><textarea name="deadline_other" id="field-deadline_other" maxlength="3000" placeholder="例：来月のイベントまでに。急ぎではないので相談して決めたい。"></textarea></div>
+<details class="free-field"><summary>希望時期・スケジュールを自由に書く</summary><label class="sr-only" for="field-deadline_other">希望時期・スケジュールを自由に書く</label><textarea name="deadline_other" id="field-deadline_other" maxlength="3000" placeholder="例：来月のイベントまでに。急ぎではないので相談して決めたい。"></textarea></details>
         <label class="q">アイコン・立ち絵などの素材</label>
         <div class="chips">
           <label><input type="radio" name="assets" value="ある（あとで送る）"><span>ある（あとで送る）</span></label>
           <label><input type="radio" name="assets" value="まだない"><span>まだない</span></label>
         </div>
-<div class="free-field"><label class="q" for="field-assets_other">使いたい素材・画像について自由に書く<span class="optional">任意</span></label><textarea name="assets_other" id="field-assets_other" maxlength="3000" placeholder="例：立ち絵はあります。ロゴは相談したい。画像はあとでDMで送ります。"></textarea></div>
+<details class="free-field"><summary>使いたい素材・画像について自由に書く</summary><label class="sr-only" for="field-assets_other">使いたい素材・画像について自由に書く</label><textarea name="assets_other" id="field-assets_other" maxlength="3000" placeholder="例：立ち絵はあります。ロゴは相談したい。画像はあとでDMで送ります。"></textarea></details>
         <label class="q" for="field-message">メッセージ・相談したいこと</label>
         <textarea maxlength="3000" name="message" id="field-message"></textarea>
       </div>
       <div class="card"><h2>個人情報の取り扱い</h2><p class="hint">活動名・連絡先・ご希望は、HP制作の相談・ご連絡と制作対応に使用します。回答は管理者のみが閲覧します。カード番号やパスワードなどは記入しないでください。不要になった回答は制作担当者に削除を依頼できます。</p><p class="hint">入力途中の内容は、この端末に30日間保存されます。共用端末では「下書きを消す」をご利用ください。</p><label class="consent"><input type="checkbox" name="consent" required value="yes">個人情報の取り扱いに同意する<span class="req">必須</span></label></div>
+      </div>
+    <div class="page review-page">
       <div class="card confirm" id="confirm"></div>
       <details class="pvbox" id="previewDetails" hidden>
     <summary>選択内容の参考プレビューを見る</summary>
@@ -323,7 +324,7 @@ button:disabled{opacity:.5}
     <button type="button" class="big-btn primary" id="copyBtn" style="width:100%">内容をコピー</button>
     <button type="button" class="big-btn ghost" id="downloadBtn" style="width:100%;margin-top:8px">控えをダウンロード</button>
   </div>
-  <footer><a href="admin.html">制作担当者の管理画面</a><p>ご希望シート · v1.2.1</p></footer>
+  <footer><a href="admin.html">制作担当者の管理画面</a><p>ご希望シート · v1.3.0</p></footer>
 </div>
 
 <script src="config.js"></script>
@@ -370,7 +371,7 @@ function renderColors(){
     b.querySelector(".no").style.color = ink(PALETTE[b.dataset.i][1]);
     b.setAttribute("aria-pressed",at>=0);
   });
-  const names = ["メイン","サブ","アクセント"];
+  const names = ["1番目の色","2番目の色","3番目の色"];
   $("picked").innerHTML = names.map((n,i) => {
     const c = colors[i];
     return c
@@ -402,11 +403,11 @@ function mix(hex, w){ // mix with white
 }
 function updatePreview(){
   const pv = $("pv");
-  const textOnly=f.elements.namedItem("input_mode").value==="文章だけ";
-  document.body.classList.toggle("text-only",textOnly);
+  const textOnly=!hasChoices();
+  
   document.querySelector(".text-preview-notice").hidden=false;
   document.querySelector(".text-preview-notice").textContent=textOnly?"文章で書いた希望をそのまま送信します。自由記述からプレビューを自動生成する機能はありません。":"プレビューは選択肢を反映した参考イメージです。自由記述の希望は自動反映されませんが、文章のまま送信されます。";
-  $("previewDetails").hidden=textOnly || cur!==4 || !reviewing;
+  $("previewDetails").hidden=textOnly || cur!==5;
   const c1 = colors[0]?.hex || "#f6a8c8";
   const c3 = colors[2]?.hex || colors[1]?.hex || "#c3a2ee";
   const c2 = colors[1] ? mix(colors[1].hex, .75) : mix(c1, .85);
@@ -430,9 +431,9 @@ function updatePreview(){
 
   // font & layout
   const fo = f.querySelector('input[name=font]:checked');
-  pv.style.setProperty("--pf", `"${fo.dataset.ff}"`);
+  pv.style.setProperty("--pf", `"${fo?.dataset.ff || "Zen Maru Gothic"}"`);
   const lo = f.querySelector('input[name=layout]:checked');
-  $("pvbody").className = "pvbody " + lo.dataset.l;
+  $("pvbody").className = "pvbody " + (lo?.dataset.l || "");
 
   // name
   $("pvname").textContent = f.elements.namedItem("name").value.trim() || "あなたの名前";
@@ -473,17 +474,19 @@ f.deadline.addEventListener("change", e => {
 });
 
 const MULTI = ["platform","mood","motif","features"];
+function hasChoices(){return colors.length>0 || !!f.querySelector('input[name=bg]:checked,input[name=font]:checked,input[name=layout]:checked,input[name=mood]:checked,input[name=motif]:checked,input[name=features]:checked,input[name=platform]:checked,input[name=assets]:checked') || !!f.deadline.value;}
 function collect(){
   const fd = new FormData(f), o = {};
   for (const k of new Set(fd.keys())) {
     const v = fd.getAll(k).filter(x => x !== "");
     o[k] = MULTI.includes(k) ? v : (v[0] || "");
   }
-  o.colors = colors.map((c,i) => `${["メイン","サブ","アクセント"][i]}：${c.name}（${c.hex}）`);
+  o.colors = colors.map((c,i) => `${["1番目","2番目","3番目"][i]}：${c.name}（${c.hex}）`);
   if (o.deadline === "日付を指定") o.deadline = o.deadline_date || "日付未入力";
   delete o.deadline_date;
   delete o.website;
-  if(o.input_mode === "文章だけ") for(const k of ["colors","bg","mood","motif","font","layout","features","platform","deadline","assets"]) delete o[k];
+  o.input_mode=hasChoices()?"選択肢と文章":"文章だけ";
+  if(!o.colors.length)delete o.colors;
   return o;
 }
 
@@ -500,23 +503,24 @@ function asText(o){
   return t;
 }
 function renderConfirm(){
-  const o = collect();
-  let h = '<h2>✓ 内容の確認</h2><dl>';
-  for (const k in LABELS) if (fmt(o[k])) h += `<dt>${LABELS[k]}</dt><dd>${esc(fmt(o[k]))}</dd>`;
-  const edit = '<div class="edit-links">'+["色","モチーフ・雰囲気","文字とつくり","ほしい機能","あなたについて"].map((t,i)=>`<button type="button" class="mini-btn" data-edit="${i}">${t}を修正</button>`).join("")+"</div>";
-  $("confirm").innerHTML = h + "</dl>" + edit;
-  $("confirm").querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>{show(+b.dataset.edit);if(+b.dataset.edit===4)f.elements.namedItem("name").focus();});
+  const o=collect();
+  const groups=[['🎨 色・背景',['colors','color_notes','bg','bg_notes','ng_color']],['🧸 雰囲気',['mood','mood_notes','motif','motif_other','ng_motif']],['🔤 文字・構成',['font','font_notes','layout','layout_notes','reference']],['✨ ほしい機能',['features','features_other']],['💌 連絡先など',['name','contact','platform','platform_other','agency','profile_url','deadline','deadline_other','assets','assets_other','message']]];
+  let h='<h2>💌 この内容で送っていい？</h2><p class="lead">直したいところは「修正」へ。空欄の希望は、あとで相談して決められるよ。</p>';
+  groups.forEach(([title,keys],i)=>{const rows=keys.filter(k=>fmt(o[k]));h+=`<section class="review-group"><div class="review-heading"><h3>${title}</h3><button type="button" class="mini-btn" data-edit="${i}" aria-label="${title}を修正">修正</button></div>`+(rows.length?'<dl>'+rows.map(k=>`<dt>${LABELS[k]}</dt><dd>${esc(fmt(o[k]))}</dd>`).join('')+'</dl>':'<p class="hint">まだ決まっていない・あとで相談</p>')+'</section>';});
+  $("confirm").innerHTML=h;$("confirm").querySelector("h2").tabIndex=-1;
+  $("confirm").querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>show(+b.dataset.edit));
 }
 
 function show(i,move=true){
   pages[cur].classList.remove("on"); cur = i; pages[cur].classList.add("on");
-  dots.forEach((d,j) => {d.classList.toggle("on", j <= cur);d.classList.toggle("current",j===cur);if(j===cur)d.setAttribute("aria-current","step");else d.removeAttribute("aria-current");});
+  dots.forEach((d,j) => {d.classList.toggle("on", j <= cur);d.classList.toggle("current",j===Math.min(cur,4));if(j===Math.min(cur,4))d.setAttribute("aria-current","step");else d.removeAttribute("aria-current");});
   back.style.display = cur ? "block" : "none";
   const last = cur === pages.length - 1;
-  next.textContent = last ? (reviewing ? "この内容で送信する" : "入力内容を確認する") : `次へ：${["","雰囲気","文字・構成","機能","連絡先"][cur+1]}`;
-  $("stepLabel").textContent = `${cur+1} / 5　 ${["色・背景","モチーフ・雰囲気","文字とつくり","ほしい機能","あなたについて"][cur]}`;
+  next.textContent = last ? "この内容で送信する" : cur===4?"送る内容を確認する":`次へ：${["","雰囲気","文字・構成","機能","連絡先"][cur+1]}`;
+  $("stepLabel").textContent = last?"送信前の確認":`${cur+1} / 5　 ${["色・背景","モチーフ・雰囲気","文字とつくり","ほしい機能","あなたについて"][cur]}`;
+  $("stepLabel").classList.toggle("at-review",last);
   $("previewDetails").hidden=true; $("previewDetails").open=false;
-  if (last) renderConfirm();
+  if (last){renderConfirm();$("previewDetails").hidden=!hasChoices();}
   saveDraft();
   err.textContent = "";
   if(!move)return;
@@ -527,18 +531,17 @@ function validate(all=false){
   const scope=all?f:pages[cur];
   const bad=[...scope.querySelectorAll("[required],input[type=url]")].find(el=>el.required?(el.type==="checkbox"?!el.checked:!el.value.trim()||!el.checkValidity()):!el.checkValidity());
   if(bad){const pi=pages.findIndex(p=>p.contains(bad));if(pi>=0&&pi!==cur)show(pi);err.textContent=bad.type==="checkbox"?"個人情報の取り扱いへの同意を確認してください":bad.type==="url"?"URLは https:// から入力してください":"必須項目・入力内容を確認してください";bad.focus();return false;}
-  if(f.elements.namedItem("input_mode").value!=="文章だけ"&&f.deadline.value==="日付を指定"&&!f.deadline_date.value){err.textContent="希望日付を入力してください";f.deadline_date.focus();return false;}
+  if(f.deadline.value==="日付を指定"&&!f.deadline_date.value){if(cur!==4)show(4);err.textContent="希望日付を入力してください";f.deadline_date.focus();return false;}
   return true;
 }
-let reviewing=false, sending=false;
-function resetReview(){reviewing=false;$("previewDetails").hidden=true;$("previewDetails").open=false;$("confirm").classList.remove("reviewing");if(cur===4)next.textContent="入力内容を確認する";}
+let sending=false;
+function resetReview(){}
 f.addEventListener("input",resetReview); f.addEventListener("change",resetReview);
 back.onclick = () => {if(!sending){resetReview();show(cur - 1);}};
 next.onclick = async () => {
-  if(sending||!validate(cur===4))return;
+  if(sending||!validate(cur>=4))return;
   if(cur<pages.length-1)return show(cur+1);
   renderConfirm();
-  if(!reviewing){reviewing=true;$("previewDetails").hidden=f.elements.namedItem("input_mode").value==="文章だけ";next.textContent="この内容で送信する";$("confirm").classList.add("reviewing");$("confirm").scrollIntoView({block:"start",behavior:"smooth"});return;}
   const o=collect();o.consent=true;
   const body=JSON.stringify(o);
   if(new TextEncoder().encode(body).length>22000){err.textContent="全体の入力内容が長すぎます。文章を少し短くしてから送信してください。";return;}
@@ -571,7 +574,7 @@ $("copyBtn").onclick = async () => {
 const DRAFT_KEY="hp_request_draft_v1";
 let pending=null, restoring=true;
 function saveDraft(){if(restoring||sending)return;try{const fields=[...f.elements].filter(x=>x.name&&x.name!=="website").map(x=>({name:x.name,value:x.value,checked:x.checked,type:x.type}));localStorage.setItem(DRAFT_KEY,JSON.stringify({fields,colors,step:cur,pending,savedAt:Date.now()}));$("saveState").textContent="この端末に自動保存済み（30日間）";}catch{$("saveState").textContent="この端末では自動保存できません。画面を閉じずに入力してください";}}
-try{const d=JSON.parse(localStorage.getItem(DRAFT_KEY)||"null");if(d&&Date.now()-d.savedAt<30*86400000){for(const v of d.fields||[]){for(const el of [...f.elements].filter(el=>el.name===v.name)){if(el.type==="checkbox"||el.type==="radio"){if(el.value===v.value)el.checked=!!v.checked;}else el.value=v.value;}}colors=(d.colors||[]).filter(c=>/^#[0-9a-f]{6}$/i.test(c.hex)).slice(0,3);pending=d.pending;cur=0;show(Math.max(0,Math.min(4,d.step||0)),false);}else if(d){localStorage.removeItem(DRAFT_KEY);}}catch{}
+try{const d=JSON.parse(localStorage.getItem(DRAFT_KEY)||"null");if(d&&Date.now()-d.savedAt<30*86400000){const wasTextOnly=(d.fields||[]).some(v=>v.name==="input_mode"&&v.value==="文章だけ"&&v.checked);if(wasTextOnly)colors=[];for(const v of d.fields||[]){if(wasTextOnly&&["bg","mood","motif","font","layout","features","platform","deadline","deadline_date","assets"].includes(v.name))continue;for(const el of [...f.elements].filter(el=>el.name===v.name)){if(el.type==="checkbox"||el.type==="radio"){if(el.value===v.value)el.checked=!!v.checked;}else el.value=v.value;}}colors=(wasTextOnly?[]:d.colors||[]).filter(c=>/^#[0-9a-f]{6}$/i.test(c.hex)).slice(0,3);pending=d.pending;cur=0;show(Math.max(0,Math.min(5,d.step||0)),false);}else if(d){localStorage.removeItem(DRAFT_KEY);}}catch{}
 restoring=false;
 f.deadline_date.style.display=f.deadline.value==="日付を指定"?"block":"none";
 f.addEventListener("input",saveDraft); f.addEventListener("change",saveDraft);
@@ -588,6 +591,7 @@ $("clearColor").closest(".row").classList.add("choice-area");
 $("sw").previousElementSibling.classList.add("choice-area");
 for(const name of ["deadline","deadline_date"]){const el=f.elements.namedItem(name);el.classList.add("choice-area");if(el.previousElementSibling?.matches("label.q"))el.previousElementSibling.classList.add("choice-area");}
 
+for(const el of f.querySelectorAll("details.free-field"))el.open=!!el.querySelector("textarea")?.value;
 renderColors();updatePreview();show(cur,false);
 
 // ---- app (PWA) ----
