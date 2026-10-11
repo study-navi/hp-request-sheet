@@ -123,12 +123,6 @@ button:disabled{opacity:.5}
 .confirm dd{margin:0;white-space:pre-wrap;word-break:break-all}
 .done{text-align:center}
 .done .em{font-size:44px}
-.install{display:none;align-items:center;gap:10px;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:10px 12px;margin-bottom:12px;font-size:13px}
-.install img{width:36px;height:36px;border-radius:9px}
-.install div{flex:1;line-height:1.4}
-.install small{color:var(--sub);font-size:11px}
-.install button{border:none;background:var(--accent);color:#fff;border-radius:10px;padding:8px 12px;font:inherit;font-size:12px;font-weight:700;cursor:pointer}
-.install .x{background:none;color:var(--sub);padding:4px}
 #splash{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:linear-gradient(160deg,#f6a8c8,#a77ee8);color:#fff;text-align:center;transition:opacity .5s}
 #splash.out{opacity:0;pointer-events:none}
 #splash .s{font-size:56px;animation:tw 1.2s ease-in-out infinite}
@@ -142,12 +136,6 @@ button:disabled{opacity:.5}
 <body>
 <div id="splash"><div><div class="s">✦</div><p>ご希望シート</p></div></div>
 <div class="wrap">
-  <div class="install" id="install">
-    <img src="icon-192.png" alt="">
-    <div><b>アプリとして置けます</b><br><small id="installHint">ホーム画面に追加すると、すぐ開けます</small></div>
-    <button type="button" id="installBtn">追加</button>
-    <button type="button" class="x" id="installX" aria-label="閉じる">✕</button>
-  </div>
   <header>
     <h1>✦ HP制作 ご希望シート</h1>
     <p>選んでも、文章で書いてもOK。決まっていないところは空欄で進めます。</p>
@@ -240,7 +228,7 @@ button:disabled{opacity:.5}
         </div>
 <div class="free-field"><label class="q" for="field-layout_notes">ページ構成の希望を文章で伝える<span class="optional">任意</span></label><textarea name="layout_notes" id="field-layout_notes" maxlength="3000" placeholder="例：最初に大きなイラスト、次にプロフィール。SNSのリンクは下にまとめたい。"></textarea><small>選択肢にない希望や「おまかせ」でも大丈夫です。</small></div>
         <label class="q" for="field-reference">参考にしたいサイト・画像</label>
-        <textarea maxlength="3000" name="reference" id="field-reference" placeholder="URLや「◯◯さんのHPのこの感じ」など"></textarea>
+        <textarea maxlength="3000" name="reference" id="field-reference" placeholder="例：参考サイトのURLと、好きな配色・写真の配置・文字の雰囲気など"></textarea>
       </div>
     </div>
 
@@ -267,7 +255,7 @@ button:disabled{opacity:.5}
       <div class="card">
         <h2>💌 あなたについて</h2>
         <label class="q" for="field-name">活動名<span class="req">必須</span></label>
-        <input type="text" maxlength="100" name="name" id="field-name" required placeholder="例：星屑もぐ">
+        <input type="text" maxlength="100" name="name" id="field-name" required placeholder="活動で使っているお名前を入力">
         <label class="q" for="field-contact">連絡先（XのID など）<span class="req">必須</span></label>
         <input type="text" maxlength="300" name="contact" id="field-contact" required placeholder="@xxxx">
         <label class="q">活動している場所</label>
@@ -289,7 +277,7 @@ button:disabled{opacity:.5}
           <option value="">特になし</option><option>1週間以内</option><option>2週間以内</option><option>1か月以内</option><option>日付を指定</option>
         </select>
         <input type="date" name="deadline_date" aria-label="希望の日付" style="margin-top:8px;display:none">
-<div class="free-field"><label class="q" for="field-deadline_other">希望時期・スケジュールを自由に書く<span class="optional">任意</span></label><textarea name="deadline_other" id="field-deadline_other" maxlength="3000" placeholder="例：誕生日の12月10日までに。急ぎではないので相談して決めたい。"></textarea><small>選択肢にない希望や「おまかせ」でも大丈夫です。</small></div>
+<div class="free-field"><label class="q" for="field-deadline_other">希望時期・スケジュールを自由に書く<span class="optional">任意</span></label><textarea name="deadline_other" id="field-deadline_other" maxlength="3000" placeholder="例：来月のイベントまでに。急ぎではないので相談して決めたい。"></textarea><small>選択肢にない希望や「おまかせ」でも大丈夫です。</small></div>
         <label class="q">アイコン・立ち絵などの素材</label>
         <div class="chips">
           <label><input type="radio" name="assets" value="ある（あとで送る）"><span>ある（あとで送る）</span></label>
@@ -335,7 +323,7 @@ button:disabled{opacity:.5}
     <button type="button" class="big-btn primary" id="copyBtn" style="width:100%">内容をコピー</button>
     <button type="button" class="big-btn ghost" id="downloadBtn" style="width:100%;margin-top:8px">控えをダウンロード</button>
   </div>
-  <footer><a href="admin.html">制作担当者の管理画面</a><p>ご希望シート · v1.1.2</p></footer>
+  <footer><a href="admin.html">制作担当者の管理画面</a><p>ご希望シート · v1.1.3</p></footer>
 </div>
 
 <script src="config.js"></script>
@@ -607,30 +595,8 @@ setTimeout(() => $("splash").remove(), 1500);
 if ("serviceWorker" in navigator) {
   addEventListener("load", () => navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(reg=>reg.update()).catch(() => {}));
 }
-const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone;
-let dismissed = false;
-try { dismissed = localStorage.getItem("hp_install_x") === "1"; } catch(e) {}
-let deferred = null;
-if (!standalone && !dismissed) {
-  addEventListener("beforeinstallprompt", e => {
-    e.preventDefault(); deferred = e; $("install").style.display = "flex";
-  });
-  const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
-  if (ios) {
-    $("installHint").textContent = "Safariの共有ボタン →「ホーム画面に追加」";
-    $("installBtn").style.display = "none";
-    $("install").style.display = "flex";
-  }
-}
-$("installBtn").onclick = async () => {
-  if (!deferred) return;
-  deferred.prompt(); await deferred.userChoice; deferred = null;
-  $("install").style.display = "none";
-};
-$("installX").onclick = () => {
-  $("install").style.display = "none";
-  try { localStorage.setItem("hp_install_x", "1"); } catch(e) {}
-};
+// Keep optional PWA support without prompting respondents to install.
+addEventListener("beforeinstallprompt", e => e.preventDefault());
 </script>
 </body>
 </html>
