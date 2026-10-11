@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>HP制作 ご希望シート</title>
+<meta name="description" content="ホームページ制作の希望（色・モチーフ・文字・機能）を選んで伝えられるシート">
+<meta name="theme-color" content="#f6a8c8">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ご希望シート">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta property="og:title" content="HP制作 ご希望シート">
+<meta property="og:description" content="色・モチーフ・文字・ほしい機能を選ぶだけ。選ぶとイメージが変わります">
+<meta property="og:image" content="icon-512.png">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&family=Yomogi&family=Shippori+Mincho:wght@600&family=Mochiy+Pop+One&family=M+PLUS+1p:wght@500;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbf8fd; --card:#fff; --ink:#3d3550; --sub:#8a7f9c;
+  --accent:#a77ee8; --line:#ece3f5; --err:#e0607e;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Zen Maru Gothic",sans-serif;line-height:1.7}
+.wrap{max-width:560px;margin:0 auto;padding:20px 16px 80px}
+header{text-align:center;margin-bottom:14px}
+h1{font-size:21px;margin:4px 0 2px}
+header p{color:var(--sub);font-size:13px;margin:0}
+
+/* ===== live preview ===== */
+.pvbox{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0 10px;margin:0 -16px 6px;padding-left:16px;padding-right:16px}
+.pvlabel{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--sub);margin-bottom:4px}
+.pvlabel button{background:none;border:none;color:var(--sub);font:inherit;font-size:12px;cursor:pointer;padding:2px 4px}
+#pv{--c1:#f6a8c8;--c2:#ffffff;--c3:#c3a2ee;--pf:"Zen Maru Gothic";
+  border-radius:18px;overflow:hidden;box-shadow:0 6px 22px rgba(120,90,170,.15);
+  font-family:var(--pf),sans-serif;position:relative;transition:height .3s}
+#pv.mini .pvbody{display:none}
+.pvtop{position:relative;padding:18px 16px 16px;text-align:center;color:var(--pink-ink,#fff);overflow:hidden}
+.pvtop .bgl{position:absolute;inset:0;z-index:0}
+.pvtop>*:not(.bgl){position:relative;z-index:1}
+.pvicon{width:54px;height:54px;border-radius:50%;margin:0 auto 6px;background:var(--c2);border:3px solid #fff;display:grid;place-items:center;font-size:24px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.pvname{font-size:20px;font-weight:700;line-height:1.3;text-shadow:0 1px 6px rgba(0,0,0,.15);word-break:break-all}
+.pvsub{font-size:11px;opacity:.9}
+.floaty{position:absolute;font-size:16px;opacity:.85;animation:fl 4s ease-in-out infinite;z-index:1}
+@keyframes fl{50%{transform:translateY(-5px) rotate(8deg)}}
+.pvbody{background:var(--c2);padding:12px;display:grid;gap:8px}
+.pvbody.cards{grid-template-columns:1fr 1fr}
+.pvbody.tabs{grid-template-columns:1fr}
+.pvtabs{display:none;gap:4px}
+.pvbody.tabs .pvtabs{display:flex}
+.pvtabs span{flex:1;text-align:center;font-size:10px;padding:4px;border-radius:8px;background:color-mix(in srgb,var(--c1) 25%,#fff);color:var(--ink)}
+.pvtabs span:first-child{background:var(--c1);color:#fff}
+.pvcard{background:#fff;border-radius:12px;padding:8px 10px;font-size:11px;color:#4a4458;border:2px solid color-mix(in srgb,var(--c1) 45%,#fff)}
+.pvcard b{display:block;font-size:12px;color:color-mix(in srgb,var(--c3) 75%,#000)}
+.pvbtn{background:var(--c3);color:#fff;border-radius:999px;text-align:center;padding:7px;font-size:12px;font-weight:700}
+.pvbody.cards .pvbtn{grid-column:1/-1}
+
+/* ===== form ===== */
+.steps{display:flex;gap:6px;justify-content:center;margin:4px 0 12px}
+.steps span{width:28px;height:5px;border-radius:3px;background:var(--line);transition:.3s}
+.steps span.on{background:var(--accent)}
+.card{background:var(--card);border-radius:20px;padding:20px 16px;box-shadow:0 4px 20px rgba(150,110,200,.07);margin-bottom:14px}
+.card h2{font-size:16px;margin:0 0 4px}
+.card .lead{color:var(--sub);font-size:12px;margin:0 0 12px}
+label.q{display:block;font-weight:700;font-size:14px;margin:18px 0 6px}
+.card>label.q:first-of-type{margin-top:6px}
+.req{color:var(--err);font-size:11px;margin-left:4px}
+.hint{color:var(--sub);font-size:12px;margin:-2px 0 8px}
+input[type=text],input[type=url],input[type=date],textarea,select{
+  width:100%;padding:11px 12px;border:1.5px solid var(--line);border-radius:12px;font:inherit;font-size:16px;background:#fff;color:var(--ink)}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent)}
+textarea{min-height:84px;resize:vertical}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chips label{cursor:pointer}
+.chips input{display:none}
+.chips span{display:inline-block;padding:6px 12px;border:1.5px solid var(--line);border-radius:999px;font-size:13px;background:#fff;transition:.15s;user-select:none}
+.chips input:checked+span{background:var(--accent);border-color:var(--accent);color:#fff}
+
+.sw{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.sw button{aspect-ratio:1;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 1.5px var(--line);cursor:pointer;position:relative;padding:0}
+.sw button .no{position:absolute;inset:0;display:grid;place-items:center;font-size:12px;font-weight:700;color:#fff;text-shadow:0 0 3px rgba(0,0,0,.5)}
+.sw button.sel{box-shadow:0 0 0 3px var(--accent)}
+.picked{display:flex;gap:8px;margin-top:12px;align-items:stretch}
+.picked div{flex:1;border-radius:12px;border:1.5px dashed var(--line);padding:6px;text-align:center;font-size:11px;color:var(--sub);display:flex;flex-direction:column;align-items:center;gap:4px}
+.picked i{width:28px;height:28px;border-radius:50%;display:block;border:1.5px solid var(--line)}
+.picked input[type=color]{width:34px;height:28px;border:none;background:none;padding:0;cursor:pointer}
+.row{display:flex;gap:8px;align-items:center}
+.mini-btn{flex:none;padding:7px 12px;border-radius:10px;border:1.5px solid var(--line);background:#fff;font:inherit;font-size:12px;color:var(--sub);cursor:pointer}
+
+.motifs{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.motifs label{cursor:pointer}
+.motifs input{display:none}
+.motifs span{display:flex;flex-direction:column;align-items:center;padding:8px 2px;border:1.5px solid var(--line);border-radius:12px;font-size:11px;background:#fff;user-select:none}
+.motifs span b{font-size:22px;line-height:1.2}
+.motifs input:checked+span{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,#fff)}
+
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.opts label{cursor:pointer}
+.opts input{display:none}
+.opts span{display:block;border:1.5px solid var(--line);border-radius:12px;padding:10px;text-align:center;background:#fff;font-size:13px}
+.opts span em{display:block;font-style:normal;font-size:19px;line-height:1.4;color:var(--ink)}
+.opts span small{display:block;color:var(--sub);font-size:11px}
+.opts input:checked+span{border-color:var(--accent);box-shadow:0 0 0 1.5px var(--accent)}
+.thumb{height:34px;border-radius:8px;margin-bottom:6px;border:1px solid var(--line)}
+
+.feat{display:grid;gap:7px}
+.feat label{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1.5px solid var(--line);border-radius:12px;cursor:pointer;font-size:14px}
+.feat input{margin-top:5px;accent-color:var(--accent)}
+.feat small{display:block;color:var(--sub);font-size:12px}
+
+.nav{display:flex;gap:10px}
+.nav button,.big-btn{flex:1;padding:14px;border:none;border-radius:14px;font:inherit;font-weight:700;font-size:15px;cursor:pointer}
+.primary{background:var(--accent);color:#fff}
+.ghost{background:#fff;color:var(--sub);border:1.5px solid var(--line)!important}
+button:disabled{opacity:.5}
+.err{color:var(--err);font-size:13px;min-height:1.2em;margin:4px 0}
+.page{display:none}.page.on{display:block;animation:in .25s}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.confirm dl{margin:0;font-size:14px}
+.confirm dt{color:var(--sub);font-size:12px;margin-top:10px}
+.confirm dd{margin:0;white-space:pre-wrap;word-break:break-all}
+.done{text-align:center}
+.done .em{font-size:44px}
+.install{display:none;align-items:center;gap:10px;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:10px 12px;margin-bottom:12px;font-size:13px}
+.install img{width:36px;height:36px;border-radius:9px}
+.install div{flex:1;line-height:1.4}
+.install small{color:var(--sub);font-size:11px}
+.install button{border:none;background:var(--accent);color:#fff;border-radius:10px;padding:8px 12px;font:inherit;font-size:12px;font-weight:700;cursor:pointer}
+.install .x{background:none;color:var(--sub);padding:4px}
+#splash{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:linear-gradient(160deg,#f6a8c8,#a77ee8);color:#fff;text-align:center;transition:opacity .5s}
+#splash.out{opacity:0;pointer-events:none}
+#splash .s{font-size:56px;animation:tw 1.2s ease-in-out infinite}
+#splash p{margin:6px 0 0;font-weight:700;letter-spacing:.1em}
+@keyframes tw{50%{transform:scale(1.2) rotate(15deg)}}
+@media (prefers-reduced-motion:reduce){#splash .s,.floaty{animation:none}}
+.copybox{text-align:left;background:var(--bg);border-radius:12px;padding:12px;font-size:12px;white-space:pre-wrap;max-height:220px;overflow:auto;margin:12px 0}
+</style>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div id="splash"><div><div class="s">✦</div><p>ご希望シート</p></div></div>
+<div class="wrap">
+  <div class="install" id="install">
+    <img src="icon-192.png" alt="">
+    <div><b>アプリとして置けます</b><br><small id="installHint">ホーム画面に追加すると、すぐ開けます</small></div>
+    <button type="button" id="installBtn">追加</button>
+    <button type="button" class="x" id="installX" aria-label="閉じる">✕</button>
+  </div>
+  <header>
+    <h1>✦ HP制作 ご希望シート</h1>
+    <p>選ぶと上のイメージが変わります。わからない所はとばしてOK</p>
+  </header>
+
+  <div class="pvbox">
+    <div class="pvlabel"><span>イメージ（あくまで雰囲気です）</span><button type="button" id="pvToggle">小さくする</button></div>
+    <div id="pv">
+      <div class="pvtop"><div class="bgl" id="pvbg"></div>
+        <div class="pvicon" id="pvicon">🙂</div>
+        <div class="pvname" id="pvname">あなたの名前</div>
+        <div class="pvsub" id="pvsub">official site</div>
+      </div>
+      <div class="pvbody" id="pvbody">
+        <div class="pvtabs"><span>ホーム</span><span>予定</span><span>歌</span><span>メッセージ</span></div>
+        <div class="pvcard"><b>プロフィール</b>はじめまして！</div>
+        <div class="pvcard"><b>今週の配信</b>月・水・金 22:00〜</div>
+        <div class="pvbtn">メッセージを送る</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="steps" id="steps"><span class="on"></span><span></span><span></span><span></span><span></span></div>
+
+  <p id="stepLabel" class="hint" aria-live="polite">STEP 1 / 5 — 色</p>
+  <div class="save-row"><small id="saveState" role="status">この端末に自動保存します</small><button type="button" class="mini-btn" id="clearDraft">下書きを消す</button></div>
+  <form id="f" novalidate>
+  <div class="honeypot" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
+    <!-- 1 色 -->
+    <div class="page on">
+      <div class="card">
+        <h2>🎨 色</h2>
+        <p class="lead">好きな色を順番にタップ（最大3色）。1番目がメインになります</p>
+        <div class="sw" id="sw"></div>
+        <div class="picked" id="picked"></div>
+        <div class="row" style="margin-top:10px">
+          <span class="hint" style="margin:0;flex:1">パレットにない色は「＋自分で選ぶ」で指定できます</span>
+          <button type="button" class="mini-btn" id="clearColor">リセット</button>
+        </div>
+        <label class="q">背景の感じ</label>
+        <div class="opts" id="bgopts">
+          <label><input type="radio" name="bg" value="グラデーション" checked><span><div class="thumb" style="background:linear-gradient(135deg,#f6a8c8,#c3a2ee)"></div>グラデーション</span></label>
+          <label><input type="radio" name="bg" value="単色"><span><div class="thumb" style="background:#f6a8c8"></div>単色</span></label>
+          <label><input type="radio" name="bg" value="ドット"><span><div class="thumb" style="background:#f6a8c8 radial-gradient(#fff6 2px,transparent 2.5px) 0 0/12px 12px"></div>ドット</span></label>
+          <label><input type="radio" name="bg" value="チェック"><span><div class="thumb" style="background:repeating-conic-gradient(#f6a8c8 0 25%,#f9c6dc 0 50%) 0 0/14px 14px"></div>チェック</span></label>
+          <label><input type="radio" name="bg" value="ストライプ"><span><div class="thumb" style="background:repeating-linear-gradient(45deg,#f6a8c8 0 6px,#f9c6dc 6px 12px)"></div>ストライプ</span></label>
+          <label><input type="radio" name="bg" value="夜空"><span><div class="thumb" style="background:radial-gradient(#fff 1px,transparent 1.5px) 0 0/10px 10px,linear-gradient(#2c2550,#5a4b8f)"></div>夜空・キラキラ</span></label>
+        </div>
+        <label class="q" for="field-ng_color">使ってほしくない色</label>
+        <input type="text" maxlength="300" name="ng_color" id="field-ng_color" placeholder="例：赤は苦手">
+      </div>
+    </div>
+
+    <!-- 2 モチーフ・雰囲気 -->
+    <div class="page">
+      <div class="card">
+        <h2>🧸 モチーフ・雰囲気</h2>
+        <label class="q">雰囲気（いくつでも）</label>
+        <div class="chips" id="moods">
+          <label><input type="checkbox" name="mood" value="かわいい"><span>かわいい</span></label>
+          <label><input type="checkbox" name="mood" value="ゆめかわ"><span>ゆめかわ</span></label>
+          <label><input type="checkbox" name="mood" value="天使界隈"><span>天使界隈</span></label>
+          <label><input type="checkbox" name="mood" value="地雷系"><span>地雷系</span></label>
+          <label><input type="checkbox" name="mood" value="量産型"><span>量産型</span></label>
+          <label><input type="checkbox" name="mood" value="ポップ"><span>ポップ</span></label>
+          <label><input type="checkbox" name="mood" value="ナチュラル"><span>ナチュラル</span></label>
+          <label><input type="checkbox" name="mood" value="クール"><span>クール</span></label>
+          <label><input type="checkbox" name="mood" value="大人っぽい"><span>大人っぽい</span></label>
+          <label><input type="checkbox" name="mood" value="和風"><span>和風</span></label>
+          <label><input type="checkbox" name="mood" value="レトロ"><span>レトロ</span></label>
+          <label><input type="checkbox" name="mood" value="シンプル"><span>シンプル</span></label>
+        </div>
+        <label class="q">入れたいモチーフ（いくつでも）</label>
+        <div class="motifs" id="motifs"></div>
+        <label class="q">ほかのモチーフ・好きなもの</label>
+        <p class="hint">推し・好きな食べ物・口ぐせなど、なんでも</p>
+        <input type="text" maxlength="300" name="motif_other" placeholder="例：たぬき、目玉焼き">
+        <label class="q" for="field-ng_motif">使ってほしくないモチーフ</label>
+        <input type="text" maxlength="300" name="ng_motif" id="field-ng_motif" placeholder="例：ハートはなし">
+      </div>
+    </div>
+
+    <!-- 3 文字・レイアウト -->
+    <div class="page">
+      <div class="card">
+        <h2>🔤 文字とつくり</h2>
+        <label class="q">文字の感じ</label>
+        <div class="opts">
+          <label><input type="radio" name="font" value="まるもじ" data-ff="Zen Maru Gothic" checked><span><em style="font-family:'Zen Maru Gothic'">あいうえお</em>まるもじ</span></label>
+          <label><input type="radio" name="font" value="手書き風" data-ff="Yomogi"><span><em style="font-family:Yomogi">あいうえお</em>手書き風</span></label>
+          <label><input type="radio" name="font" value="ぽってり" data-ff="Mochiy Pop One"><span><em style="font-family:'Mochiy Pop One'">あいうえお</em>ぽってり</span></label>
+          <label><input type="radio" name="font" value="上品（明朝）" data-ff="Shippori Mincho"><span><em style="font-family:'Shippori Mincho'">あいうえお</em>上品（明朝）</span></label>
+          <label><input type="radio" name="font" value="すっきり" data-ff="M PLUS 1p"><span><em style="font-family:'M PLUS 1p'">あいうえお</em>すっきり</span></label>
+          <label><input type="radio" name="font" value="おまかせ" data-ff="Zen Maru Gothic"><span><em>？</em>おまかせ</span></label>
+        </div>
+        <label class="q">ページのつくり</label>
+        <div class="opts">
+          <label><input type="radio" name="layout" value="縦に長い1ページ" data-l="" checked><span><em>📜</em>縦に長い1ページ<small>スクロールで全部見られる</small></span></label>
+          <label><input type="radio" name="layout" value="タブで切り替え" data-l="tabs"><span><em>🗂️</em>タブで切り替え<small>アプリっぽい</small></span></label>
+          <label><input type="radio" name="layout" value="カードを並べる" data-l="cards"><span><em>🧩</em>カードを並べる<small>見たい所をタップ</small></span></label>
+          <label><input type="radio" name="layout" value="おまかせ" data-l=""><span><em>？</em>おまかせ</span></label>
+        </div>
+        <label class="q" for="field-reference">参考にしたいサイト・画像</label>
+        <textarea maxlength="3000" name="reference" id="field-reference" placeholder="URLや「◯◯さんのHPのこの感じ」など"></textarea>
+      </div>
+    </div>
+
+    <!-- 4 機能 -->
+    <div class="page">
+      <div class="card">
+        <h2>✨ ほしい機能</h2>
+        <div class="feat">
+          <label><input type="checkbox" name="features" value="プロフィール・SNSリンク" checked><div>プロフィール・SNSリンク<small>基本セット</small></div></label>
+          <label><input type="checkbox" name="features" value="今週の配信予定"><div>今週の配信予定<small>自分で書き換えられる</small></div></label>
+          <label><input type="checkbox" name="features" value="歌える曲リスト＋リクエスト"><div>歌える曲リスト＋リクエスト箱</div></label>
+          <label><input type="checkbox" name="features" value="匿名メッセージ"><div>匿名メッセージ<small>マシュマロみたいな質問箱</small></div></label>
+          <label><input type="checkbox" name="features" value="Xポスト掲載"><div>Xのポストを載せる</div></label>
+          <label><input type="checkbox" name="features" value="おみくじ・スタンプカード"><div>おみくじ・スタンプカード<small>リスナーが毎日遊べる</small></div></label>
+          <label><input type="checkbox" name="features" value="アプリ化＋オープニング"><div>アプリ化＋オープニング演出<small>ホーム画面にアイコンで置ける</small></div></label>
+        </div>
+        <label class="q" for="field-features_other">ほかにほしいもの</label>
+        <textarea maxlength="3000" name="features_other" id="field-features_other" placeholder="自由にどうぞ"></textarea>
+      </div>
+    </div>
+
+    <!-- 5 あなたについて -->
+    <div class="page">
+      <div class="card">
+        <h2>💌 あなたについて</h2>
+        <label class="q" for="field-name">活動名<span class="req">必須</span></label>
+        <input type="text" maxlength="100" name="name" id="field-name" required placeholder="例：星屑もぐ">
+        <label class="q" for="field-contact">連絡先（XのID など）<span class="req">必須</span></label>
+        <input type="text" maxlength="300" name="contact" id="field-contact" required placeholder="@xxxx">
+        <label class="q">活動している場所</label>
+        <div class="chips">
+          <label><input type="checkbox" name="platform" value="Mirrativ"><span>Mirrativ</span></label>
+          <label><input type="checkbox" name="platform" value="YouTube"><span>YouTube</span></label>
+          <label><input type="checkbox" name="platform" value="TikTok"><span>TikTok</span></label>
+          <label><input type="checkbox" name="platform" value="IRIAM"><span>IRIAM</span></label>
+          <label><input type="checkbox" name="platform" value="Twitch"><span>Twitch</span></label>
+          <label><input type="checkbox" name="platform" value="その他"><span>その他</span></label>
+        </div>
+        <label class="q" for="field-agency">事務所・グループ</label>
+        <input type="text" maxlength="300" name="agency" id="field-agency" placeholder="個人なら空欄でOK">
+        <label class="q" for="field-profile_url">今あるプロフィールページ</label>
+        <input type="url" maxlength="2000" name="profile_url" id="field-profile_url" placeholder="ピクページ・lit.link など">
+        <label class="q" for="field-deadline">いつ頃までにほしい？</label>
+        <select name="deadline" id="field-deadline">
+          <option value="">特になし</option><option>1週間以内</option><option>2週間以内</option><option>1か月以内</option><option>日付を指定</option>
+        </select>
+        <input type="date" name="deadline_date" aria-label="希望の日付" style="margin-top:8px;display:none">
+        <label class="q">アイコン・立ち絵などの素材</label>
+        <div class="chips">
+          <label><input type="radio" name="assets" value="ある（あとで送る）"><span>ある（あとで送る）</span></label>
+          <label><input type="radio" name="assets" value="まだない"><span>まだない</span></label>
+        </div>
+        <label class="q" for="field-message">メッセージ・相談したいこと</label>
+        <textarea maxlength="3000" name="message" id="field-message"></textarea>
+      </div>
+      <div class="card"><h2>個人情報の取り扱い</h2><p class="hint">活動名・連絡先・ご希望は、HP制作の相談・ご連絡と制作対応に使用します。回答は管理者のみが閲覧します。カード番号やパスワードなどは記入しないでください。不要になった回答は制作担当者に削除を依頼できます。</p><p class="hint">入力途中の内容は、この端末に30日間保存されます。共用端末では「下書きを消す」をご利用ください。</p><label class="consent"><input type="checkbox" name="consent" required value="yes">個人情報の取り扱いに同意する<span class="req">必須</span></label></div>
+      <div class="card confirm" id="confirm"></div>
+    </div>
+
+    <div class="err" id="err" role="alert" aria-live="polite"></div>
+    <div class="nav">
+      <button type="button" class="ghost" id="back" style="display:none">もどる</button>
+      <button type="button" class="primary" id="next">つぎへ</button>
+    </div>
+  </form>
+
+  <div class="card done" id="done" style="display:none">
+    <div class="em">💌</div>
+    <h2 id="doneTitle">送信しました！</h2>
+    <p id="doneText" style="font-size:14px;margin:4px 0">ご希望ありがとうございます。内容を見てご連絡します。</p>
+    <div class="copybox" id="copybox"></div>
+    <button type="button" class="big-btn primary" id="copyBtn" style="width:100%">内容をコピー</button>
+    <button type="button" class="big-btn ghost" id="downloadBtn" style="width:100%;margin-top:8px">控えをダウンロード</button>
+  </div>
+  <footer><a href="admin.html">制作担当者の管理画面</a><p>ご希望シート · v1.0.0</p></footer>
+</div>
+
+<script src="config.js"></script>
+<script>
+// 公開用設定。秘密鍵は含めない。
+const SUPABASE_URL = HP_CONFIG.url;
+const SUPABASE_ANON_KEY = HP_CONFIG.key;
+// ▲
+
+const PALETTE = [
+  ["ピンク","#f6a8c8"],["さくら","#fcd5e3"],["赤","#e8546b"],["オレンジ","#f7a65e"],["黄色","#f7dc7c"],["クリーム","#fbf1d6"],
+  ["ミント","#9fe0c6"],["緑","#7cc58f"],["水色","#9ad4f2"],["青","#5b8be0"],["ラベンダー","#d9c8f5"],["紫","#a77ee8"],
+  ["白","#ffffff"],["グレー","#bdb8c6"],["黒","#2f2a3a"],["ベージュ","#e8d3b9"],["ブラウン","#9a6e55"],["ゴールド","#d9b25f"]
+];
+const MOTIFS = [
+  ["⭐","星"],["🌙","月"],["☁️","雲"],["🌈","にじ"],["🎀","リボン"],["👼","天使・羽"],["🦋","ちょうちょ"],["🌸","花"],
+  ["🍓","いちご"],["🍰","スイーツ"],["🐰","うさぎ"],["🐱","ねこ"],["🐶","いぬ"],["🧸","くま"],["🎵","音符"],["💎","宝石"],
+  ["🌊","海"],["🍀","クローバー"],["👑","王冠"],["🫧","しゃぼん玉"]
+];
+
+const $ = id => document.getElementById(id);
+const f = $("f");
+let colors = [];          // [{name,hex}]
+
+// ---- color palette ----
+$("sw").innerHTML = PALETTE.map(([n,h],i) =>
+  `<button type="button" data-i="${i}" title="${n}" aria-label="${n}" style="background:${h}"><span class="no"></span></button>`).join("");
+$("sw").onclick = e => {
+  const b = e.target.closest("button"); if (!b) return;
+  const [name,hex] = PALETTE[b.dataset.i];
+  const at = colors.findIndex(c => c.hex === hex);
+  if (at >= 0) colors.splice(at,1);
+  else if (colors.length < 3) colors.push({name,hex});
+  else { $("saveState").textContent = "色は3色まで。選んだ色をもう一度タップすると外せます"; return; }
+  renderColors();
+};
+$("clearColor").onclick = () => { colors = []; renderColors(); };
+
+function renderColors(){
+  document.querySelectorAll("#sw button").forEach(b => {
+    const at = colors.findIndex(c => c.hex === PALETTE[b.dataset.i][1]);
+    b.classList.toggle("sel", at >= 0);
+    b.querySelector(".no").textContent = at >= 0 ? at + 1 : "";
+  });
+  const names = ["メイン","サブ","アクセント"];
+  $("picked").innerHTML = names.map((n,i) => {
+    const c = colors[i];
+    return c
+      ? `<div><i style="background:${c.hex}"></i>${n}<br>${c.name}</div>`
+      : `<div>${n}<label style="cursor:pointer;display:flex;flex-direction:column;align-items:center">＋自分で選ぶ<input type="color" data-slot="${i}" value="#cccccc"></label></div>`;
+  }).join("");
+  $("picked").querySelectorAll("input[type=color]").forEach(inp => {
+    inp.onchange = () => {
+      const slot = Math.min(+inp.dataset.slot, colors.length);
+      colors[slot] = {name:"指定色 " + inp.value, hex:inp.value};
+      renderColors();
+    };
+  });
+  updatePreview();
+  if (typeof saveDraft === "function") saveDraft();
+}
+
+// ---- motifs ----
+$("motifs").innerHTML = MOTIFS.map(([e,n]) =>
+  `<label><input type="checkbox" name="motif" value="${n}" data-e="${e}"><span><b>${e}</b>${n}</span></label>`).join("");
+
+// ---- preview ----
+function lum(hex){ return [1,3,5].map(i=>parseInt(hex.slice(i,i+2),16)/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4).reduce((a,v,i)=>a+v*[.2126,.7152,.0722][i],0); }
+function ink(hex){return lum(hex)>.179?"#262033":"#ffffff";}
+function mix(hex, w){ // mix with white
+  const n = parseInt(hex.slice(1),16), r=n>>16,g=n>>8&255,b=n&255;
+  const m = v => Math.round(v + (255-v)*w);
+  return `rgb(${m(r)},${m(g)},${m(b)})`;
+}
+function updatePreview(){
+  const pv = $("pv");
+  const c1 = colors[0]?.hex || "#f6a8c8";
+  const c3 = colors[2]?.hex || colors[1]?.hex || "#c3a2ee";
+  const c2 = colors[1] ? mix(colors[1].hex, .75) : mix(c1, .85);
+  pv.style.setProperty("--c1", c1);
+  pv.style.setProperty("--c2", c2);
+  pv.style.setProperty("--c3", c3);
+  const light = mix(c1,.45);
+  const bg = f.bg.value;
+  const BG = {
+    "グラデーション": `linear-gradient(135deg,${c1},${c3})`,
+    "単色": c1,
+    "ドット": `radial-gradient(#ffffff88 2.5px,transparent 3px) 0 0/16px 16px, ${c1}`,
+    "チェック": `repeating-conic-gradient(${c1} 0 25%, ${light} 0 50%) 0 0/22px 22px`,
+    "ストライプ": `repeating-linear-gradient(45deg,${c1} 0 9px,${light} 9px 18px)`,
+    "夜空": `radial-gradient(#fff 1px,transparent 1.6px) 0 0/18px 18px, radial-gradient(#fff9 1px,transparent 1.5px) 9px 9px/18px 18px, linear-gradient(#262046, ${c1})`
+  };
+  $("pvbg").style.background = BG[bg] || BG["グラデーション"];
+  const dark = bg === "夜空" || (bg !== "グラデーション" ? lum(c1) < .6 : (lum(c1)+lum(c3))/2 < .6);
+  $("pvname").style.color = $("pvsub").style.color = dark ? "#fff" : "#3d3550";
+  $("pvname").style.textShadow = dark ? "" : "0 1px 0 #fff8";
+
+  // font & layout
+  const fo = f.querySelector('input[name=font]:checked');
+  pv.style.setProperty("--pf", `"${fo.dataset.ff}"`);
+  const lo = f.querySelector('input[name=layout]:checked');
+  $("pvbody").className = "pvbody " + lo.dataset.l;
+
+  // name
+  $("pvname").textContent = f.elements.namedItem("name").value.trim() || "あなたの名前";
+
+  document.querySelector(".pvbtn").style.color = ink(c3);
+  document.querySelector(".pvtabs span").style.color = ink(c1);
+  const moods = [...f.querySelectorAll('input[name=mood]:checked')].map(x=>x.value);
+  $("pvsub").textContent = moods.length ? moods.join(" · ") : "official site";
+  const fs = [...f.querySelectorAll('input[name=features]:checked')].map(x=>x.value);
+  $("pvbody").querySelectorAll(".pvcard").forEach(x=>x.remove());
+  for(const label of fs){const el=document.createElement("div");el.className="pvcard";el.textContent=label;$("pvbody").insertBefore(el,$("pvbody").querySelector(".pvbtn"));}
+  const bt=$("pvbody").querySelector(".pvbtn");bt.hidden=!fs.includes("匿名メッセージ");bt.textContent="メッセージを送る";
+  $("pvbody").querySelector(".pvtabs").innerHTML=fs.map(x=>`<span>${esc(x.split("＋")[0])}</span>`).join("");
+  // motifs floating
+  pv.querySelectorAll(".floaty").forEach(x => x.remove());
+  const ems = [...f.querySelectorAll('input[name=motif]:checked')].map(x => x.dataset.e);
+  $("pvicon").textContent = ems[0] || "🙂";
+  const spots = [[6,8],[84,10],[12,62],[80,60],[44,4],[90,36],[2,36]];
+  ems.slice(0,7).forEach((e,i) => {
+    const s = document.createElement("span");
+    s.className = "floaty"; s.textContent = e;
+    s.style.left = spots[i][0] + "%"; s.style.top = spots[i][1] + "%";
+    s.style.animationDelay = (i*.5) + "s";
+    pv.querySelector(".pvtop").appendChild(s);
+  });
+}
+f.addEventListener("input", updatePreview);
+f.addEventListener("change", updatePreview);
+$("pvToggle").onclick = () => {
+  const m = $("pv").classList.toggle("mini");
+  $("pvToggle").textContent = m ? "大きくする" : "小さくする";
+};
+
+// ---- steps ----
+const pages = [...document.querySelectorAll(".page")];
+const dots = [...document.querySelectorAll("#steps span")];
+const next = $("next"), back = $("back"), err = $("err");
+let cur = 0;
+
+f.deadline.addEventListener("change", e => {
+  f.deadline_date.style.display = e.target.value === "日付を指定" ? "block" : "none";
+});
+
+const MULTI = ["platform","mood","motif","features"];
+function collect(){
+  const fd = new FormData(f), o = {};
+  for (const k of new Set(fd.keys())) {
+    const v = fd.getAll(k).filter(x => x !== "");
+    o[k] = MULTI.includes(k) ? v : (v[0] || "");
+  }
+  o.colors = colors.map((c,i) => `${["メイン","サブ","アクセント"][i]}：${c.name}（${c.hex}）`);
+  if (o.deadline === "日付を指定") o.deadline = o.deadline_date || "日付未入力";
+  delete o.deadline_date;
+  return o;
+}
+
+const LABELS = {name:"活動名",contact:"連絡先",platform:"活動場所",agency:"事務所",profile_url:"プロフィールページ",
+  colors:"色",bg:"背景",ng_color:"NGの色",mood:"雰囲気",motif:"モチーフ",motif_other:"ほかのモチーフ",ng_motif:"NGモチーフ",
+  font:"文字",layout:"つくり",reference:"参考",features:"ほしい機能",features_other:"ほかにほしいもの",
+  deadline:"希望時期",assets:"素材",message:"メッセージ"};
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt = v => Array.isArray(v) ? v.join("、") : v;
+
+function asText(o){
+  let t = "【HP制作 ご希望シート】\n";
+  for (const k in LABELS) if (fmt(o[k])) t += `■${LABELS[k]}\n${fmt(o[k])}\n`;
+  return t;
+}
+function renderConfirm(){
+  const o = collect();
+  let h = '<h2>✓ 内容の確認</h2><dl>';
+  for (const k in LABELS) if (fmt(o[k])) h += `<dt>${LABELS[k]}</dt><dd>${esc(fmt(o[k]))}</dd>`;
+  const edit = '<div class="edit-links">'+["色","モチーフ・雰囲気","文字とつくり","ほしい機能","あなたについて"].map((t,i)=>`<button type="button" class="mini-btn" data-edit="${i}">${t}を修正</button>`).join("")+"</div>";
+  $("confirm").innerHTML = h + "</dl>" + edit;
+  $("confirm").querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>{show(+b.dataset.edit);if(+b.dataset.edit===4)f.elements.namedItem("name").focus();});
+}
+
+function show(i){
+  pages[cur].classList.remove("on"); cur = i; pages[cur].classList.add("on");
+  dots.forEach((d,j) => d.classList.toggle("on", j <= cur));
+  back.style.display = cur ? "block" : "none";
+  const last = cur === pages.length - 1;
+  next.textContent = last ? (reviewing ? "この内容で送信する" : "内容を確認する") : "つぎへ";
+  $("stepLabel").textContent = `STEP ${cur+1} / 5 — ${["色","モチーフ・雰囲気","文字とつくり","ほしい機能","あなたについて"][cur]}`;
+  if (last) renderConfirm();
+  saveDraft();
+  err.textContent = "";
+  pages[cur].querySelector("h2").focus({preventScroll:true});
+  pages[cur].scrollIntoView({block:"start",behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth"});
+}
+function validate(all=false){
+  const scope=all?f:pages[cur];
+  const bad=[...scope.querySelectorAll("[required],input[type=url]")].find(el=>el.required?(el.type==="checkbox"?!el.checked:!el.value.trim()||!el.checkValidity()):!el.checkValidity());
+  if(bad){const pi=pages.findIndex(p=>p.contains(bad));if(pi>=0&&pi!==cur)show(pi);err.textContent=bad.type==="checkbox"?"個人情報の取り扱いへの同意を確認してください":bad.type==="url"?"URLは https:// から入力してください":"必須項目・入力内容を確認してください";bad.focus();return false;}
+  if(f.deadline.value==="日付を指定"&&!f.deadline_date.value){err.textContent="希望日付を入力してください";f.deadline_date.focus();return false;}
+  return true;
+}
+let reviewing=false, sending=false;
+function resetReview(){reviewing=false;$("confirm").classList.remove("reviewing");if(cur===4)next.textContent="内容を確認する";}
+f.addEventListener("input",resetReview); f.addEventListener("change",resetReview);
+back.onclick = () => {if(!sending){resetReview();show(cur - 1);}};
+next.onclick = async () => {
+  if(sending||!validate(cur===4))return;
+  if(cur<pages.length-1)return show(cur+1);
+  renderConfirm();
+  if(!reviewing){reviewing=true;next.textContent="この内容で送信する";$("confirm").classList.add("reviewing");$("confirm").scrollIntoView({block:"start",behavior:"smooth"});return;}
+  const o=collect();o.consent=true;
+  const body=JSON.stringify(o);
+  if(pending?.body!==body)pending={id:crypto.randomUUID(),body};
+  saveDraft();sending=true;[...f.elements].forEach(el=>el.disabled=true);$("clearDraft").disabled=true;next.disabled=back.disabled=true;next.textContent="送信中…";err.textContent="保存結果を確認しています。しばらくお待ちください";
+  const controller=new AbortController(), timeout=setTimeout(()=>controller.abort(),20000);
+  try {
+    const res=await fetch(SUPABASE_URL+"/functions/v1/hp-request-submit",{method:"POST",headers:{"Content-Type":"application/json",apikey:SUPABASE_ANON_KEY,Authorization:"Bearer "+HP_CONFIG.publicJwt},body:JSON.stringify({id:pending.id,data:o,website:f.website.value}),signal:controller.signal});
+    const result=await res.json();
+    if(!res.ok||result.id!==pending.id||!result.created_at)throw new Error(result.error||"保存を確認できませんでした");
+    f.hidden=true;f.style.display="none";$("steps").hidden=true;$("stepLabel").hidden=true;$("done").style.display="block";
+    $("copybox").textContent=asText(o)+"\n受付番号："+result.id+"\n送信日時："+new Date(result.created_at).toLocaleString("ja-JP");
+    $("doneText").textContent="ご希望を保存しました。内容を確認してご連絡します。控えをコピー・ダウンロードできます。";
+    try{localStorage.removeItem(DRAFT_KEY);}catch{}pending=null;
+    $("saveState").textContent="送信済み（この端末の下書きは削除しました）";scrollTo({top:0,behavior:"smooth"});
+  }catch(e){err.textContent=(e.name==="AbortError"?"通信が時間切れになりました。保存済みの可能性があります。同じ内容で再送しても重複しません。":"送信結果を確認できませんでした："+e.message)+" 入力は残っています。接続を確認して再送してください。";}
+  finally{clearTimeout(timeout);sending=false;[...f.elements].forEach(el=>el.disabled=false);$("clearDraft").disabled=false;next.disabled=back.disabled=false;next.textContent="この内容で送信する";}
+};
+$("copyBtn").onclick = async () => {
+  const t = $("copybox").textContent;
+  try { await navigator.clipboard.writeText(t); }
+  catch(e){
+    const r = document.createRange(); r.selectNodeContents($("copybox"));
+    const s = getSelection(); s.removeAllRanges(); s.addRange(r); if(!document.execCommand("copy")){ $("copyBtn").textContent="内容を長押ししてコピーしてください"; return; }
+  }
+  $("copyBtn").textContent = "コピーしました ✓";
+  setTimeout(() => $("copyBtn").textContent = "内容をコピー", 2000);
+};
+
+const DRAFT_KEY="hp_request_draft_v1";
+let pending=null, restoring=true;
+function saveDraft(){if(restoring||sending)return;try{const fields=[...f.elements].filter(x=>x.name&&x.name!=="website").map(x=>({name:x.name,value:x.value,checked:x.checked,type:x.type}));localStorage.setItem(DRAFT_KEY,JSON.stringify({fields,colors,step:cur,mini:$("pv").classList.contains("mini"),pending,savedAt:Date.now()}));$("saveState").textContent="この端末に自動保存済み（30日間）";}catch{$("saveState").textContent="この端末では自動保存できません。画面を閉じずに入力してください";}}
+try{const d=JSON.parse(localStorage.getItem(DRAFT_KEY)||"null");if(d&&Date.now()-d.savedAt<30*86400000){for(const v of d.fields||[]){for(const el of [...f.elements].filter(el=>el.name===v.name)){if(el.type==="checkbox"||el.type==="radio"){if(el.value===v.value)el.checked=!!v.checked;}else el.value=v.value;}}colors=(d.colors||[]).filter(c=>/^#[0-9a-f]{6}$/i.test(c.hex)).slice(0,3);pending=d.pending;$("pv").classList.toggle("mini",!!d.mini);cur=0;show(Math.max(0,Math.min(4,d.step||0)));}else if(d){localStorage.removeItem(DRAFT_KEY);}}catch{}
+restoring=false;
+f.deadline_date.style.display=f.deadline.value==="日付を指定"?"block":"none";
+$("pvToggle").textContent=$("pv").classList.contains("mini")?"大きくする":"小さくする";
+f.addEventListener("input",saveDraft); f.addEventListener("change",saveDraft);
+$("pvToggle").addEventListener("click",saveDraft);
+$("clearDraft").onclick=()=>{if(!confirm("この端末の入力内容を消して、はじめから入力しますか？"))return;try{localStorage.removeItem(DRAFT_KEY);}catch{}location.reload();};
+$("downloadBtn").onclick=()=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([$("copybox").textContent],{type:"text/plain;charset=utf-8"}));a.download="HP制作_送信控え.txt";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);};
+f.addEventListener("submit",e=>{e.preventDefault();if(!sending)next.click();});
+f.querySelectorAll(".page h2").forEach(x=>x.tabIndex=-1);
+renderColors();updatePreview();
+
+// ---- app (PWA) ----
+setTimeout(() => $("splash").classList.add("out"), 900);
+setTimeout(() => $("splash").remove(), 1500);
+if ("serviceWorker" in navigator) {
+  addEventListener("load", () => navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(reg=>reg.update()).catch(() => {}));
+}
+const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone;
+let dismissed = false;
+try { dismissed = localStorage.getItem("hp_install_x") === "1"; } catch(e) {}
+let deferred = null;
+if (!standalone && !dismissed) {
+  addEventListener("beforeinstallprompt", e => {
+    e.preventDefault(); deferred = e; $("install").style.display = "flex";
+  });
+  const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  if (ios) {
+    $("installHint").textContent = "Safariの共有ボタン →「ホーム画面に追加」";
+    $("installBtn").style.display = "none";
+    $("install").style.display = "flex";
+  }
+}
+$("installBtn").onclick = async () => {
+  if (!deferred) return;
+  deferred.prompt(); await deferred.userChoice; deferred = null;
+  $("install").style.display = "none";
+};
+$("installX").onclick = () => {
+  $("install").style.display = "none";
+  try { localStorage.setItem("hp_install_x", "1"); } catch(e) {}
+};
+</script>
+</body>
+</html>
