@@ -15,3 +15,4 @@ input[type=text],input[type=url],input[type=date],input[type=email],input[type=p
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
 .pvname,.pvsub{color:#262033!important;background:#fffffff2;width:fit-content;margin-inline:auto;padding:2px 8px;border-radius:8px}.pvsub{margin-top:4px}
+[hidden]{display:none!important}
