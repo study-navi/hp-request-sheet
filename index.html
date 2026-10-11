@@ -222,9 +222,9 @@ button:disabled{opacity:.5}
         </div>
         <label class="q">入れたいモチーフ（いくつでも）</label>
         <div class="motifs" id="motifs"></div>
-        <label class="q">ほかのモチーフ・好きなもの</label>
+        <label class="q" for="field-motif_other">ほかのモチーフ・好きなもの</label>
         <p class="hint">推し・好きな食べ物・口ぐせなど、なんでも</p>
-        <input type="text" maxlength="300" name="motif_other" placeholder="例：たぬき、目玉焼き">
+        <input type="text" maxlength="300" id="field-motif_other" name="motif_other" placeholder="例：たぬき、目玉焼き">
         <label class="q" for="field-ng_motif">使ってほしくないモチーフ</label>
         <input type="text" maxlength="300" name="ng_motif" id="field-ng_motif" placeholder="例：ハートはなし">
       </div>
@@ -326,7 +326,7 @@ button:disabled{opacity:.5}
     <button type="button" class="big-btn primary" id="copyBtn" style="width:100%">内容をコピー</button>
     <button type="button" class="big-btn ghost" id="downloadBtn" style="width:100%;margin-top:8px">控えをダウンロード</button>
   </div>
-  <footer><a href="admin.html">制作担当者の管理画面</a><p>ご希望シート · v1.0.0</p></footer>
+  <footer><a href="admin.html">制作担当者の管理画面</a><p>ご希望シート · v1.0.1</p></footer>
 </div>
 
 <script src="config.js"></script>
@@ -482,6 +482,7 @@ function collect(){
   o.colors = colors.map((c,i) => `${["メイン","サブ","アクセント"][i]}：${c.name}（${c.hex}）`);
   if (o.deadline === "日付を指定") o.deadline = o.deadline_date || "日付未入力";
   delete o.deadline_date;
+  delete o.website;
   return o;
 }
 
