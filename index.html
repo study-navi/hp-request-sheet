@@ -150,12 +150,13 @@ button:disabled{opacity:.5}
   </div>
   <header>
     <h1>✦ HP制作 ご希望シート</h1>
-    <p>選ぶと上のイメージが変わります。わからない所はとばしてOK</p>
+    <p>選んでも、文章で書いてもOK。決まっていないところは空欄で進めます。</p>
   </header>
 
   <div class="pvbox">
-    <div class="pvlabel"><span>イメージ（あくまで雰囲気です）</span><button type="button" id="pvToggle">小さくする</button></div>
-    <div id="pv">
+    <div class="pvlabel"><span>選択内容のプレビュー</span><button type="button" id="pvToggle">プレビューを開く</button></div>
+    <p class="text-preview-notice" hidden>文章で伝える内容は、そのまま制作担当者に届きます。自由記述からイメージを自動生成する機能はありません。</p>
+    <div id="pv" class="mini">
       <div class="pvtop"><div class="bgl" id="pvbg"></div>
         <div class="pvicon" id="pvicon">🙂</div>
         <div class="pvname" id="pvname">あなたの名前</div>
@@ -170,11 +171,12 @@ button:disabled{opacity:.5}
     </div>
   </div>
 
-  <div class="steps" id="steps"><span class="on"></span><span></span><span></span><span></span><span></span></div>
+  <div class="steps" id="steps"><span class="on"><b>1</b>色・背景</span><span><b>2</b>雰囲気</span><span><b>3</b>文字・構成</span><span><b>4</b>機能</span><span><b>5</b>連絡先</span></div>
 
   <p id="stepLabel" class="hint" aria-live="polite">STEP 1 / 5 — 色</p>
   <div class="save-row"><small id="saveState" role="status">この端末に自動保存します</small><button type="button" class="mini-btn" id="clearDraft">下書きを消す</button></div>
   <form id="f" novalidate>
+  <fieldset class="input-mode"><legend>希望の伝え方</legend><p>どちらでも、同じように送信できます。途中で変更しても入力は残ります。</p><div><label><input type="radio" name="input_mode" value="選択肢と文章" checked><span>選択肢＋自由記述<small>見本から選んで、文章も添える</small></span></label><label><input type="radio" name="input_mode" value="文章だけ"><span>自由記述だけ<small>自分の言葉で希望を伝える</small></span></label></div></fieldset>
   <div class="honeypot" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
     <!-- 1 色 -->
     <div class="page on">
@@ -187,6 +189,7 @@ button:disabled{opacity:.5}
           <span class="hint" style="margin:0;flex:1">パレットにない色は「＋自分で選ぶ」で指定できます</span>
           <button type="button" class="mini-btn" id="clearColor">リセット</button>
         </div>
+<div class="free-field"><label class="q" for="field-color_notes">色の希望を文章で伝える<span class="optional">任意</span></label><textarea name="color_notes" id="field-color_notes" maxlength="3000" placeholder="例：青を中心に、白と銀を少し。濃すぎない色合いが好きです。"></textarea><small>選択肢にない希望や「おまかせ」でも大丈夫です。</small></div>
         <label class="q">背景の感じ</label>
         <div class="opts" id="bgopts">
           <label><input type="radio" name="bg" value="グラデーション" checked><span><div class="thumb" style="background:linear-gradient(135deg,#f6a8c8,#c3a2ee)"></div>グラデーション</span></label>
@@ -196,6 +199,7 @@ button:disabled{opacity:.5}
           <label><input type="radio" name="bg" value="ストライプ"><span><div class="thumb" style="background:repeating-linear-gradient(45deg,#f6a8c8 0 6px,#f9c6dc 6px 12px)"></div>ストライプ</span></label>
           <label><input type="radio" name="bg" value="夜空"><span><div class="thumb" style="background:radial-gradient(#fff 1px,transparent 1.5px) 0 0/10px 10px,linear-gradient(#2c2550,#5a4b8f)"></div>夜空・キラキラ</span></label>
         </div>
+<div class="free-field"><label class="q" for="field-bg_notes">背景の希望を文章で伝える<span class="optional">任意</span></label><textarea name="bg_notes" id="field-bg_notes" maxlength="3000" placeholder="例：水彩のような背景。夜空だけど暗くなりすぎない感じ。"></textarea><small>選択肢にない希望や「おまかせ」でも大丈夫です。</small></div>
         <label class="q" for="field-ng_color">使ってほしくない色</label>
         <input type="text" maxlength="300" name="ng_color" id="field-ng_color" placeholder="例：赤は苦手">
       </div>
@@ -220,11 +224,12 @@ button:disabled{opacity:.5}
           <label><input type="checkbox" name="mood" value="レトロ"><span>レトロ</span></label>
           <label><input type="checkbox" name="mood" value="シンプル"><span>シンプル</span></label>
         </div>
+<div class="free-field"><label class="q" for="field-mood_notes">雰囲気の希望を文章で伝える<span class="optional">任意</span></label><textarea name="mood_notes" id="field-mood_notes" maxlength="3000" placeholder="例：かわいいけれど子どもっぽすぎない、落ち着いた雰囲気。"></textarea><small>選択肢にない希望や「おまかせ」でも大丈夫です。</small></div>
         <label class="q">入れたいモチーフ（いくつでも）</label>
         <div class="motifs" id="motifs"></div>
-        <label class="q" for="field-motif_other">ほかのモチーフ・好きなもの</label>
+        <label class="q" for="field-motif_other">モチーフ・好きなものを自由に書く<span class="optional">任意</span></label>
         <p class="hint">推し・好きな食べ物・口ぐせなど、なんでも</p>
-        <input type="text" maxlength="300" id="field-motif_other" name="motif_other" placeholder="例：たぬき、目玉焼き">
+        <textarea name="motif_other" id="field-motif_other" maxlength="3000" placeholder="例：海とクラゲ。星や月も少し入れたい。キャラクターは使わない。"></textarea>
         <label class="q" for="field-ng_motif">使ってほしくないモチーフ</label>
         <input type="text" maxlength="300" name="ng_motif" id="field-ng_motif" placeholder="例：ハートはなし">
       </div>
@@ -243,6 +248,7 @@ button:disabled{opacity:.5}
           <label><input type="radio" name="font" value="すっきり" data-ff="M PLUS 1p"><span><em style="font-family:'M PLUS 1p'">あいうえお</em>すっきり</span></label>
           <label><input type="radio" name="font" value="おまかせ" data-ff="Zen Maru Gothic"><span><em>？</em>おまかせ</span></label>
         </div>
+<div class="free-field"><label class="q" for="field-font_notes">文字の希望を文章で伝える<span class="optional">任意</span></label><textarea name="font_notes" id="field-font_notes" maxlength="3000" placeholder="例：細めで読みやすい文字。タイトルだけ手書き風にしたい。"></textarea><small>選択肢にない希望や「おまかせ」でも大丈夫です。</small></div>
         <label class="q">ページのつくり</label>
         <div class="opts">
           <label><input type="radio" name="layout" value="縦に長い1ページ" data-l="" checked><span><em>📜</em>縦に長い1ページ<small>スクロールで全部見られる</small></span></label>
@@ -250,6 +256,7 @@ button:disabled{opacity:.5}
           <label><input type="radio" name="layout" value="カードを並べる" data-l="cards"><span><em>🧩</em>カードを並べる<small>見たい所をタップ</small></span></label>
           <label><input type="radio" name="layout" value="おまかせ" data-l=""><span><em>？</em>おまかせ</span></label>
         </div>
+<div class="free-field"><label class="q" for="field-layout_notes">ページ構成の希望を文章で伝える<span class="optional">任意</span></label><textarea name="layout_notes" id="field-layout_notes" maxlength="3000" placeholder="例：最初に大きなイラスト、次にプロフィール。SNSのリンクは下にまとめたい。"></textarea><small>選択肢にない希望や「おまかせ」でも大丈夫です。</small></div>
         <label class="q" for="field-reference">参考にしたいサイト・画像</label>
         <textarea maxlength="3000" name="reference" id="field-reference" placeholder="URLや「◯◯さんのHPのこの感じ」など"></textarea>
       </div>
@@ -268,8 +275,8 @@ button:disabled{opacity:.5}
           <label><input type="checkbox" name="features" value="おみくじ・スタンプカード"><div>おみくじ・スタンプカード<small>リスナーが毎日遊べる</small></div></label>
           <label><input type="checkbox" name="features" value="アプリ化＋オープニング"><div>アプリ化＋オープニング演出<small>ホーム画面にアイコンで置ける</small></div></label>
         </div>
-        <label class="q" for="field-features_other">ほかにほしいもの</label>
-        <textarea maxlength="3000" name="features_other" id="field-features_other" placeholder="自由にどうぞ"></textarea>
+        <label class="q" for="field-features_other">必要な機能・使い方を自由に書く<span class="optional">任意</span></label>
+        <textarea maxlength="3000" name="features_other" id="field-features_other" placeholder="例：歌のリクエストを受け付けたい。イベント時だけお知らせを出したい。"></textarea>
       </div>
     </div>
 
@@ -290,6 +297,7 @@ button:disabled{opacity:.5}
           <label><input type="checkbox" name="platform" value="Twitch"><span>Twitch</span></label>
           <label><input type="checkbox" name="platform" value="その他"><span>その他</span></label>
         </div>
+<div class="free-field"><label class="q" for="field-platform_other">活動場所を自由に書く<span class="optional">任意</span></label><textarea name="platform_other" id="field-platform_other" maxlength="3000" placeholder="例：ツイキャスとYouTube。今後はライブ活動もしたい。"></textarea><small>選択肢にない希望や「おまかせ」でも大丈夫です。</small></div>
         <label class="q" for="field-agency">事務所・グループ</label>
         <input type="text" maxlength="300" name="agency" id="field-agency" placeholder="個人なら空欄でOK">
         <label class="q" for="field-profile_url">今あるプロフィールページ</label>
@@ -299,11 +307,13 @@ button:disabled{opacity:.5}
           <option value="">特になし</option><option>1週間以内</option><option>2週間以内</option><option>1か月以内</option><option>日付を指定</option>
         </select>
         <input type="date" name="deadline_date" aria-label="希望の日付" style="margin-top:8px;display:none">
+<div class="free-field"><label class="q" for="field-deadline_other">希望時期・スケジュールを自由に書く<span class="optional">任意</span></label><textarea name="deadline_other" id="field-deadline_other" maxlength="3000" placeholder="例：誕生日の12月10日までに。急ぎではないので相談して決めたい。"></textarea><small>選択肢にない希望や「おまかせ」でも大丈夫です。</small></div>
         <label class="q">アイコン・立ち絵などの素材</label>
         <div class="chips">
           <label><input type="radio" name="assets" value="ある（あとで送る）"><span>ある（あとで送る）</span></label>
           <label><input type="radio" name="assets" value="まだない"><span>まだない</span></label>
         </div>
+<div class="free-field"><label class="q" for="field-assets_other">使いたい素材・画像について自由に書く<span class="optional">任意</span></label><textarea name="assets_other" id="field-assets_other" maxlength="3000" placeholder="例：立ち絵はあります。ロゴは相談したい。画像はあとでDMで送ります。"></textarea><small>選択肢にない希望や「おまかせ」でも大丈夫です。</small></div>
         <label class="q" for="field-message">メッセージ・相談したいこと</label>
         <textarea maxlength="3000" name="message" id="field-message"></textarea>
       </div>
@@ -326,7 +336,7 @@ button:disabled{opacity:.5}
     <button type="button" class="big-btn primary" id="copyBtn" style="width:100%">内容をコピー</button>
     <button type="button" class="big-btn ghost" id="downloadBtn" style="width:100%;margin-top:8px">控えをダウンロード</button>
   </div>
-  <footer><a href="admin.html">制作担当者の管理画面</a><p>ご希望シート · v1.0.1</p></footer>
+  <footer><a href="admin.html">制作担当者の管理画面</a><p>ご希望シート · v1.1.0</p></footer>
 </div>
 
 <script src="config.js"></script>
@@ -353,7 +363,7 @@ let colors = [];          // [{name,hex}]
 
 // ---- color palette ----
 $("sw").innerHTML = PALETTE.map(([n,h],i) =>
-  `<button type="button" data-i="${i}" title="${n}" aria-label="${n}" style="background:${h}"><span class="no"></span></button>`).join("");
+  `<button type="button" data-i="${i}" title="${n}" aria-label="${n}" style="--swatch:${h}"><span class="no"></span><span class="color-name">${n}</span></button>`).join("");
 $("sw").onclick = e => {
   const b = e.target.closest("button"); if (!b) return;
   const [name,hex] = PALETTE[b.dataset.i];
@@ -370,6 +380,8 @@ function renderColors(){
     const at = colors.findIndex(c => c.hex === PALETTE[b.dataset.i][1]);
     b.classList.toggle("sel", at >= 0);
     b.querySelector(".no").textContent = at >= 0 ? at + 1 : "";
+    b.querySelector(".no").style.color = ink(PALETTE[b.dataset.i][1]);
+    b.setAttribute("aria-pressed",at>=0);
   });
   const names = ["メイン","サブ","アクセント"];
   $("picked").innerHTML = names.map((n,i) => {
@@ -403,6 +415,11 @@ function mix(hex, w){ // mix with white
 }
 function updatePreview(){
   const pv = $("pv");
+  const textOnly=f.elements.namedItem("input_mode").value==="文章だけ";
+  document.body.classList.toggle("text-only",textOnly);
+  document.querySelector(".text-preview-notice").hidden=false;
+  document.querySelector(".text-preview-notice").textContent=textOnly?"文章で書いた希望をそのまま送信します。自由記述からプレビューを自動生成する機能はありません。":"プレビューは選択肢を反映した参考イメージです。自由記述の希望は自動反映されませんが、文章のまま送信されます。";
+  $("pvToggle").hidden=textOnly;
   const c1 = colors[0]?.hex || "#f6a8c8";
   const c3 = colors[2]?.hex || colors[1]?.hex || "#c3a2ee";
   const c2 = colors[1] ? mix(colors[1].hex, .75) : mix(c1, .85);
@@ -459,7 +476,7 @@ f.addEventListener("input", updatePreview);
 f.addEventListener("change", updatePreview);
 $("pvToggle").onclick = () => {
   const m = $("pv").classList.toggle("mini");
-  $("pvToggle").textContent = m ? "大きくする" : "小さくする";
+  $("pvToggle").textContent = m ? "プレビューを開く" : "プレビューを閉じる";
 };
 
 // ---- steps ----
@@ -483,10 +500,11 @@ function collect(){
   if (o.deadline === "日付を指定") o.deadline = o.deadline_date || "日付未入力";
   delete o.deadline_date;
   delete o.website;
+  if(o.input_mode === "文章だけ") for(const k of ["colors","bg","mood","motif","font","layout","features","platform","deadline","assets"]) delete o[k];
   return o;
 }
 
-const LABELS = {name:"活動名",contact:"連絡先",platform:"活動場所",agency:"事務所",profile_url:"プロフィールページ",
+const LABELS = {input_mode:"希望の伝え方",color_notes:"色の希望（自由記述）",bg_notes:"背景の希望（自由記述）",mood_notes:"雰囲気（自由記述）",font_notes:"文字（自由記述）",layout_notes:"ページ構成（自由記述）",platform_other:"活動場所（自由記述）",deadline_other:"希望時期（自由記述）",assets_other:"素材（自由記述）",name:"活動名",contact:"連絡先",platform:"活動場所",agency:"事務所",profile_url:"プロフィールページ",
   colors:"色",bg:"背景",ng_color:"NGの色",mood:"雰囲気",motif:"モチーフ",motif_other:"ほかのモチーフ",ng_motif:"NGモチーフ",
   font:"文字",layout:"つくり",reference:"参考",features:"ほしい機能",features_other:"ほかにほしいもの",
   deadline:"希望時期",assets:"素材",message:"メッセージ"};
@@ -507,16 +525,17 @@ function renderConfirm(){
   $("confirm").querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>{show(+b.dataset.edit);if(+b.dataset.edit===4)f.elements.namedItem("name").focus();});
 }
 
-function show(i){
+function show(i,move=true){
   pages[cur].classList.remove("on"); cur = i; pages[cur].classList.add("on");
-  dots.forEach((d,j) => d.classList.toggle("on", j <= cur));
+  dots.forEach((d,j) => {d.classList.toggle("on", j <= cur);d.classList.toggle("current",j===cur);if(j===cur)d.setAttribute("aria-current","step");else d.removeAttribute("aria-current");});
   back.style.display = cur ? "block" : "none";
   const last = cur === pages.length - 1;
-  next.textContent = last ? (reviewing ? "この内容で送信する" : "内容を確認する") : "つぎへ";
+  next.textContent = last ? (reviewing ? "この内容で送信する" : "入力内容を確認する") : `次へ：${["","雰囲気","文字・構成","機能","連絡先"][cur+1]}`;
   $("stepLabel").textContent = `STEP ${cur+1} / 5 — ${["色","モチーフ・雰囲気","文字とつくり","ほしい機能","あなたについて"][cur]}`;
   if (last) renderConfirm();
   saveDraft();
   err.textContent = "";
+  if(!move)return;
   pages[cur].querySelector("h2").focus({preventScroll:true});
   pages[cur].scrollIntoView({block:"start",behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth"});
 }
@@ -524,11 +543,11 @@ function validate(all=false){
   const scope=all?f:pages[cur];
   const bad=[...scope.querySelectorAll("[required],input[type=url]")].find(el=>el.required?(el.type==="checkbox"?!el.checked:!el.value.trim()||!el.checkValidity()):!el.checkValidity());
   if(bad){const pi=pages.findIndex(p=>p.contains(bad));if(pi>=0&&pi!==cur)show(pi);err.textContent=bad.type==="checkbox"?"個人情報の取り扱いへの同意を確認してください":bad.type==="url"?"URLは https:// から入力してください":"必須項目・入力内容を確認してください";bad.focus();return false;}
-  if(f.deadline.value==="日付を指定"&&!f.deadline_date.value){err.textContent="希望日付を入力してください";f.deadline_date.focus();return false;}
+  if(f.elements.namedItem("input_mode").value!=="文章だけ"&&f.deadline.value==="日付を指定"&&!f.deadline_date.value){err.textContent="希望日付を入力してください";f.deadline_date.focus();return false;}
   return true;
 }
 let reviewing=false, sending=false;
-function resetReview(){reviewing=false;$("confirm").classList.remove("reviewing");if(cur===4)next.textContent="内容を確認する";}
+function resetReview(){reviewing=false;$("confirm").classList.remove("reviewing");if(cur===4)next.textContent="入力内容を確認する";}
 f.addEventListener("input",resetReview); f.addEventListener("change",resetReview);
 back.onclick = () => {if(!sending){resetReview();show(cur - 1);}};
 next.onclick = async () => {
@@ -538,6 +557,7 @@ next.onclick = async () => {
   if(!reviewing){reviewing=true;next.textContent="この内容で送信する";$("confirm").classList.add("reviewing");$("confirm").scrollIntoView({block:"start",behavior:"smooth"});return;}
   const o=collect();o.consent=true;
   const body=JSON.stringify(o);
+  if(new TextEncoder().encode(body).length>22000){err.textContent="全体の入力内容が長すぎます。文章を少し短くしてから送信してください。";return;}
   if(pending?.body!==body)pending={id:crypto.randomUUID(),body};
   saveDraft();sending=true;[...f.elements].forEach(el=>el.disabled=true);$("clearDraft").disabled=true;next.disabled=back.disabled=true;next.textContent="送信中…";err.textContent="保存結果を確認しています。しばらくお待ちください";
   const controller=new AbortController(), timeout=setTimeout(()=>controller.abort(),20000);
@@ -570,14 +590,23 @@ function saveDraft(){if(restoring||sending)return;try{const fields=[...f.element
 try{const d=JSON.parse(localStorage.getItem(DRAFT_KEY)||"null");if(d&&Date.now()-d.savedAt<30*86400000){for(const v of d.fields||[]){for(const el of [...f.elements].filter(el=>el.name===v.name)){if(el.type==="checkbox"||el.type==="radio"){if(el.value===v.value)el.checked=!!v.checked;}else el.value=v.value;}}colors=(d.colors||[]).filter(c=>/^#[0-9a-f]{6}$/i.test(c.hex)).slice(0,3);pending=d.pending;$("pv").classList.toggle("mini",!!d.mini);cur=0;show(Math.max(0,Math.min(4,d.step||0)));}else if(d){localStorage.removeItem(DRAFT_KEY);}}catch{}
 restoring=false;
 f.deadline_date.style.display=f.deadline.value==="日付を指定"?"block":"none";
-$("pvToggle").textContent=$("pv").classList.contains("mini")?"大きくする":"小さくする";
+$("pvToggle").textContent=$("pv").classList.contains("mini")?"プレビューを開く":"プレビューを閉じる";
 f.addEventListener("input",saveDraft); f.addEventListener("change",saveDraft);
 $("pvToggle").addEventListener("click",saveDraft);
 $("clearDraft").onclick=()=>{if(!confirm("この端末の入力内容を消して、はじめから入力しますか？"))return;try{localStorage.removeItem(DRAFT_KEY);}catch{}location.reload();};
 $("downloadBtn").onclick=()=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([$("copybox").textContent],{type:"text/plain;charset=utf-8"}));a.download="HP制作_送信控え.txt";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);};
 f.addEventListener("submit",e=>{e.preventDefault();if(!sending)next.click();});
 f.querySelectorAll(".page h2").forEach(x=>x.tabIndex=-1);
-renderColors();updatePreview();
+// Mark selection areas; the text-only mode omits their values without erasing them.
+for(const el of f.querySelectorAll(".sw,.picked,.opts,.chips,.motifs,.feat")){
+ el.classList.add("choice-area");
+ const prev=el.previousElementSibling;if(prev?.matches("label.q"))prev.classList.add("choice-area");
+}
+$("clearColor").closest(".row").classList.add("choice-area");
+$("sw").previousElementSibling.classList.add("choice-area");
+for(const name of ["deadline","deadline_date"]){const el=f.elements.namedItem(name);el.classList.add("choice-area");if(el.previousElementSibling?.matches("label.q"))el.previousElementSibling.classList.add("choice-area");}
+
+renderColors();updatePreview();show(cur,false);
 
 // ---- app (PWA) ----
 setTimeout(() => $("splash").classList.add("out"), 900);

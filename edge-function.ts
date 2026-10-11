@@ -1,7 +1,7 @@
 // Public submission API. The gateway verifies the public anon JWT.
 // Service-role credentials exist only in Supabase runtime secrets.
 const origin = 'https://study-navi.github.io';
-const allowed = new Set(['name','contact','platform','agency','profile_url','colors','bg','ng_color','mood','motif','motif_other','ng_motif','font','layout','reference','features','features_other','deadline','assets','message','consent']);
+const allowed = new Set(['name','contact','platform','agency','profile_url','colors','bg','ng_color','mood','motif','motif_other','ng_motif','font','layout','reference','features','features_other','deadline','assets','message','consent','input_mode','color_notes','bg_notes','mood_notes','font_notes','layout_notes','platform_other','deadline_other','assets_other']);
 const lists = new Set(['platform','colors','mood','motif','features']);
 Deno.serve(async req => {
  const headers = {'Content-Type':'application/json','Access-Control-Allow-Origin':origin,'Access-Control-Allow-Headers':'authorization,apikey,content-type','Access-Control-Allow-Methods':'POST,OPTIONS','Cache-Control':'no-store','Vary':'Origin'};
@@ -16,11 +16,12 @@ Deno.serve(async req => {
   if(website)return reply({error:'入力内容を確認してください'},400);
   if(typeof id!=='string'||!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id))return reply({error:'受付番号が不正です'},400);
   if(!data||typeof data!=='object'||Array.isArray(data)||data.consent!==true)return reply({error:'同意・入力内容を確認してください'},400);
+  if(new TextEncoder().encode(JSON.stringify(data)).length>22000)return reply({error:'全体の入力内容が長すぎます。文章を少し短くしてください'},413);
   for(const [key,value] of Object.entries(data)){
    if(!allowed.has(key))return reply({error:'入力項目が不正です'},400);
    if(key==='consent')continue;
    if(lists.has(key)){if(!Array.isArray(value)||value.length>(key==='colors'?3:24)||value.some(x=>typeof x!=='string'||x.length>150))return reply({error:'選択内容が不正です'},400);}
-   else if(typeof value!=='string'||value.length>(['message','reference','features_other'].includes(key)?3000:key==='profile_url'?2000:300))return reply({error:'入力が長すぎます'},400);
+   else if(typeof value!=='string'||value.length>(['message','reference','features_other','motif_other','color_notes','bg_notes','mood_notes','font_notes','layout_notes','platform_other','deadline_other','assets_other'].includes(key)?3000:key==='profile_url'?2000:300))return reply({error:'入力が長すぎます'},400);
   }
   if(typeof data.name!=='string'||!data.name.trim()||data.name.length>100||typeof data.contact!=='string'||!data.contact.trim())return reply({error:'活動名と連絡先は必須です'},400);
   if(data.profile_url&&!/^https?:\/\//i.test(data.profile_url))return reply({error:'プロフィールURLを確認してください'},400);

@@ -1,6 +1,6 @@
 'use strict';
 const $=id=>document.getElementById(id),STATUSES=['未対応','確認中','連絡済み','制作中','完了','保留','アーカイブ'];
-const LABELS={name:'活動名',contact:'連絡先',platform:'活動場所',agency:'事務所',profile_url:'プロフィールページ',colors:'色',bg:'背景',ng_color:'NGの色',mood:'雰囲気',motif:'モチーフ',motif_other:'ほかのモチーフ',ng_motif:'NGモチーフ',font:'文字',layout:'つくり',reference:'参考',features:'ほしい機能',features_other:'ほかにほしいもの',deadline:'希望時期',assets:'素材',message:'メッセージ',consent:'個人情報の取り扱いへの同意'};
+const LABELS={input_mode:"希望の伝え方",color_notes:"色の希望（自由記述）",bg_notes:"背景の希望（自由記述）",mood_notes:"雰囲気（自由記述）",font_notes:"文字（自由記述）",layout_notes:"ページ構成（自由記述）",platform_other:"活動場所（自由記述）",deadline_other:"希望時期（自由記述）",assets_other:"素材（自由記述）",name:'活動名',contact:'連絡先',platform:'活動場所',agency:'事務所',profile_url:'プロフィールページ',colors:'色',bg:'背景',ng_color:'NGの色',mood:'雰囲気',motif:'モチーフ',motif_other:'ほかのモチーフ',ng_motif:'NGモチーフ',font:'文字',layout:'つくり',reference:'参考',features:'ほしい機能',features_other:'ほかにほしいもの',deadline:'希望時期',assets:'素材',message:'メッセージ',consent:'個人情報の取り扱いへの同意'};
 let session=null,rows=[],busy=false,selected=null;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmt=v=>Array.isArray(v)?v.join('、'):v===true?'同意済み':String(v??'');
