@@ -1,6 +1,6 @@
 'use strict';
-const CACHE='hp-request-sheet-v1.3.5';
-const FILES=['./','index.html','app.css?v=1.3.1','config.js','manifest.json','icon-192.png','icon-512.png','apple-touch-icon.png'];
+const CACHE='hp-request-sheet-v1.3.6';
+const FILES=['./','index.html','app.css?v=1.3.6','config.js','manifest.json','icon-192.png?v=1.3.6','icon-512.png?v=1.3.6','apple-touch-icon.png?v=1.3.6'];
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES)));});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('hp-request-sheet-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
 self.addEventListener('fetch',event=>{
