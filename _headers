@@ -1,0 +1,19 @@
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Cache-Control: public, max-age=0, must-revalidate
+
+/admin*
+  Cache-Control: no-store
+  Referrer-Policy: no-referrer
+
+/reset-password*
+  Cache-Control: no-store
+  Referrer-Policy: no-referrer
+
+/config.js
+  Cache-Control: no-store
+
+/sw.js
+  Cache-Control: no-cache

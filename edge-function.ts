@@ -1,12 +1,14 @@
 // Public submission API. The gateway verifies the public anon JWT.
 // Service-role credentials exist only in Supabase runtime secrets.
-const origin = 'https://study-navi.github.io';
+const origins = new Set(['https://study-navi.github.io','https://homepage-request.baystars1899.chatgpt.site','https://homepage-request.vercel.app','https://homepage-request-sheet.netlify.app']);
 const allowed = new Set(['name','contact','platform','agency','profile_url','colors','bg','ng_color','mood','motif','motif_other','ng_motif','font','layout','reference','features','features_other','deadline','assets','message','consent','input_mode','color_notes','bg_notes','mood_notes','font_notes','layout_notes','platform_other','deadline_other','assets_other']);
 const lists = new Set(['platform','colors','mood','motif','features']);
 Deno.serve(async req => {
+ const requestOrigin=req.headers.get('origin');
+ const origin=requestOrigin&&origins.has(requestOrigin)?requestOrigin:'https://homepage-request-sheet.netlify.app';
  const headers = {'Content-Type':'application/json','Access-Control-Allow-Origin':origin,'Access-Control-Allow-Headers':'authorization,apikey,content-type','Access-Control-Allow-Methods':'POST,OPTIONS','Cache-Control':'no-store','Vary':'Origin'};
  const reply = (v:unknown,status=200)=>new Response(JSON.stringify(v),{status,headers});
- if(req.headers.get('origin') && req.headers.get('origin')!==origin)return reply({error:'この送信元は許可されていません'},403);
+ if(requestOrigin && !origins.has(requestOrigin))return reply({error:'この送信元は許可されていません'},403);
  if(req.method==='OPTIONS')return new Response(null,{status:204,headers});
  if(req.method!=='POST')return reply({error:'送信方法が違います'},405);
  if(Number(req.headers.get('content-length')||0)>30000)return reply({error:'入力が長すぎます'},413);
@@ -42,3 +44,4 @@ Deno.serve(async req => {
   return reply({id:row.id,created_at:row.created_at},201);
  }catch{return reply({error:'保存できませんでした。通信を確認して再送してください'},503);}
 });
+

@@ -23,3 +23,7 @@ function detail(r){selected=r;$('detail').hidden=false;$('detail').innerHTML=`<h
 }
 $('filter').innerHTML+=STATUSES.map(s=>'<option>'+s+'</option>').join('');$('filter').onchange=$('search').oninput=render;$('reload').onclick=()=>load(true);$('more').onclick=()=>load(false);
 (async()=>{try{session=JSON.parse(sessionStorage.getItem('hp_admin_session')||'null');if(session)await authorize();}catch(e){clear();notify(e.message);}})();
+
+$('recover').onsubmit=async e=>{e.preventDefault();if(HP_CONFIG.recoveryEnabled===false){notify('パスワード再設定は現在準備中です。設定済みのパスワードでログインしてください。');return;}const b=$('recoverButton');b.disabled=true;notify('再設定メールをリクエストしています…');try{const r=await fetch(HP_CONFIG.url+'/auth/v1/recover?redirect_to='+encodeURIComponent(location.origin+'/reset-password.html'),{method:'POST',headers:{apikey:HP_CONFIG.key,'Content-Type':'application/json'},body:JSON.stringify({email:$('recoveryEmail').value.trim()}),signal:AbortSignal.timeout(20000)});if(!r.ok)throw new Error(r.status===429?'送信回数の上限です。しばらく待ってから再試行してください。':'メールをリクエストできませんでした。通信を確認して再試行してください。');notify('再設定メールをリクエストしました。登録済みのメールアドレスの場合、メールが届きます。迷惑メールも確認してください。');}catch(e){notify(e.message);}finally{b.disabled=false;}};
+
+if(HP_CONFIG.recoveryEnabled===false){$('recoverButton').disabled=true;$('recoverButton').textContent='再設定の準備中';const p=document.createElement('p');p.textContent='パスワード再設定先の設定が未完了です。管理者ログインは設定済みのパスワードで利用できます。';$('recover').appendChild(p);}
