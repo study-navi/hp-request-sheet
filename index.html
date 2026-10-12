@@ -244,8 +244,18 @@ button:disabled{opacity:.5}
           <label><input type="checkbox" name="features" value="おみくじ・スタンプカード"><div>おみくじ・スタンプカード<small>リスナーが毎日遊べる</small></div></label>
           <label><input type="checkbox" name="features" value="アプリ化＋オープニング"><div>アプリ化＋オープニング演出<small>ホーム画面にアイコンで置ける</small></div></label>
         </div>
+        <details class="music-features free-field"><summary>🎵 音楽活動向けの機能も選ぶ</summary><p class="hint">歌い手・シンガー・バンド・作詞作曲などの活動に。必要なものだけ選んでね。</p><div class="feat">
+          <label><input type="checkbox" name="features" value="楽曲・作品紹介"><div>楽曲・作品を紹介したい<small>ジャケット画像・曲の紹介・制作クレジットなど</small></div></label>
+          <label><input type="checkbox" name="features" value="MV・歌唱動画"><div>MV・歌唱動画を載せたい<small>YouTubeの埋め込みや動画へのリンク</small></div></label>
+          <label><input type="checkbox" name="features" value="音楽配信サービスへのリンク"><div>曲を聴ける場所をまとめたい<small>Spotify・Apple Musicなどへのリンク</small></div></label>
+          <label><input type="checkbox" name="features" value="歌詞・楽曲の制作背景"><div>歌詞や曲に込めた想いを載せたい<small>自分の作品の歌詞・制作背景など</small></div></label>
+          <label><input type="checkbox" name="features" value="ライブ・イベント予定"><div>ライブ・イベント予定を載せたい<small>日時・会場・出演情報・過去のライブなど</small></div></label>
+          <label><input type="checkbox" name="features" value="チケット・予約ページへのリンク"><div>チケット・予約ページへ案内したい<small>利用している外部の予約・販売ページへのリンク</small></div></label>
+          <label><input type="checkbox" name="features" value="活動写真・ライブ写真"><div>活動写真・ライブ写真を見せたい<small>アーティスト写真やライブのギャラリー</small></div></label>
+          <label><input type="checkbox" name="features" value="出演・制作依頼の窓口"><div>出演・制作依頼を受け付けたい<small>ライブ出演・歌唱・作詞作曲などの相談窓口</small></div></label>
+        </div><p class="hint">内容や載せ方の希望は、下の自由記述欄に書けます。</p></details>
         <label class="q" for="field-features_other">必要な機能・使い方を自由に書く<span class="optional">任意</span></label>
-        <textarea maxlength="3000" name="features_other" id="field-features_other" placeholder="例：歌のリクエストを受け付けたい。イベント時だけお知らせを出したい。"></textarea>
+        <textarea maxlength="3000" name="features_other" id="field-features_other" placeholder="例：新曲のMVをトップに。作品ごとに歌詞を開けるようにして、ライブ予定から予約ページへ進めるようにしたい。"></textarea>
       </div>
     </div>
 
@@ -264,6 +274,9 @@ button:disabled{opacity:.5}
           <label><input type="checkbox" name="platform" value="TikTok"><span>TikTok</span></label>
           <label><input type="checkbox" name="platform" value="IRIAM"><span>IRIAM</span></label>
           <label><input type="checkbox" name="platform" value="Twitch"><span>Twitch</span></label>
+          <label><input type="checkbox" name="platform" value="ColorSing"><span>ColorSing</span></label>
+          <label><input type="checkbox" name="platform" value="ライブ・イベント"><span>ライブ・イベント</span></label>
+          <label><input type="checkbox" name="platform" value="音楽配信サービス"><span>音楽配信サービス</span></label>
           <label><input type="checkbox" name="platform" value="その他"><span>その他</span></label>
         </div>
 <details class="free-field"><summary>活動場所を自由に書く</summary><label class="sr-only" for="field-platform_other">活動場所を自由に書く</label><textarea name="platform_other" id="field-platform_other" maxlength="3000" placeholder="例：ツイキャスとYouTube。今後はライブ活動もしたい。"></textarea></details>
@@ -277,12 +290,12 @@ button:disabled{opacity:.5}
         </select>
         <input type="date" name="deadline_date" aria-label="希望の日付" style="margin-top:8px;display:none">
 <details class="free-field"><summary>希望時期・スケジュールを自由に書く</summary><label class="sr-only" for="field-deadline_other">希望時期・スケジュールを自由に書く</label><textarea name="deadline_other" id="field-deadline_other" maxlength="3000" placeholder="例：来月のイベントまでに。急ぎではないので相談して決めたい。"></textarea></details>
-        <label class="q">アイコン・立ち絵などの素材</label>
+        <label class="q">写真・ロゴ・アイコン・立ち絵などの素材</label>
         <div class="chips">
           <label><input type="radio" name="assets" value="ある（あとで送る）"><span>ある（あとで送る）</span></label>
           <label><input type="radio" name="assets" value="まだない"><span>まだない</span></label>
         </div>
-<details class="free-field"><summary>使いたい素材・画像について自由に書く</summary><label class="sr-only" for="field-assets_other">使いたい素材・画像について自由に書く</label><textarea name="assets_other" id="field-assets_other" maxlength="3000" placeholder="例：立ち絵はあります。ロゴは相談したい。画像はあとでDMで送ります。"></textarea></details>
+<details class="free-field"><summary>使いたい素材・画像について自由に書く</summary><label class="sr-only" for="field-assets_other">使いたい素材・画像について自由に書く</label><textarea name="assets_other" id="field-assets_other" maxlength="3000" placeholder="例：アーティスト写真とジャケット画像はあります。ロゴは相談したい。素材はあとで送ります。"></textarea></details>
         <label class="q" for="field-message">メッセージ・相談したいこと</label>
         <textarea maxlength="3000" name="message" id="field-message"></textarea>
       </div>
@@ -324,7 +337,7 @@ button:disabled{opacity:.5}
     <button type="button" class="big-btn primary" id="copyBtn" style="width:100%">内容をコピー</button>
     <button type="button" class="big-btn ghost" id="downloadBtn" style="width:100%;margin-top:8px">控えをダウンロード</button>
   </div>
-  <footer><a href="admin.html">制作担当者の管理画面</a><p>ご希望シート · v1.3.2</p></footer>
+  <footer><a href="admin.html">制作担当者の管理画面</a><p>ご希望シート · v1.3.3</p></footer>
 </div>
 
 <script src="config.js"></script>
