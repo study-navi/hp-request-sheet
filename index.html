@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="ご希望シート">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta property="og:title" content="HP制作 ご希望シート">
-<meta property="og:description" content="色・モチーフ・文字・ほしい機能を選ぶだけ。選ぶとイメージが変わります">
+<meta property="og:description" content="選択肢と自由記述でHP制作の希望を伝えられます。未定の項目は送信後に相談できます。">
 <meta property="og:image" content="icon-512.png">
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&family=Yomogi&family=Shippori+Mincho:wght@600&family=Mochiy+Pop+One&family=M+PLUS+1p:wght@500;800&display=swap" rel="stylesheet">
 <style>
@@ -138,7 +138,7 @@ button:disabled{opacity:.5}
 <div class="wrap">
   <header>
     <h1>✦ HP制作 ご希望シート</h1>
-    <p>選ぶだけでも、文章だけでもOK。決まっていないところは、とばしてね。</p>
+    <p>選ぶだけでも、文章だけでもOK。未定のところは、とばしてね。送信後に相談して決められます。</p>
   </header>
 
   <nav class="steps" id="steps" aria-label="入力ステップ"><button type="button" data-step="0" aria-label="1 色・背景へ移動"><b>1</b>色・背景</button><button type="button" data-step="1" aria-label="2 雰囲気へ移動"><b>2</b>雰囲気</button><button type="button" data-step="2" aria-label="3 文字・構成へ移動"><b>3</b>文字・構成</button><button type="button" data-step="3" aria-label="4 機能へ移動"><b>4</b>機能</button><button type="button" data-step="4" aria-label="5 連絡先へ移動"><b>5</b>連絡先</button></nav>
@@ -234,7 +234,7 @@ button:disabled{opacity:.5}
     <!-- 4 機能 -->
     <div class="page">
       <div class="card">
-        <h2>✨ こんなこと、できたらいいな</h2>
+        <h2>✨ HPでやりたいこと</h2><p class="hint">目的 → 機能 → 更新の順に、必要なところだけ開いてね。すべて任意です。</p>
         <details class="free-field request-purpose"><summary>HPでいちばん伝えたいこと</summary><p class="hint">いちばん大事にしたいことを1つ選んでね。文章だけでもOK。</p><div class="feat">
           <label><input type="radio" name="site_goal" value="活動を知ってほしい"><div>活動を知ってほしい</div></label>
           <label><input type="radio" name="site_goal" value="曲を聴いてほしい"><div>曲を聴いてほしい</div></label>
@@ -243,18 +243,11 @@ button:disabled{opacity:.5}
           <label><input type="radio" name="site_goal" value="依頼・問い合わせを増やしたい"><div>依頼・問い合わせを増やしたい</div></label>
           <label><input type="radio" name="site_goal" value="未定・相談して決めたい"><div>未定・相談して決めたい</div></label>
         </div><label for="field-site_goal_other">目的や想いを自由に書く</label><textarea name="site_goal_other" id="field-site_goal_other" maxlength="3000" placeholder="例：まず曲を聴いてもらいたい。活動の雰囲気も伝わるHPにしたい。"></textarea></details>
-        <details class="free-field request-updates"><summary>公開後、自分で更新したいもの</summary><p class="hint">いくつでも選べます。未定なら空欄でOK。更新をお任せしたい場合も、下に書いてね。</p><div class="feat">
-          <label><input type="checkbox" name="update_items" value="お知らせ"><div>お知らせ</div></label>
-          <label><input type="checkbox" name="update_items" value="ライブ・イベント予定"><div>ライブ・イベント予定</div></label>
-          <label><input type="checkbox" name="update_items" value="楽曲・作品"><div>楽曲・作品</div></label>
-          <label><input type="checkbox" name="update_items" value="配信予定"><div>配信予定</div></label>
-          <label><input type="checkbox" name="update_items" value="写真・プロフィール"><div>写真・プロフィール</div></label>
-          <label><input type="checkbox" name="update_items" value="SNS・リンク"><div>SNS・リンク</div></label>
-        </div><label for="field-update_other">更新の希望を自由に書く</label><textarea name="update_other" id="field-update_other" maxlength="3000" placeholder="例：ライブ予定と新曲はスマホから自分で更新したい。ほかは更新をお願いしたい。"></textarea></details>
-        <p class="q">載せたい機能</p>
+
+        <details class="free-field request-features"><summary>載せたい機能</summary><p class="hint">選んだ機能は制作の希望です。対応方法は、送信後に相談して決めます。</p>
         <div class="feat">
           <label><input type="checkbox" name="features" value="プロフィール・SNSリンク"><div>プロフィール・SNSリンク<small>基本セット</small></div></label>
-          <label><input type="checkbox" name="features" value="今週の配信予定"><div>今週の配信予定<small>自分で書き換えられる</small></div></label>
+          <label><input type="checkbox" name="features" value="今週の配信予定"><div>今週の配信予定<small>配信日時やお知らせを載せたい</small></div></label>
           <label><input type="checkbox" name="features" value="歌える曲リスト＋リクエスト"><div>歌える曲リスト＋リクエスト箱</div></label>
           <label><input type="checkbox" name="features" value="匿名メッセージ"><div>匿名メッセージ<small>マシュマロみたいな質問箱</small></div></label>
           <label><input type="checkbox" name="features" value="Xポスト掲載"><div>Xのポストを載せる</div></label>
@@ -272,7 +265,15 @@ button:disabled{opacity:.5}
           <label><input type="checkbox" name="features" value="出演・制作依頼の窓口"><div>出演・制作依頼を受け付けたい<small>ライブ出演・歌唱・作詞作曲などの相談窓口</small></div></label>
         </div><p class="hint">内容や載せ方の希望は、下の自由記述欄に書けます。</p></details>
         <label class="q" for="field-features_other">必要な機能・使い方を自由に書く<span class="optional">任意</span></label>
-        <textarea maxlength="3000" name="features_other" id="field-features_other" placeholder="例：新曲のMVをトップに。作品ごとに歌詞を開けるようにして、ライブ予定から予約ページへ進めるようにしたい。"></textarea>
+        <textarea maxlength="3000" name="features_other" id="field-features_other" placeholder="例：新曲のMVをトップに。作品ごとに歌詞を開けるようにして、ライブ予定から予約ページへ進めるようにしたい。"></textarea></details>
+        <details class="free-field request-updates"><summary>公開後、自分で更新したいもの</summary><p class="hint">いくつでも選べます。未定なら空欄でOK。更新をお任せしたい場合も、下に書いてね。</p><div class="feat">
+          <label><input type="checkbox" name="update_items" value="お知らせ"><div>お知らせ</div></label>
+          <label><input type="checkbox" name="update_items" value="ライブ・イベント予定"><div>ライブ・イベント予定</div></label>
+          <label><input type="checkbox" name="update_items" value="楽曲・作品"><div>楽曲・作品</div></label>
+          <label><input type="checkbox" name="update_items" value="配信予定"><div>配信予定</div></label>
+          <label><input type="checkbox" name="update_items" value="写真・プロフィール"><div>写真・プロフィール</div></label>
+          <label><input type="checkbox" name="update_items" value="SNS・リンク"><div>SNS・リンク</div></label>
+        </div><label for="field-update_other">更新の希望を自由に書く</label><textarea name="update_other" id="field-update_other" maxlength="3000" placeholder="例：ライブ予定と新曲はスマホから自分で更新したい。ほかは更新をお願いしたい。"></textarea></details>
       </div>
     </div>
 
@@ -354,7 +355,7 @@ button:disabled{opacity:.5}
     <button type="button" class="big-btn primary" id="copyBtn" style="width:100%">内容をコピー</button>
     <button type="button" class="big-btn ghost" id="downloadBtn" style="width:100%;margin-top:8px">控えをダウンロード</button>
   </div>
-  <footer><a href="admin.html">制作担当者の管理画面</a><p>ご希望シート · v1.3.4</p></footer>
+  <footer><a href="admin.html">制作担当者の管理画面</a><p>ご希望シート · v1.3.5</p></footer>
 </div>
 
 <script src="config.js"></script>
@@ -537,6 +538,7 @@ function renderConfirm(){
   const groups=[['🎨 色・背景',['colors','color_notes','bg','bg_notes','ng_color']],['🧸 雰囲気',['mood','mood_notes','motif','motif_other','ng_motif']],['🔤 文字・構成',['font','font_notes','layout','layout_notes','reference']],['✨ 目的・機能・更新',['site_goal','site_goal_other','features','features_other','update_items','update_other']],['💌 連絡先など',['name','contact','platform','platform_other','agency','profile_url','deadline','deadline_other','assets','assets_other','message']]];
   let h='<h2>💌 この内容で送っていい？</h2><p class="lead">直したいところは「修正」へ。空欄の希望は、あとで相談して決められるよ。</p>';
   groups.forEach(([title,keys],i)=>{const rows=keys.filter(k=>fmt(o[k]));h+=`<section class="review-group"><div class="review-heading"><h3>${title}</h3><button type="button" class="mini-btn" data-edit="${i}" aria-label="${title}を修正">修正</button></div>`+(rows.length?'<dl>'+rows.map(k=>`<dt>${LABELS[k]}</dt><dd>${esc(fmt(o[k]))}</dd>`).join('')+'</dl>':'<p class="hint">まだ決まっていない・あとで相談</p>')+'</section>';});
+  h+='<p class="submission-note">これはHP制作の相談を送るフォームです。送信後、制作担当者が希望を確認し、入力した連絡先へご連絡します。内容や対応方法は相談して決めます。</p>';
   $("confirm").innerHTML=h;$("confirm").querySelector("h2").tabIndex=-1;
   $("confirm").querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>show(+b.dataset.edit));
 }
@@ -546,8 +548,8 @@ function show(i,move=true){
   dots.forEach((d,j) => {d.classList.toggle("on", j <= cur);d.classList.toggle("current",j===Math.min(cur,4));if(j===Math.min(cur,4))d.setAttribute("aria-current","step");else d.removeAttribute("aria-current");});
   back.style.display = cur ? "block" : "none";
   const last = cur === pages.length - 1;
-  next.textContent = last ? "この内容で送信する" : cur===4?"送る内容を確認する":`次へ：${["","雰囲気","文字・構成","機能","連絡先"][cur+1]}`;
-  $("stepLabel").textContent = last?"送信前の確認":`${cur+1} / 5　 ${["色・背景","モチーフ・雰囲気","文字とつくり","ほしい機能","あなたについて"][cur]}`;
+  next.textContent = last ? "この内容で相談を送信する" : cur===4?"送る内容を確認する":`次へ：${["","雰囲気","文字・構成","機能","連絡先"][cur+1]}`;
+  $("stepLabel").textContent = last?"送信前の確認":`${cur+1} / 5　 ${["色・背景","モチーフ・雰囲気","文字とつくり","目的・機能・更新","あなたについて"][cur]}`;
   $("stepLabel").classList.toggle("at-review",last);
   $("previewDetails").hidden=true; $("previewDetails").open=false;
   if (last){renderConfirm();$("previewDetails").hidden=!hasChoices();}
@@ -584,11 +586,11 @@ next.onclick = async () => {
     if(!res.ok||result.id!==pending.id||!result.created_at)throw new Error(result.error||"保存を確認できませんでした");
     f.hidden=true;f.style.display="none";$("steps").hidden=true;$("stepLabel").hidden=true;$("done").style.display="block";
     $("copybox").textContent=asText(o)+"\n受付番号："+result.id+"\n送信日時："+new Date(result.created_at).toLocaleString("ja-JP");
-    $("doneText").textContent="ご希望を保存しました。内容を確認してご連絡します。控えをコピー・ダウンロードできます。";
+    $("doneText").textContent="制作のご相談を保存しました。担当者が希望を確認し、入力した連絡先へご連絡します。控えをコピー・ダウンロードできます。";
     try{localStorage.removeItem(DRAFT_KEY);}catch{}pending=null;
     $("saveState").textContent="送信済み（この端末の下書きは削除しました）";scrollTo({top:0,behavior:"smooth"});
   }catch(e){err.textContent=(e.name==="AbortError"?"通信が時間切れになりました。保存済みの可能性があります。同じ内容で再送しても重複しません。":"送信結果を確認できませんでした："+e.message)+" 入力は残っています。接続を確認して再送してください。";}
-  finally{clearTimeout(timeout);sending=false;dots.forEach(b=>b.disabled=false);[...f.elements].forEach(el=>el.disabled=false);$("clearDraft").disabled=false;next.disabled=back.disabled=false;next.textContent="この内容で送信する";}
+  finally{clearTimeout(timeout);sending=false;dots.forEach(b=>b.disabled=false);[...f.elements].forEach(el=>el.disabled=false);$("clearDraft").disabled=false;next.disabled=back.disabled=false;next.textContent="この内容で相談を送信する";}
 };
 $("copyBtn").onclick = async () => {
   const t = $("copybox").textContent;

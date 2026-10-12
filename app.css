@@ -33,3 +33,6 @@ body{background:linear-gradient(150deg,#fff8fc,#f3f3ff);background-attachment:fi
 
 /* Keep feature rows the same size when selected. */
 .feat label{border-width:2px}
+
+/* Optional requests are grouped in the same order as the conversation. */
+.request-purpose,.request-features,.request-updates{border:1px solid #e5dced;border-radius:16px;background:#fcfaff;padding:8px 12px;margin-top:12px}.request-purpose summary,.request-features>summary,.request-updates summary{font-size:15px}.request-purpose label,.request-updates label{font-size:14px}.request-purpose textarea,.request-updates textarea{margin-top:8px}.submission-note{font-size:14px;line-height:1.8;padding:14px;background:#f7f1fc;border-radius:12px;margin-top:24px;color:#62516f}
