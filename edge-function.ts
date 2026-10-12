@@ -1,8 +1,8 @@
 // Public submission API. The gateway verifies the public anon JWT.
 // Service-role credentials exist only in Supabase runtime secrets.
 const origins = new Set(['https://study-navi.github.io','https://homepage-request.baystars1899.chatgpt.site','https://homepage-request.vercel.app','https://homepage-request-sheet.netlify.app']);
-const allowed = new Set(['name','contact','platform','agency','profile_url','colors','bg','ng_color','mood','motif','motif_other','ng_motif','font','layout','reference','features','features_other','deadline','assets','message','consent','input_mode','color_notes','bg_notes','mood_notes','font_notes','layout_notes','platform_other','deadline_other','assets_other']);
-const lists = new Set(['platform','colors','mood','motif','features']);
+const allowed = new Set(['site_goal','site_goal_other','update_items','update_other','name','contact','platform','agency','profile_url','colors','bg','ng_color','mood','motif','motif_other','ng_motif','font','layout','reference','features','features_other','deadline','assets','message','consent','input_mode','color_notes','bg_notes','mood_notes','font_notes','layout_notes','platform_other','deadline_other','assets_other']);
+const lists = new Set(['update_items','platform','colors','mood','motif','features']);
 Deno.serve(async req => {
  const requestOrigin=req.headers.get('origin');
  const origin=requestOrigin&&origins.has(requestOrigin)?requestOrigin:'https://homepage-request-sheet.netlify.app';
@@ -23,7 +23,7 @@ Deno.serve(async req => {
    if(!allowed.has(key))return reply({error:'入力項目が不正です'},400);
    if(key==='consent')continue;
    if(lists.has(key)){if(!Array.isArray(value)||value.length>(key==='colors'?3:24)||value.some(x=>typeof x!=='string'||x.length>150))return reply({error:'選択内容が不正です'},400);}
-   else if(typeof value!=='string'||value.length>(['message','reference','features_other','motif_other','color_notes','bg_notes','mood_notes','font_notes','layout_notes','platform_other','deadline_other','assets_other'].includes(key)?3000:key==='profile_url'?2000:300))return reply({error:'入力が長すぎます'},400);
+   else if(typeof value!=='string'||value.length>(['site_goal_other','update_other','message','reference','features_other','motif_other','color_notes','bg_notes','mood_notes','font_notes','layout_notes','platform_other','deadline_other','assets_other'].includes(key)?3000:key==='profile_url'?2000:300))return reply({error:'入力が長すぎます'},400);
   }
   if(typeof data.name!=='string'||!data.name.trim()||data.name.length>100||typeof data.contact!=='string'||!data.contact.trim())return reply({error:'活動名と連絡先は必須です'},400);
   if(data.profile_url&&!/^https?:\/\//i.test(data.profile_url))return reply({error:'プロフィールURLを確認してください'},400);

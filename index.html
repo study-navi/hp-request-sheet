@@ -235,6 +235,23 @@ button:disabled{opacity:.5}
     <div class="page">
       <div class="card">
         <h2>✨ こんなこと、できたらいいな</h2>
+        <details class="free-field request-purpose"><summary>HPでいちばん伝えたいこと</summary><p class="hint">いちばん大事にしたいことを1つ選んでね。文章だけでもOK。</p><div class="feat">
+          <label><input type="radio" name="site_goal" value="活動を知ってほしい"><div>活動を知ってほしい</div></label>
+          <label><input type="radio" name="site_goal" value="曲を聴いてほしい"><div>曲を聴いてほしい</div></label>
+          <label><input type="radio" name="site_goal" value="配信を見てほしい"><div>配信を見てほしい</div></label>
+          <label><input type="radio" name="site_goal" value="ライブ・イベントに来てほしい"><div>ライブ・イベントに来てほしい</div></label>
+          <label><input type="radio" name="site_goal" value="依頼・問い合わせを増やしたい"><div>依頼・問い合わせを増やしたい</div></label>
+          <label><input type="radio" name="site_goal" value="未定・相談して決めたい"><div>未定・相談して決めたい</div></label>
+        </div><label for="field-site_goal_other">目的や想いを自由に書く</label><textarea name="site_goal_other" id="field-site_goal_other" maxlength="3000" placeholder="例：まず曲を聴いてもらいたい。活動の雰囲気も伝わるHPにしたい。"></textarea></details>
+        <details class="free-field request-updates"><summary>公開後、自分で更新したいもの</summary><p class="hint">いくつでも選べます。未定なら空欄でOK。更新をお任せしたい場合も、下に書いてね。</p><div class="feat">
+          <label><input type="checkbox" name="update_items" value="お知らせ"><div>お知らせ</div></label>
+          <label><input type="checkbox" name="update_items" value="ライブ・イベント予定"><div>ライブ・イベント予定</div></label>
+          <label><input type="checkbox" name="update_items" value="楽曲・作品"><div>楽曲・作品</div></label>
+          <label><input type="checkbox" name="update_items" value="配信予定"><div>配信予定</div></label>
+          <label><input type="checkbox" name="update_items" value="写真・プロフィール"><div>写真・プロフィール</div></label>
+          <label><input type="checkbox" name="update_items" value="SNS・リンク"><div>SNS・リンク</div></label>
+        </div><label for="field-update_other">更新の希望を自由に書く</label><textarea name="update_other" id="field-update_other" maxlength="3000" placeholder="例：ライブ予定と新曲はスマホから自分で更新したい。ほかは更新をお願いしたい。"></textarea></details>
+        <p class="q">載せたい機能</p>
         <div class="feat">
           <label><input type="checkbox" name="features" value="プロフィール・SNSリンク"><div>プロフィール・SNSリンク<small>基本セット</small></div></label>
           <label><input type="checkbox" name="features" value="今週の配信予定"><div>今週の配信予定<small>自分で書き換えられる</small></div></label>
@@ -337,7 +354,7 @@ button:disabled{opacity:.5}
     <button type="button" class="big-btn primary" id="copyBtn" style="width:100%">内容をコピー</button>
     <button type="button" class="big-btn ghost" id="downloadBtn" style="width:100%;margin-top:8px">控えをダウンロード</button>
   </div>
-  <footer><a href="admin.html">制作担当者の管理画面</a><p>ご希望シート · v1.3.3</p></footer>
+  <footer><a href="admin.html">制作担当者の管理画面</a><p>ご希望シート · v1.3.4</p></footer>
 </div>
 
 <script src="config.js"></script>
@@ -486,8 +503,8 @@ f.deadline.addEventListener("change", e => {
   f.deadline_date.style.display = e.target.value === "日付を指定" ? "block" : "none";
 });
 
-const MULTI = ["platform","mood","motif","features"];
-function hasChoices(){return colors.length>0 || !!f.querySelector('input[name=bg]:checked,input[name=font]:checked,input[name=layout]:checked,input[name=mood]:checked,input[name=motif]:checked,input[name=features]:checked,input[name=platform]:checked,input[name=assets]:checked') || !!f.deadline.value;}
+const MULTI = ["platform","mood","motif","features","update_items"];
+function hasChoices(){return colors.length>0 || !!f.querySelector('input[name=bg]:checked,input[name=font]:checked,input[name=layout]:checked,input[name=mood]:checked,input[name=motif]:checked,input[name=features]:checked,input[name=platform]:checked,input[name=assets]:checked,input[name=site_goal]:checked,input[name=update_items]:checked') || !!f.deadline.value;}
 function collect(){
   const fd = new FormData(f), o = {};
   for (const k of new Set(fd.keys())) {
@@ -503,7 +520,7 @@ function collect(){
   return o;
 }
 
-const LABELS = {input_mode:"希望の伝え方",color_notes:"色の希望（自由記述）",bg_notes:"背景の希望（自由記述）",mood_notes:"雰囲気（自由記述）",font_notes:"文字（自由記述）",layout_notes:"ページ構成（自由記述）",platform_other:"活動場所（自由記述）",deadline_other:"希望時期（自由記述）",assets_other:"素材（自由記述）",name:"活動名",contact:"連絡先",platform:"活動場所",agency:"事務所",profile_url:"プロフィールページ",
+const LABELS = {site_goal:"HPでいちばん伝えたいこと",site_goal_other:"HPの目的・想い（自由記述）",update_items:"自分で更新したいもの",update_other:"更新の希望（自由記述）",input_mode:"希望の伝え方",color_notes:"色の希望（自由記述）",bg_notes:"背景の希望（自由記述）",mood_notes:"雰囲気（自由記述）",font_notes:"文字（自由記述）",layout_notes:"ページ構成（自由記述）",platform_other:"活動場所（自由記述）",deadline_other:"希望時期（自由記述）",assets_other:"素材（自由記述）",name:"活動名",contact:"連絡先",platform:"活動場所",agency:"事務所",profile_url:"プロフィールページ",
   colors:"色",bg:"背景",ng_color:"NGの色",mood:"雰囲気",motif:"モチーフ",motif_other:"ほかのモチーフ",ng_motif:"NGモチーフ",
   font:"文字",layout:"つくり",reference:"参考",features:"ほしい機能",features_other:"ほかにほしいもの",
   deadline:"希望時期",assets:"素材",message:"メッセージ"};
@@ -517,7 +534,7 @@ function asText(o){
 }
 function renderConfirm(){
   const o=collect();
-  const groups=[['🎨 色・背景',['colors','color_notes','bg','bg_notes','ng_color']],['🧸 雰囲気',['mood','mood_notes','motif','motif_other','ng_motif']],['🔤 文字・構成',['font','font_notes','layout','layout_notes','reference']],['✨ ほしい機能',['features','features_other']],['💌 連絡先など',['name','contact','platform','platform_other','agency','profile_url','deadline','deadline_other','assets','assets_other','message']]];
+  const groups=[['🎨 色・背景',['colors','color_notes','bg','bg_notes','ng_color']],['🧸 雰囲気',['mood','mood_notes','motif','motif_other','ng_motif']],['🔤 文字・構成',['font','font_notes','layout','layout_notes','reference']],['✨ 目的・機能・更新',['site_goal','site_goal_other','features','features_other','update_items','update_other']],['💌 連絡先など',['name','contact','platform','platform_other','agency','profile_url','deadline','deadline_other','assets','assets_other','message']]];
   let h='<h2>💌 この内容で送っていい？</h2><p class="lead">直したいところは「修正」へ。空欄の希望は、あとで相談して決められるよ。</p>';
   groups.forEach(([title,keys],i)=>{const rows=keys.filter(k=>fmt(o[k]));h+=`<section class="review-group"><div class="review-heading"><h3>${title}</h3><button type="button" class="mini-btn" data-edit="${i}" aria-label="${title}を修正">修正</button></div>`+(rows.length?'<dl>'+rows.map(k=>`<dt>${LABELS[k]}</dt><dd>${esc(fmt(o[k]))}</dd>`).join('')+'</dl>':'<p class="hint">まだ決まっていない・あとで相談</p>')+'</section>';});
   $("confirm").innerHTML=h;$("confirm").querySelector("h2").tabIndex=-1;
