@@ -132,7 +132,9 @@ button:disabled{opacity:.5}
 .free-field summary::after{content:'(optional)'}
 #stepLabel::after{content:"Tap the numbers to move between steps"}
 .confirm.reviewing::before{content:'Please check before sending'}
-.steps button{font-size:11px}
+.steps{grid-template-columns:repeat(6,minmax(0,1fr))}.steps button{font-size:10px}
+.feat-group{margin-top:16px}.feat-group h4{font-size:14px;margin:0 0 6px;color:#5b476d}.opts span small{font-size:11px}
+#types{margin-top:6px}
 .lang-note{font-size:13px;line-height:1.7;padding:12px 14px;background:#fff;border:1px solid #e5dced;border-radius:14px;margin:0 0 12px;color:#5c506e}
 </style>
 </head>
@@ -145,14 +147,33 @@ button:disabled{opacity:.5}
   </header>
   <p class="lang-note">Writing in English is perfectly fine.</p>
 
-  <nav class="steps" id="steps" aria-label="Form steps"><button type="button" data-step="0" aria-label="Go to step 1: Colors"><b>1</b>Colors</button><button type="button" data-step="1" aria-label="Go to step 2: Mood"><b>2</b>Mood</button><button type="button" data-step="2" aria-label="Go to step 3: Text &amp; layout"><b>3</b>Text</button><button type="button" data-step="3" aria-label="Go to step 4: Features"><b>4</b>Features</button><button type="button" data-step="4" aria-label="Go to step 5: Contact"><b>5</b>Contact</button></nav>
+  <nav class="steps" id="steps" aria-label="Form steps"><button type="button" data-step="0" aria-label="Go to step 1: Your activity"><b>1</b>Activity</button><button type="button" data-step="1" aria-label="Go to step 2: Colors"><b>2</b>Colors</button><button type="button" data-step="2" aria-label="Go to step 3: Mood"><b>3</b>Mood</button><button type="button" data-step="3" aria-label="Go to step 4: Text &amp; layout"><b>4</b>Text</button><button type="button" data-step="4" aria-label="Go to step 5: Features"><b>5</b>Features</button><button type="button" data-step="5" aria-label="Go to step 6: Contact"><b>6</b>Contact</button></nav>
 
-  <p id="stepLabel" class="hint" aria-live="polite">1 / 5 &nbsp;Colors &amp; background</p>
+  <p id="stepLabel" class="hint" aria-live="polite">1 / 6 &nbsp;Your activity</p>
   <div class="save-row"><small id="saveState" role="status">Your answers are saved automatically on this device</small><button type="button" class="mini-btn" id="clearDraft">Clear draft</button></div>
   <form id="f" novalidate>
   <div class="honeypot" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
-    <!-- 1 Colors -->
+    <!-- 0 Activity type -->
     <div class="page on">
+      <div class="card">
+        <h2>🌟 What kind of creator are you?</h2>
+        <p class="lead">Pick everything that fits. The questions ahead will adapt to your choice. Not sure? Skip this and you'll see all questions.</p>
+        <div class="opts" id="types">
+          <label><input type="checkbox" name="activity_type" value="Streamer / VTuber" data-k="streamer"><span><em>🎙️</em>Streamer / VTuber<small>live streaming</small></span></label>
+          <label><input type="checkbox" name="activity_type" value="Singer / Utaite" data-k="singer"><span><em>🎤</em>Singer / Utaite<small>covers &amp; originals</small></span></label>
+          <label><input type="checkbox" name="activity_type" value="Band / Songwriter" data-k="musician"><span><em>🎸</em>Band / Songwriter<small>composer, instrumentalist</small></span></label>
+          <label><input type="checkbox" name="activity_type" value="Actor / Voice actor" data-k="actor"><span><em>🎭</em>Actor / Voice actor<small>stage, film, voice</small></span></label>
+          <label><input type="checkbox" name="activity_type" value="Illustrator / Artist" data-k="artist"><span><em>🖼️</em>Illustrator / Artist<small>manga, design, commissions</small></span></label>
+          <label><input type="checkbox" name="activity_type" value="Writer" data-k="writer"><span><em>✍️</em>Writer<small>novels, essays, scripts</small></span></label>
+          <label><input type="checkbox" name="activity_type" value="Dancer / Performer" data-k="performer"><span><em>💃</em>Dancer / Performer<small>dance, model, magic...</small></span></label>
+          <label><input type="checkbox" name="activity_type" value="Something else" data-k="other"><span><em>✨</em>Something else<small>we'll adapt together</small></span></label>
+        </div>
+<details class="free-field"><summary>Tell us more about what you do</summary><label class="sr-only" for="field-activity_other">Tell us more about what you do</label><textarea name="activity_other" id="field-activity_other" maxlength="1500" placeholder="e.g. I draw VTuber models and do commissions. I also stream drawing sessions sometimes."></textarea></details>
+      </div>
+    </div>
+
+    <!-- 1 Colors -->
+    <div class="page">
       <div class="card">
         <h2>🎨 What colors do you like?</h2>
         <p class="lead">Pick up to 3 colors, starting with your favorite. If you haven't decided, just go to the next step.</p>
@@ -239,55 +260,88 @@ button:disabled{opacity:.5}
     <div class="page">
       <div class="card">
         <h2>✨ What do you want your website to do?</h2><p class="hint">Goal &rarr; features &rarr; updates. Open only the parts you need. Everything is optional.</p>
+        <p class="hint" id="typeBadge"></p>
         <details class="free-field request-purpose"><summary>The most important thing for your website</summary><p class="hint">Pick the one that matters most. Writing in your own words is fine too.</p><div class="feat">
-          <label><input type="radio" name="site_goal" value="Let people know about my activities"><div>Let people know about my activities</div></label>
-          <label><input type="radio" name="site_goal" value="Show my artwork"><div>Show my artwork</div></label>
-          <label><input type="radio" name="site_goal" value="Get people to listen to my music"><div>Get people to listen to my music</div></label>
-          <label><input type="radio" name="site_goal" value="Get people to watch my streams"><div>Get people to watch my streams</div></label>
-          <label><input type="radio" name="site_goal" value="Get people to come to my live shows / events"><div>Get people to come to my live shows / events</div></label>
-          <label><input type="radio" name="site_goal" value="Get more commissions / inquiries"><div>Get more commissions / inquiries</div></label>
-          <label><input type="radio" name="site_goal" value="Not sure yet - let's discuss"><div>Not sure yet &mdash; let's discuss</div></label>
-        </div><label for="field-site_goal_other">Write your goal or feelings in your own words</label><textarea name="site_goal_other" id="field-site_goal_other" maxlength="3000" placeholder="e.g. I want people to see my illustrations first, and get a feel for my style."></textarea></details>
+          <label data-for="all"><input type="radio" name="site_goal" value="Let people know about my activities"><div>Let people know about my activities</div></label>
+          <label data-for="artist"><input type="radio" name="site_goal" value="Show my artwork"><div>Show my artwork</div></label>
+          <label data-for="artist writer musician singer"><input type="radio" name="site_goal" value="Sell my works / goods"><div>Sell my works / goods</div></label>
+          <label data-for="artist writer actor performer"><input type="radio" name="site_goal" value="Get more commissions / inquiries"><div>Get more commissions / inquiries</div></label>
+          <label data-for="actor performer"><input type="radio" name="site_goal" value="Get booking / casting inquiries"><div>Get booking / casting inquiries</div></label>
+          <label data-for="writer"><input type="radio" name="site_goal" value="Get people to read my writing"><div>Get people to read my writing</div></label>
+          <label data-for="singer musician"><input type="radio" name="site_goal" value="Get people to listen to my music"><div>Get people to listen to my music</div></label>
+          <label data-for="streamer"><input type="radio" name="site_goal" value="Get people to watch my streams"><div>Get people to watch my streams</div></label>
+          <label data-for="singer musician actor performer streamer"><input type="radio" name="site_goal" value="Get people to come to my live shows / events"><div>Get people to come to my live shows / events</div></label>
+          <label data-for="all"><input type="radio" name="site_goal" value="Not sure yet - let's discuss"><div>Not sure yet &mdash; let's discuss</div></label>
+        </div><label for="field-site_goal_other">Write your goal or feelings in your own words</label><textarea name="site_goal_other" id="field-site_goal_other" maxlength="3000" placeholder="e.g. I want people to see my work first, and get a feel for my style."></textarea></details>
 
         <details class="free-field request-features"><summary>Features you want on the site</summary><p class="hint">Your selections are wishes for the build. We'll discuss how to handle each after you send.</p>
-        <div class="feat">
-          <label><input type="checkbox" name="features" value="Profile and social links"><div>Profile &amp; social links<small>The basic set</small></div></label>
-          <label><input type="checkbox" name="features" value="This week's stream schedule"><div>This week's stream schedule<small>Show stream times and announcements</small></div></label>
-          <label><input type="checkbox" name="features" value="Song list + request box"><div>Song list + request box</div></label>
-          <label><input type="checkbox" name="features" value="Anonymous messages"><div>Anonymous messages<small>An ask-me-anything box, like Marshmallow</small></div></label>
-          <label><input type="checkbox" name="features" value="Embed X posts"><div>Embed X (Twitter) posts</div></label>
-          <label><input type="checkbox" name="features" value="Fortune draw / stamp card"><div>Fortune draw / stamp card<small>Something fans can play with every day</small></div></label>
-          <label><input type="checkbox" name="features" value="App-style + opening animation"><div>App-style + opening animation<small>Can be added to the phone's home screen as an icon</small></div></label>
-        </div>
-        <details class="art-features free-field"><summary>🖼️ Features for artists &amp; illustrators</summary><p class="hint">For illustrators, comic artists, designers and other visual creators. Pick only what you need.</p><div class="feat">
-          <label><input type="checkbox" name="features" value="Artwork gallery / portfolio"><div>Artwork gallery / portfolio<small>Your illustrations, organized and easy to browse</small></div></label>
-          <label><input type="checkbox" name="features" value="Works with captions and credits"><div>Works with captions &amp; credits<small>Titles, dates, tools, client credits</small></div></label>
-          <label><input type="checkbox" name="features" value="Commission info and status"><div>Commission info &amp; open/closed status<small>Prices, rules, terms of use, slots available</small></div></label>
-          <label><input type="checkbox" name="features" value="Commission request contact"><div>Commission request contact<small>A way for people to send requests</small></div></label>
-          <label><input type="checkbox" name="features" value="Shop and store links"><div>Shop &amp; store links<small>BOOTH, Skeb, Ko-fi, Gumroad, etc.</small></div></label>
-          <label><input type="checkbox" name="features" value="Works list by category"><div>Works by category<small>Fan art, originals, commissions, comics, etc.</small></div></label>
-        </div><p class="hint">You can add details in the free text box below.</p></details>
-        <details class="music-features free-field"><summary>🎵 Features for musicians</summary><p class="hint">For singers, bands, songwriters and other music activity. Pick only what you need.</p><div class="feat">
-          <label><input type="checkbox" name="features" value="Songs and works showcase"><div>Showcase songs &amp; works<small>Cover art, song descriptions, credits</small></div></label>
-          <label><input type="checkbox" name="features" value="MV and singing videos"><div>MVs &amp; singing videos<small>YouTube embeds or links to videos</small></div></label>
-          <label><input type="checkbox" name="features" value="Links to music streaming services"><div>Collect where to listen<small>Links to Spotify, Apple Music, etc.</small></div></label>
-          <label><input type="checkbox" name="features" value="Lyrics and song backstory"><div>Lyrics &amp; the thoughts behind songs<small>Your own lyrics and how they were made</small></div></label>
-          <label><input type="checkbox" name="features" value="Live and event schedule"><div>Live &amp; event schedule<small>Dates, venues, lineups, past shows</small></div></label>
-          <label><input type="checkbox" name="features" value="Links to ticket and booking pages"><div>Link to ticket / booking pages<small>Links to the external sites you already use</small></div></label>
-          <label><input type="checkbox" name="features" value="Activity and live photos"><div>Activity &amp; live photos<small>Artist photos and live galleries</small></div></label>
-          <label><input type="checkbox" name="features" value="Booking and work request contact"><div>Accept booking &amp; work requests<small>For live appearances, vocals, songwriting, etc.</small></div></label>
-        </div><p class="hint">You can add details in the free text box below.</p></details>
+        <div class="feat-group"><h4>Basics</h4><div class="feat">
+          <label data-for="all"><input type="checkbox" name="features" value="Profile and social links"><div>Profile &amp; social links<small>The basic set</small></div></label>
+          <label data-for="all"><input type="checkbox" name="features" value="News and announcements"><div>News &amp; announcements<small>A place for updates</small></div></label>
+          <label data-for="all"><input type="checkbox" name="features" value="Contact form"><div>Contact form<small>Let people write to you</small></div></label>
+          <label data-for="all"><input type="checkbox" name="features" value="Embed X posts"><div>Embed X (Twitter) posts</div></label>
+          <label data-for="all"><input type="checkbox" name="features" value="App-style + opening animation"><div>App-style + opening animation<small>Can be added to the phone's home screen as an icon</small></div></label>
+        </div></div>
+        <div class="feat-group"><h4>🎙️ Streaming</h4><div class="feat">
+          <label data-for="streamer"><input type="checkbox" name="features" value="This week's stream schedule"><div>This week's stream schedule<small>Show stream times and announcements</small></div></label>
+          <label data-for="streamer"><input type="checkbox" name="features" value="Stream archive and highlights"><div>Stream archive &amp; highlights<small>Past streams, clips, best moments</small></div></label>
+          <label data-for="streamer singer"><input type="checkbox" name="features" value="Song list + request box"><div>Song list + request box</div></label>
+          <label data-for="streamer singer performer"><input type="checkbox" name="features" value="Anonymous messages"><div>Anonymous messages<small>An ask-me-anything box, like Marshmallow</small></div></label>
+          <label data-for="streamer"><input type="checkbox" name="features" value="Fortune draw / stamp card"><div>Fortune draw / stamp card<small>Something fans can play with every day</small></div></label>
+        </div></div>
+        <div class="feat-group"><h4>🎵 Music</h4><div class="feat">
+          <label data-for="singer musician"><input type="checkbox" name="features" value="Songs and works showcase"><div>Showcase songs &amp; works<small>Cover art, song descriptions, credits</small></div></label>
+          <label data-for="singer musician"><input type="checkbox" name="features" value="MV and singing videos"><div>MVs &amp; singing videos<small>YouTube embeds or links to videos</small></div></label>
+          <label data-for="singer musician"><input type="checkbox" name="features" value="Links to music streaming services"><div>Collect where to listen<small>Links to Spotify, Apple Music, etc.</small></div></label>
+          <label data-for="singer musician"><input type="checkbox" name="features" value="Lyrics and song backstory"><div>Lyrics &amp; the thoughts behind songs<small>Your own lyrics and how they were made</small></div></label>
+        </div></div>
+        <div class="feat-group"><h4>🎭 Acting &amp; voice</h4><div class="feat">
+          <label data-for="actor"><input type="checkbox" name="features" value="Career and credits list"><div>Career &amp; credits list<small>Stage, film, TV, voice and narration work</small></div></label>
+          <label data-for="actor performer"><input type="checkbox" name="features" value="Showreel / demo reel"><div>Showreel / demo reel<small>Video clips of your work</small></div></label>
+          <label data-for="actor"><input type="checkbox" name="features" value="Voice samples"><div>Voice samples<small>Short audio demos for different styles</small></div></label>
+          <label data-for="actor performer"><input type="checkbox" name="features" value="Headshots and promo photos"><div>Headshots &amp; promo photos<small>Photos for casting and press</small></div></label>
+          <label data-for="actor performer"><input type="checkbox" name="features" value="Audition and casting contact"><div>Audition &amp; casting contact<small>A clear way for casting people to reach you</small></div></label>
+        </div></div>
+        <div class="feat-group"><h4>🖼️ Art &amp; illustration</h4><div class="feat">
+          <label data-for="artist"><input type="checkbox" name="features" value="Artwork gallery / portfolio"><div>Artwork gallery / portfolio<small>Your illustrations, organized and easy to browse</small></div></label>
+          <label data-for="artist"><input type="checkbox" name="features" value="Works with captions and credits"><div>Works with captions &amp; credits<small>Titles, dates, tools, client credits</small></div></label>
+          <label data-for="artist"><input type="checkbox" name="features" value="Works list by category"><div>Works by category<small>Fan art, originals, commissions, comics, etc.</small></div></label>
+          <label data-for="artist"><input type="checkbox" name="features" value="Commission info and status"><div>Commission info &amp; open/closed status<small>Slots available, deadlines, busy periods</small></div></label>
+          <label data-for="artist"><input type="checkbox" name="features" value="Price list"><div>Price list<small>Prices by type, size and extras</small></div></label>
+          <label data-for="artist"><input type="checkbox" name="features" value="Commission request contact"><div>Commission request form / contact<small>A way for people to send requests</small></div></label>
+          <label data-for="artist"><input type="checkbox" name="features" value="Terms of use and usage rules"><div>Terms of use &amp; usage rules<small>What clients and fans may or may not do with your art</small></div></label>
+          <label data-for="artist"><input type="checkbox" name="features" value="Commission flow and FAQ"><div>Commission flow &amp; FAQ<small>How ordering, payment and delivery work</small></div></label>
+          <label data-for="artist"><input type="checkbox" name="features" value="Process and making-of"><div>Process &amp; making-of<small>Sketches, timelapse, behind the scenes</small></div></label>
+          <label data-for="artist"><input type="checkbox" name="features" value="Age-gate for sensitive works"><div>Age-gate for sensitive works<small>A confirmation screen before adult or sensitive art</small></div></label>
+          <label data-for="artist"><input type="checkbox" name="features" value="Free downloads"><div>Free downloads<small>Icons, wallpapers, free materials</small></div></label>
+          <label data-for="artist"><input type="checkbox" name="features" value="Event and booth information"><div>Event &amp; booth information<small>Conventions, booth numbers, new goods</small></div></label>
+        </div></div>
+        <div class="feat-group"><h4>✍️ Writing</h4><div class="feat">
+          <label data-for="writer"><input type="checkbox" name="features" value="Works list with synopses"><div>Works list with synopses<small>Books, stories and series with short blurbs</small></div></label>
+          <label data-for="writer"><input type="checkbox" name="features" value="Sample chapters and excerpts"><div>Sample chapters &amp; excerpts<small>Let readers try before they buy</small></div></label>
+          <label data-for="writer"><input type="checkbox" name="features" value="Newsletter sign-up"><div>Newsletter sign-up<small>A way to collect readers' emails or updates</small></div></label>
+        </div></div>
+        <div class="feat-group"><h4>📅 Shows, bookings &amp; shop</h4><div class="feat">
+          <label data-for="singer musician actor performer streamer"><input type="checkbox" name="features" value="Live and event schedule"><div>Live &amp; event schedule<small>Dates, venues, lineups, past shows</small></div></label>
+          <label data-for="singer musician actor performer"><input type="checkbox" name="features" value="Links to ticket and booking pages"><div>Link to ticket / booking pages<small>Links to the external sites you already use</small></div></label>
+          <label data-for="singer musician actor performer"><input type="checkbox" name="features" value="Activity and live photos"><div>Activity &amp; live photos<small>Photos and galleries from your activities</small></div></label>
+          <label data-for="singer musician actor performer writer"><input type="checkbox" name="features" value="Booking and work request contact"><div>Accept booking &amp; work requests<small>For appearances, vocals, writing jobs, etc.</small></div></label>
+          <label data-for="artist writer musician singer streamer performer actor"><input type="checkbox" name="features" value="Shop and store links"><div>Shop &amp; store links<small>BOOTH, Skeb, Ko-fi, Gumroad, bookstores, etc.</small></div></label>
+        </div></div>
         <label class="q" for="field-features_other">Other features or how you'd use them<span class="optional">optional</span></label>
-        <textarea maxlength="3000" name="features_other" id="field-features_other" placeholder="e.g. Put my newest illustration at the top. Let people open a short description for each work, and link from my commission info to my request form."></textarea></details>
+        <textarea maxlength="3000" name="features_other" id="field-features_other" placeholder="e.g. Put my newest work at the top. Let people open a short description for each piece, and link from my info page to my contact form."></textarea></details>
         <details class="free-field request-updates"><summary>What you'd like to update yourself after launch</summary><p class="hint">Choose as many as you like. Leave blank if undecided. If you'd rather have updates done for you, say so below.</p><div class="feat">
-          <label><input type="checkbox" name="update_items" value="Announcements"><div>Announcements</div></label>
-          <label><input type="checkbox" name="update_items" value="Artwork / gallery"><div>Artwork / gallery</div></label>
-          <label><input type="checkbox" name="update_items" value="Live and event schedule"><div>Live &amp; event schedule</div></label>
-          <label><input type="checkbox" name="update_items" value="Songs and works"><div>Songs &amp; works</div></label>
-          <label><input type="checkbox" name="update_items" value="Stream schedule"><div>Stream schedule</div></label>
-          <label><input type="checkbox" name="update_items" value="Photos and profile"><div>Photos &amp; profile</div></label>
-          <label><input type="checkbox" name="update_items" value="Social links"><div>Social media &amp; links</div></label>
-        </div><label for="field-update_other">Write your update wishes in your own words</label><textarea name="update_other" id="field-update_other" maxlength="3000" placeholder="e.g. I'd like to update my gallery and commission status myself from my phone. Everything else you can handle."></textarea></details>
+          <label data-for="all"><input type="checkbox" name="update_items" value="Announcements"><div>Announcements</div></label>
+          <label data-for="all"><input type="checkbox" name="update_items" value="Photos and profile"><div>Photos &amp; profile</div></label>
+          <label data-for="all"><input type="checkbox" name="update_items" value="Social links"><div>Social media &amp; links</div></label>
+          <label data-for="streamer"><input type="checkbox" name="update_items" value="Stream schedule"><div>Stream schedule</div></label>
+          <label data-for="singer musician actor performer streamer"><input type="checkbox" name="update_items" value="Live and event schedule"><div>Live &amp; event schedule</div></label>
+          <label data-for="singer musician"><input type="checkbox" name="update_items" value="Songs and works"><div>Songs &amp; works</div></label>
+          <label data-for="actor writer performer"><input type="checkbox" name="update_items" value="Works and credits"><div>Works &amp; credits</div></label>
+          <label data-for="artist"><input type="checkbox" name="update_items" value="Artwork / gallery"><div>Artwork / gallery</div></label>
+          <label data-for="artist"><input type="checkbox" name="update_items" value="Commission status"><div>Commission open/closed status</div></label>
+          <label data-for="artist writer musician singer"><input type="checkbox" name="update_items" value="Shop and goods info"><div>Shop &amp; goods info</div></label>
+        </div><label for="field-update_other">Write your update wishes in your own words</label><textarea name="update_other" id="field-update_other" maxlength="3000" placeholder="e.g. I'd like to update my gallery and schedule myself from my phone. Everything else you can handle."></textarea></details>
       </div>
     </div>
 
@@ -301,19 +355,24 @@ button:disabled{opacity:.5}
         <input type="text" maxlength="300" name="contact" id="field-contact" required placeholder="@xxxx">
         <label class="q">Where you're active</label>
         <div class="chips">
-          <label><input type="checkbox" name="platform" value="X (Twitter)"><span>X (Twitter)</span></label>
-          <label><input type="checkbox" name="platform" value="Pixiv"><span>Pixiv</span></label>
-          <label><input type="checkbox" name="platform" value="Instagram"><span>Instagram</span></label>
-          <label><input type="checkbox" name="platform" value="BOOTH / Skeb"><span>BOOTH / Skeb</span></label>
-          <label><input type="checkbox" name="platform" value="Mirrativ"><span>Mirrativ</span></label>
-          <label><input type="checkbox" name="platform" value="YouTube"><span>YouTube</span></label>
-          <label><input type="checkbox" name="platform" value="TikTok"><span>TikTok</span></label>
-          <label><input type="checkbox" name="platform" value="IRIAM"><span>IRIAM</span></label>
-          <label><input type="checkbox" name="platform" value="Twitch"><span>Twitch</span></label>
-          <label><input type="checkbox" name="platform" value="ColorSing"><span>ColorSing</span></label>
-          <label><input type="checkbox" name="platform" value="Live shows / events"><span>Live shows / events</span></label>
-          <label><input type="checkbox" name="platform" value="Music streaming services"><span>Music streaming services</span></label>
-          <label><input type="checkbox" name="platform" value="Other"><span>Other</span></label>
+          <label data-for="all"><input type="checkbox" name="platform" value="X (Twitter)"><span>X (Twitter)</span></label>
+          <label data-for="all"><input type="checkbox" name="platform" value="Instagram"><span>Instagram</span></label>
+          <label data-for="all"><input type="checkbox" name="platform" value="YouTube"><span>YouTube</span></label>
+          <label data-for="all"><input type="checkbox" name="platform" value="TikTok"><span>TikTok</span></label>
+          <label data-for="all"><input type="checkbox" name="platform" value="Bluesky"><span>Bluesky</span></label>
+          <label data-for="streamer singer"><input type="checkbox" name="platform" value="Mirrativ"><span>Mirrativ</span></label>
+          <label data-for="streamer"><input type="checkbox" name="platform" value="IRIAM"><span>IRIAM</span></label>
+          <label data-for="streamer"><input type="checkbox" name="platform" value="Twitch"><span>Twitch</span></label>
+          <label data-for="streamer singer"><input type="checkbox" name="platform" value="TwitCasting"><span>TwitCasting</span></label>
+          <label data-for="streamer singer"><input type="checkbox" name="platform" value="ColorSing"><span>ColorSing</span></label>
+          <label data-for="singer musician"><input type="checkbox" name="platform" value="Music streaming services"><span>Music streaming services</span></label>
+          <label data-for="singer musician actor performer streamer"><input type="checkbox" name="platform" value="Live shows / events"><span>Live shows / events</span></label>
+          <label data-for="artist writer"><input type="checkbox" name="platform" value="Pixiv"><span>Pixiv</span></label>
+          <label data-for="artist writer"><input type="checkbox" name="platform" value="BOOTH / Skeb"><span>BOOTH / Skeb</span></label>
+          <label data-for="artist writer"><input type="checkbox" name="platform" value="Fanbox / Patreon / Ko-fi"><span>Fanbox / Patreon / Ko-fi</span></label>
+          <label data-for="writer"><input type="checkbox" name="platform" value="note / Kakuyomu / novel sites"><span>note / Kakuyomu / novel sites</span></label>
+          <label data-for="actor performer"><input type="checkbox" name="platform" value="Agency or management page"><span>Agency or management page</span></label>
+          <label data-for="all"><input type="checkbox" name="platform" value="Other"><span>Other</span></label>
         </div>
 <details class="free-field"><summary>Write where you're active in your own words</summary><label class="sr-only" for="field-platform_other">Write where you're active in your own words</label><textarea name="platform_other" id="field-platform_other" maxlength="3000" placeholder="e.g. Bluesky and Pixiv. I'd also like to do events in the future."></textarea></details>
         <label class="q" for="field-agency">Agency / group</label>
@@ -373,7 +432,7 @@ button:disabled{opacity:.5}
     <button type="button" class="big-btn primary" id="copyBtn" style="width:100%">Copy my answers</button>
     <button type="button" class="big-btn ghost" id="downloadBtn" style="width:100%;margin-top:8px">Download a copy</button>
   </div>
-  <footer><p>Website creator: 湊音ヒロ</p><p>Request Sheet (English) &middot; v1.3.7</p></footer>
+  <footer><p>Website creator: 湊音ヒロ</p><p>Request Sheet (English) &middot; v1.4.0</p></footer>
 </div>
 
 <script src="config.js"></script>
@@ -455,7 +514,7 @@ function updatePreview(){
   const textOnly=!hasChoices();
   document.querySelector(".text-preview-notice").hidden=false;
   document.querySelector(".text-preview-notice").textContent=textOnly?"What you wrote in words is sent as-is. Previews are not generated from free text.":"This preview reflects your selected options only. What you wrote in words is not shown here, but it is sent exactly as written.";
-  $("previewDetails").hidden=textOnly || cur!==5;
+  $("previewDetails").hidden=textOnly || cur!==6;
   const c1 = colors[0]?.hex || "#f6a8c8";
   const c3 = colors[2]?.hex || colors[1]?.hex || "#c3a2ee";
   const c2 = colors[1] ? mix(colors[1].hex, .75) : mix(c1, .85);
@@ -521,12 +580,13 @@ f.deadline.addEventListener("change", e => {
   f.deadline_date.style.display = e.target.value === "Pick a date" ? "block" : "none";
 });
 
-const MULTI = ["platform","mood","motif","features","update_items"];
-function hasChoices(){return colors.length>0 || !!f.querySelector('input[name=bg]:checked,input[name=font]:checked,input[name=layout]:checked,input[name=mood]:checked,input[name=motif]:checked,input[name=features]:checked,input[name=platform]:checked,input[name=assets]:checked,input[name=site_goal]:checked,input[name=update_items]:checked') || !!f.deadline.value;}
+const MULTI = ["platform","mood","motif","features","update_items","activity_type"];
+function hasChoices(){return colors.length>0 || !!f.querySelector('input[name=bg]:checked,input[name=font]:checked,input[name=layout]:checked,input[name=mood]:checked,input[name=motif]:checked,input[name=features]:checked,input[name=platform]:checked,input[name=assets]:checked,input[name=site_goal]:checked,input[name=update_items]:checked,input[name=activity_type]:checked') || !!f.deadline.value;}
 function collect(){
   const fd = new FormData(f), o = {};
+  const hid = new Set([...f.querySelectorAll("[hidden] input:checked")].map(x => x.name + "\u0000" + x.value));
   for (const k of new Set(fd.keys())) {
-    const v = fd.getAll(k).filter(x => x !== "");
+    const v = fd.getAll(k).filter(x => x !== "" && !hid.has(k + "\u0000" + x));
     o[k] = MULTI.includes(k) ? v : (v[0] || "");
   }
   o.colors = colors.map((c,i) => `${ORD[i]}: ${c.name} (${c.hex})`);
@@ -538,11 +598,26 @@ function collect(){
   return o;
 }
 
-const LABELS = {site_goal:"Most important thing for the site",site_goal_other:"Goal / feelings (free text)",update_items:"What I want to update myself",update_other:"Update wishes (free text)",input_mode:"How the wishes were given",color_notes:"Color wishes (free text)",bg_notes:"Background wishes (free text)",mood_notes:"Mood (free text)",font_notes:"Fonts (free text)",layout_notes:"Page structure (free text)",platform_other:"Where I'm active (free text)",deadline_other:"Timing (free text)",assets_other:"Materials (free text)",name:"Artist / activity name",contact:"Contact",platform:"Where I'm active",agency:"Agency / group",profile_url:"Current profile page",
+const LABELS = {activity_type:"Type of activity",activity_other:"About my activity",site_goal:"Most important thing for the site",site_goal_other:"Goal / feelings (free text)",update_items:"What I want to update myself",update_other:"Update wishes (free text)",input_mode:"How the wishes were given",color_notes:"Color wishes (free text)",bg_notes:"Background wishes (free text)",mood_notes:"Mood (free text)",font_notes:"Fonts (free text)",layout_notes:"Page structure (free text)",platform_other:"Where I'm active (free text)",deadline_other:"Timing (free text)",assets_other:"Materials (free text)",name:"Artist / activity name",contact:"Contact",platform:"Where I'm active",agency:"Agency / group",profile_url:"Current profile page",
   colors:"Colors",bg:"Background",ng_color:"Colors to avoid",mood:"Mood",motif:"Motifs",motif_other:"Other motifs",ng_motif:"Motifs to avoid",
   font:"Font",layout:"Page structure",reference:"References",features:"Features wanted",features_other:"Other things wanted",
   deadline:"Preferred timing",assets:"Materials",message:"Message"};
 const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function toPayload(o){
+  // The server accepts a fixed set of fields, so activity type is folded into existing ones.
+  const p = {...o}, types = p.activity_type || [];
+  delete p.activity_type; delete p.activity_other;
+  p.input_mode = ((p.input_mode || "") + (types.length ? " | Type: " + types.join(", ") : "")).slice(0, 290);
+  if (o.activity_other) p.message = ("Activity (other): " + o.activity_other + (p.message ? "\n\n" + p.message : "")).slice(0, 3000);
+  return p;
+}
+function applyTypes(){
+  const sel = new Set([...f.querySelectorAll("input[name=activity_type]:checked")].map(x => x.dataset.k)); sel.delete("other");
+  document.querySelectorAll("[data-for]").forEach(el => { const t = el.dataset.for.split(" "); el.hidden = !(sel.size === 0 || t.includes("all") || t.some(k => sel.has(k))); });
+  document.querySelectorAll(".feat-group").forEach(g => { g.hidden = !g.querySelector("[data-for]:not([hidden])"); });
+  const names = [...f.querySelectorAll("input[name=activity_type]:checked")].filter(x => x.dataset.k !== "other").map(x => x.value);
+  $("typeBadge").textContent = names.length ? "Showing options for: " + names.join(", ") + ". Change this on step 1 anytime." : "Showing all options. Pick your activity on step 1 to see only what fits.";
+}
 const fmt = v => Array.isArray(v) ? v.join(", ") : v;
 
 function asText(o){
@@ -552,7 +627,7 @@ function asText(o){
 }
 function renderConfirm(){
   const o=collect();
-  const groups=[['🎨 Colors & background',['colors','color_notes','bg','bg_notes','ng_color']],['🧸 Mood',['mood','mood_notes','motif','motif_other','ng_motif']],['🔤 Text & layout',['font','font_notes','layout','layout_notes','reference']],['✨ Goal, features & updates',['site_goal','site_goal_other','features','features_other','update_items','update_other']],['💌 Contact & other',['name','contact','platform','platform_other','agency','profile_url','deadline','deadline_other','assets','assets_other','message']]];
+  const groups=[['🌟 Your activity',['activity_type','activity_other']],['🎨 Colors & background',['colors','color_notes','bg','bg_notes','ng_color']],['🧸 Mood',['mood','mood_notes','motif','motif_other','ng_motif']],['🔤 Text & layout',['font','font_notes','layout','layout_notes','reference']],['✨ Goal, features & updates',['site_goal','site_goal_other','features','features_other','update_items','update_other']],['💌 Contact & other',['name','contact','platform','platform_other','agency','profile_url','deadline','deadline_other','assets','assets_other','message']]];
   let h='<h2>💌 Ready to send this?</h2><p class="lead">Use "Edit" to change anything. Anything left blank can be decided together later.</p>';
   groups.forEach(([title,keys],i)=>{const rows=keys.filter(k=>fmt(o[k]));h+=`<section class="review-group"><div class="review-heading"><h3>${title}</h3><button type="button" class="mini-btn" data-edit="${i}" aria-label="Edit ${title}">Edit</button></div>`+(rows.length?'<dl>'+rows.map(k=>`<dt>${LABELS[k]}</dt><dd>${esc(fmt(o[k]))}</dd>`).join('')+'</dl>':'<p class="hint">Not decided yet &mdash; to discuss later</p>')+'</section>';});
   h+='<p class="submission-note">This form sends your website request to the creator. After you send it, the creator will review your wishes and contact you using the contact details you entered. Details and how to proceed will be decided together.</p>';
@@ -560,15 +635,15 @@ function renderConfirm(){
   $("confirm").querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>show(+b.dataset.edit));
 }
 
-const STEP_NAMES = ["Colors & background","Mood & motifs","Text & layout","Goal, features & updates","About you"];
-const NEXT_NAMES = ["","Mood","Text & layout","Features","About you"];
+const STEP_NAMES = ["Your activity","Colors & background","Mood & motifs","Text & layout","Goal, features & updates","About you"];
+const NEXT_NAMES = ["","Colors","Mood","Text & layout","Features","About you"];
 function show(i,move=true){
   pages[cur].classList.remove("on"); cur = i; pages[cur].classList.add("on");
-  dots.forEach((d,j) => {d.classList.toggle("on", j <= cur);d.classList.toggle("current",j===Math.min(cur,4));if(j===Math.min(cur,4))d.setAttribute("aria-current","step");else d.removeAttribute("aria-current");});
+  dots.forEach((d,j) => {d.classList.toggle("on", j <= cur);d.classList.toggle("current",j===Math.min(cur,5));if(j===Math.min(cur,5))d.setAttribute("aria-current","step");else d.removeAttribute("aria-current");});
   back.style.display = cur ? "block" : "none";
   const last = cur === pages.length - 1;
-  next.textContent = last ? "Send my request" : cur===4 ? "Review what I'm sending" : `Next: ${NEXT_NAMES[cur+1]}`;
-  $("stepLabel").textContent = last ? "Review before sending" : `${cur+1} / 5  ${STEP_NAMES[cur]}`;
+  next.textContent = last ? "Send my request" : cur===5 ? "Review what I'm sending" : `Next: ${NEXT_NAMES[cur+1]}`;
+  $("stepLabel").textContent = last ? "Review before sending" : `${cur+1} / 6  ${STEP_NAMES[cur]}`;
   $("stepLabel").classList.toggle("at-review",last);
   $("previewDetails").hidden=true; $("previewDetails").open=false;
   if (last){renderConfirm();$("previewDetails").hidden=!hasChoices();}
@@ -582,7 +657,7 @@ function validate(all=false){
   const scope=all?f:pages[cur];
   const bad=[...scope.querySelectorAll("[required],input[type=url]")].find(el=>el.required?(el.type==="checkbox"?!el.checked:!el.value.trim()||!el.checkValidity()):!el.checkValidity());
   if(bad){const pi=pages.findIndex(p=>p.contains(bad));if(pi>=0&&pi!==cur)show(pi);err.textContent=bad.type==="checkbox"?"Please agree to the handling of personal information":bad.type==="url"?"Please start the URL with https://":"Please check the required fields";bad.focus();return false;}
-  if(f.deadline.value==="Pick a date"&&!f.deadline_date.value){if(cur!==4)show(4);err.textContent="Please enter your preferred date";f.deadline_date.focus();return false;}
+  if(f.deadline.value==="Pick a date"&&!f.deadline_date.value){if(cur!==5)show(5);err.textContent="Please enter your preferred date";f.deadline_date.focus();return false;}
   return true;
 }
 let sending=false;
@@ -590,17 +665,17 @@ function resetReview(){}
 f.addEventListener("input",resetReview); f.addEventListener("change",resetReview);
 back.onclick = () => {if(!sending){resetReview();show(cur - 1);}};
 next.onclick = async () => {
-  if(sending||!validate(cur>=4))return;
+  if(sending||!validate(cur>=5))return;
   if(cur<pages.length-1)return show(cur+1);
   renderConfirm();
-  const o=collect();o.consent=true;
-  const body=JSON.stringify(o);
+  const o=collect();const payload=toPayload(o);payload.consent=true;
+  const body=JSON.stringify(payload);
   if(new TextEncoder().encode(body).length>22000){err.textContent="Your answers are too long overall. Please shorten your text a little and try again.";return;}
   if(pending?.body!==body)pending={id:crypto.randomUUID(),body};
   saveDraft();sending=true;dots.forEach(b=>b.disabled=true);[...f.elements].forEach(el=>el.disabled=true);$("clearDraft").disabled=true;next.disabled=back.disabled=true;next.textContent="Sending…";err.textContent="Confirming that your request was saved. Please wait a moment.";
   const controller=new AbortController(), timeout=setTimeout(()=>controller.abort(),20000);
   try {
-    const res=await fetch(SUPABASE_URL+"/functions/v1/hp-request-submit",{method:"POST",headers:{"Content-Type":"application/json",apikey:SUPABASE_ANON_KEY,Authorization:"Bearer "+HP_CONFIG.publicJwt},body:JSON.stringify({id:pending.id,data:o,website:f.website.value}),signal:controller.signal});
+    const res=await fetch(SUPABASE_URL+"/functions/v1/hp-request-submit",{method:"POST",headers:{"Content-Type":"application/json",apikey:SUPABASE_ANON_KEY,Authorization:"Bearer "+HP_CONFIG.publicJwt},body:JSON.stringify({id:pending.id,data:payload,website:f.website.value}),signal:controller.signal});
     const result=await res.json();
     if(!res.ok||result.id!==pending.id||!result.created_at)throw new Error(result.error||"Could not confirm that it was saved");
     f.hidden=true;f.style.display="none";$("steps").hidden=true;$("stepLabel").hidden=true;$("done").style.display="block";
@@ -625,7 +700,7 @@ $("copyBtn").onclick = async () => {
 const DRAFT_KEY="hp_request_draft_en_v1";
 let pending=null, restoring=true;
 function saveDraft(){if(restoring||sending)return;try{const fields=[...f.elements].filter(x=>x.name&&x.name!=="website").map(x=>({name:x.name,value:x.value,checked:x.checked,type:x.type}));localStorage.setItem(DRAFT_KEY,JSON.stringify({fields,colors,step:cur,pending,savedAt:Date.now()}));$("saveState").textContent="Saved automatically on this device (30 days)";}catch{$("saveState").textContent="Automatic saving isn't available on this device. Please keep this page open while you fill it in.";}}
-try{const d=JSON.parse(localStorage.getItem(DRAFT_KEY)||"null");if(d&&Date.now()-d.savedAt<30*86400000){for(const v of d.fields||[]){for(const el of [...f.elements].filter(el=>el.name===v.name)){if(el.type==="checkbox"||el.type==="radio"){if(el.value===v.value)el.checked=!!v.checked;}else el.value=v.value;}}colors=(d.colors||[]).filter(c=>/^#[0-9a-f]{6}$/i.test(c.hex)).slice(0,3);pending=d.pending;cur=0;show(Math.max(0,Math.min(5,d.step||0)),false);}else if(d){localStorage.removeItem(DRAFT_KEY);}}catch{}
+try{const d=JSON.parse(localStorage.getItem(DRAFT_KEY)||"null");if(d&&Date.now()-d.savedAt<30*86400000){for(const v of d.fields||[]){for(const el of [...f.elements].filter(el=>el.name===v.name)){if(el.type==="checkbox"||el.type==="radio"){if(el.value===v.value)el.checked=!!v.checked;}else el.value=v.value;}}colors=(d.colors||[]).filter(c=>/^#[0-9a-f]{6}$/i.test(c.hex)).slice(0,3);pending=d.pending;cur=0;show(Math.max(0,Math.min(6,d.step||0)),false);}else if(d){localStorage.removeItem(DRAFT_KEY);}}catch{}
 restoring=false;
 f.deadline_date.style.display=f.deadline.value==="Pick a date"?"block":"none";
 f.addEventListener("input",saveDraft); f.addEventListener("change",saveDraft);
@@ -643,6 +718,7 @@ $("sw").previousElementSibling.classList.add("choice-area");
 for(const name of ["deadline","deadline_date"]){const el=f.elements.namedItem(name);el.classList.add("choice-area");if(el.previousElementSibling?.matches("label.q"))el.previousElementSibling.classList.add("choice-area");}
 
 for(const el of f.querySelectorAll("details.free-field"))el.open=!!el.querySelector("textarea")?.value;
+applyTypes();f.addEventListener("change",applyTypes);
 renderColors();updatePreview();show(cur,false);
 
 // ---- splash ----
